@@ -276,17 +276,6 @@
         </div>
 
         
-        <?php if(auth()->check() && auth()->user()->role == 'admin'): ?>
-        <div class="nav-item-custom">
-            <a href="<?php echo e(route('reports.index')); ?>"
-               class="nav-link-custom <?php echo e(request()->routeIs('reports.*') ? 'active' : ''); ?>">
-                <div class="nav-icon" style="background:<?php echo e(request()->routeIs('reports.*') ? 'rgba(245,158,11,.15)' : 'rgba(100,116,139,.08)'); ?>;">
-                    <i class="fa-solid fa-folder-open" style="color:<?php echo e(request()->routeIs('reports.*') ? '#f59e0b' : '#64748b'); ?>;" ></i>
-                </div>
-                Laporan BPHN
-            </a>
-        </div>
-        <?php endif; ?>
 
         <div class="sidebar-section" style="margin-top:4px;">Form Permohonan</div>
 
