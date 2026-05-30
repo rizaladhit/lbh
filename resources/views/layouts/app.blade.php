@@ -275,18 +275,7 @@
             </a>
         </div>
 
-        {{-- Case Reports (Laporan BPHN) - Admin Only --}}
-        @if(auth()->check() && auth()->user()->role == 'admin')
-        <div class="nav-item-custom">
-            <a href="{{ route('reports.index') }}"
-               class="nav-link-custom {{ request()->routeIs('reports.*') ? 'active' : '' }}">
-                <div class="nav-icon" style="background:{{ request()->routeIs('reports.*') ? 'rgba(245,158,11,.15)' : 'rgba(100,116,139,.08)' }};">
-                    <i class="fa-solid fa-folder-open" style="color:{{ request()->routeIs('reports.*') ? '#f59e0b' : '#64748b' }};" ></i>
-                </div>
-                Laporan BPHN
-            </a>
-        </div>
-        @endif
+        {{-- Case Reports (Laporan BPHN) - removed per request --}}
 
         <div class="sidebar-section" style="margin-top:4px;">Form Permohonan</div>
 

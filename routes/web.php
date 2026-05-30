@@ -24,6 +24,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/trial-limit', function () {
+        $user = auth()->user();
+
+        if (! $user) {
+            return redirect()->route('dashboard');
+        }
+
+        return view('trial-limit', [
+            'trialCount' => $user->trial_count,
+            'limit' => intval(config('trial.limit')),
+        ]);
+    })->name('trial.limit');
 });
 
 use App\Http\Controllers\UserController;

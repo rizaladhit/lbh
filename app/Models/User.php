@@ -22,7 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'google_id'
+        'google_id',
+        'trial_count',
+        'trial_limit'
     ];
 
     /**
@@ -43,6 +45,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'trial_count' => 'integer',
+        'trial_limit' => 'integer',
     ];
 
     public function permohonanLitigasi()
