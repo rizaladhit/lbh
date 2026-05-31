@@ -59,7 +59,7 @@ class PermohonanNonLitigasiController extends Controller
             'uraian_singkat' => 'required|string',
             'file_ktp_kk' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'file_sktm' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'file_ttd' => 'nullable|file|mimes:jpg,jpeg,png|max:1024',
+            'file_ttd' => 'nullable|string',
         ]);
 
         $validated['file_ktp_kk'] = $request->file('file_ktp_kk')->store('permohonan/ktp_kk', 'public');
