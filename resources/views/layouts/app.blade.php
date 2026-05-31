@@ -257,7 +257,7 @@
         </div>
         <div>
             <div class="sidebar-logo-text">{{ isset($appSetting) ? $appSetting->app_name : 'LBH' }}</div>
-            <div class="sidebar-logo-sub">Legal Aid Management</div>
+            <div class="sidebar-logo-sub">Sistem Manajemen Bantuan Hukum</div>
         </div>
     </a>
 
@@ -484,7 +484,7 @@
     </div>
 
     <footer class="text-center py-4" style="font-size:.72rem;color:#94a3b8;border-top:1px solid rgba(0,0,0,.05);">
-        &copy; {{ date('Y') }} LBH Reporting System &bull; Built with Laravel &amp; Bootstrap
+        &copy; {{ date('Y') }} LBH UNSUB
     </footer>
 </div>
 

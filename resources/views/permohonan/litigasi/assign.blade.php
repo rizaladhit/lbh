@@ -20,7 +20,7 @@
                         @csrf
                         
                         <div class="mb-3">
-                            <label for="assigned_lawyer_id" class="form-label fw-semibold">Pilih Lawyer</label>
+                            <label for="assigned_lawyer_id" class="form-label fw-semibold">Pilih Advocate</label>
                             <select class="form-select @error('assigned_lawyer_id') is-invalid @enderror" 
                                 id="assigned_lawyer_id" name="assigned_lawyer_id">
                                 <option value="">-- Tidak ada --</option>
