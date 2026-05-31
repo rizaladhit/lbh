@@ -13,16 +13,33 @@
         table th { background-color: #f0f0f0; width: 35%; }
         .section-title { font-weight: bold; text-transform: uppercase; font-size: 11pt; border-bottom: 2px solid #333; padding-bottom: 4px; margin-top: 24px; margin-bottom: 12px; }
         .print-btn { position: fixed; top: 20px; right: 20px; z-index: 999; }
+        .page-header { margin-bottom: 20px; }
         @media print {
-            .print-btn { display: none !important; }
-            body { margin: 0; font-size: 12pt; }
-            .page { margin: 0; padding: 1.5cm 2cm; max-width: 100%; }
+            .print-btn {
+                display: none !important;
+            }
+            body { 
+                margin: 0; 
+                padding: 0;
+                font-size: 12pt; 
+            }
+            .page { 
+                margin: 0; 
+                padding: 0;
+                max-width: 100%; 
+            }
         }
         img.doc-img { max-height: 250px; border: 1px solid #ccc; object-fit: contain; display: block; margin-top: 8px; }
         .signature-block { margin-top: 40px; text-align: right; }
         .signature-block .sig-label { font-size: 12pt; margin-bottom: 4px; }
         .signature-block .sig-placeholder { height: 80px; border-bottom: 1px solid #333; width: 220px; display: inline-block; }
         .signature-block .sig-name { font-weight: bold; font-size: 12pt; }
+        @page {
+            size: A4;
+            margin: 1cm;
+            margin-top: 0.5cm;
+            margin-bottom: 0.5cm;
+        }
     </style>
 </head>
 <body>
@@ -35,7 +52,7 @@
     <div class="page">
 
         
-        <div class="text-center mb-4">
+        <div class="page-header text-center mb-4">
             <p class="mb-1" style="font-size: 12pt;">LEMBAGA BANTUAN HUKUM (LBH)</p>
             <h4 class="fw-bold text-uppercase mb-2" style="text-decoration: underline; text-underline-offset: 5px; font-size: 15pt;">
                 Formulir Permohonan Bantuan Layanan Non-Litigasi
