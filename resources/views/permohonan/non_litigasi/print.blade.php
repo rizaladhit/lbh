@@ -15,18 +15,31 @@
         .print-btn { position: fixed; top: 20px; right: 20px; z-index: 999; }
         .page-header { margin-bottom: 20px; }
         @media print {
-            .print-btn,
-            .page-header {
+            .print-btn {
                 display: none !important;
             }
-            body { margin: 0; font-size: 12pt; }
-            .page { margin: 0; padding: 1.5cm 2cm; max-width: 100%; }
+            body { 
+                margin: 0; 
+                padding: 0;
+                font-size: 12pt; 
+            }
+            .page { 
+                margin: 0; 
+                padding: 0;
+                max-width: 100%; 
+            }
         }
         img.doc-img { max-height: 250px; border: 1px solid #ccc; object-fit: contain; display: block; margin-top: 8px; }
         .signature-block { margin-top: 40px; text-align: right; }
         .signature-block .sig-label { font-size: 12pt; margin-bottom: 4px; }
         .signature-block .sig-placeholder { height: 80px; border-bottom: 1px solid #333; width: 220px; display: inline-block; }
         .signature-block .sig-name { font-weight: bold; font-size: 12pt; }
+        @page {
+            size: A4;
+            margin: 1cm;
+            margin-top: 0.5cm;
+            margin-bottom: 0.5cm;
+        }
     </style>
 </head>
 <body>
