@@ -11,12 +11,12 @@
                 </div>
                 <div class="card-body p-4">
                     <p class="text-muted mb-4">
-                        Tandai penanganan permohonan litigasi dari <strong>{{ $permohonanNonNon-Litigasi->nama }}</strong> 
-                        (No. Registrasi: <strong>{{ $permohonanNonNon-Litigasi->no_registrasi }}</strong>) 
+                        Tandai penanganan permohonan litigasi dari <strong>{{ \$permohonanNonLitigasi->nama }}</strong> 
+                        (No. Registrasi: <strong>{{ \$permohonanNonLitigasi->no_registrasi }}</strong>) 
                         sebagai selesai dan buat catatan kegiatan penanganan.
                     </p>
 
-                    <form method="POST" action="{{ route('permohonan-non-litigasi.storeComplete', $permohonanNonNon-Litigasi) }}" class="needs-validation" novalidate>
+                    <form method="POST" action="{{ route('permohonan-non-litigasi.storeComplete', \$permohonanNonLitigasi) }}" class="needs-validation" novalidate>
                         @csrf
                         
                         <div class="mb-3">
@@ -37,7 +37,7 @@
 
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <a href="{{ route('permohonan-non-litigasi.show', $permohonanNonNon-Litigasi) }}" class="btn btn-light border fw-medium w-100">Batalkan</a>
+                                <a href="{{ route('permohonan-non-litigasi.show', \$permohonanNonLitigasi) }}" class="btn btn-light border fw-medium w-100">Batalkan</a>
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary fw-bold w-100">
@@ -58,17 +58,17 @@
                     <div class="d-flex border-bottom py-2 mb-3">
                         <div class="fw-semibold" style="min-width: 180px;">Status Saat Ini</div>
                         <div>
-                            <span class="badge {{ $permohonanNonNon-Litigasi->getStatusBadgeColor() }} fs-6">
-                                {{ $permohonanNonNon-Litigasi->getStatusLabel() }} ({{ $permohonanNonNon-Litigasi->status }})
+                            <span class="badge {{ \$permohonanNonLitigasi->getStatusBadgeColor() }} fs-6">
+                                {{ \$permohonanNonLitigasi->getStatusLabel() }} ({{ \$permohonanNonLitigasi->status }})
                             </span>
                         </div>
                     </div>
 
                     @php $fields = [
-                        'Nama Pemohon' => $permohonanNonNon-Litigasi->nama,
-                        'Nomor Registrasi' => $permohonanNonNon-Litigasi->no_registrasi,
-                        'Jenis Perkara' => $permohonanNonNon-Litigasi->jenis_perkara,
-                        'Nomor Perkara' => $permohonanNonNon-Litigasi->no_perkara,
+                        'Nama Pemohon' => \$permohonanNonLitigasi->nama,
+                        'Nomor Registrasi' => \$permohonanNonLitigasi->no_registrasi,
+                        'Jenis Perkara' => \$permohonanNonLitigasi->jenis_perkara,
+                        'Nomor Perkara' => \$permohonanNonLitigasi->no_perkara,
                     ]; @endphp
                     @foreach($fields as $label => $value)
                     <div class="d-flex border-bottom py-2">
@@ -77,24 +77,24 @@
                     </div>
                     @endforeach
 
-                    @if($permohonanNonNon-Litigasi->assignedLawyer)
+                    @if(\$permohonanNonLitigasi->assignedLawyer)
                     <div class="d-flex border-bottom py-2">
                         <div class="fw-semibold" style="min-width: 180px;">Lawyer Penanganan</div>
-                        <div class="text-muted">: {{ $permohonanNonNon-Litigasi->assignedLawyer->name }}</div>
+                        <div class="text-muted">: {{ \$permohonanNonLitigasi->assignedLawyer->name }}</div>
                     </div>
                     @endif
 
-                    @if($permohonanNonNon-Litigasi->assignedParalegal)
+                    @if(\$permohonanNonLitigasi->assignedParalegal)
                     <div class="d-flex border-bottom py-2">
                         <div class="fw-semibold" style="min-width: 180px;">Paralegal Penanganan</div>
-                        <div class="text-muted">: {{ $permohonanNonNon-Litigasi->assignedParalegal->name }}</div>
+                        <div class="text-muted">: {{ \$permohonanNonLitigasi->assignedParalegal->name }}</div>
                     </div>
                     @endif
 
-                    @if($permohonanNonNon-Litigasi->verification_notes)
+                    @if(\$permohonanNonLitigasi->verification_notes)
                     <div class="d-flex border-bottom py-2">
                         <div class="fw-semibold" style="min-width: 180px;">Catatan Verifikasi</div>
-                        <div class="text-muted">: {{ Str::limit($permohonanNonNon-Litigasi->verification_notes, 100) }}</div>
+                        <div class="text-muted">: {{ Str::limit(\$permohonanNonLitigasi->verification_notes, 100) }}</div>
                     </div>
                     @endif
                 </div>
@@ -102,3 +102,4 @@
         </div>
     </div>
 </x-app-layout>
+
