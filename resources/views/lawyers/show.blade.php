@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        Detail Data Lawyer
+        Detail Data Advocate
     </x-slot>
 
     <div class="row justify-content-center">
         <div class="col-xl-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-gavel me-2"></i>Detail Lawyer</h6>
+                    <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-gavel me-2"></i>Detail Advocate</h6>
                     <span class="badge {{ $lawyer->getStatusBadgeColor() }} fs-6">{{ $lawyer->getStatusLabel() }}</span>
                 </div>
                 <div class="card-body p-4" style="font-size: 0.95rem;">
@@ -59,7 +59,7 @@
                                     <td class="ps-4"><span class="badge bg-primary-subtle text-primary">{{ $permohonan->no_registrasi }}</span></td>
                                     <td>{{ $permohonan->nama }}</td>
                                     <td>{{ $permohonan->jenis_perkara }}</td>
-                                    <td><span class="badge bg-primary">Lawyer</span></td>
+                                    <td><span class="badge bg-primary">Advocate</span></td>
                                     <td><span class="badge {{ $permohonan->getStatusBadgeColor() }}">{{ $permohonan->getStatusLabel() }}</span></td>
                                     <td class="pe-4 text-end">
                                         <a href="{{ route('permohonan-litigasi.show', $permohonan) }}" class="btn btn-light btn-sm text-info border"><i class="fa-solid fa-eye"></i></a>

@@ -18,6 +18,7 @@ class AppSettingController extends Controller
     {
         $request->validate([
             'app_name' => 'required|string|max:100',
+            'description' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048',
             'address' => 'nullable|string|max:500',
             'phone' => 'nullable|string|max:50',
@@ -25,6 +26,7 @@ class AppSettingController extends Controller
 
         $setting = AppSetting::getSettings();
         $setting->app_name = $request->app_name;
+        $setting->description = $request->description;
         $setting->address = $request->address;
         $setting->phone = $request->phone;
 

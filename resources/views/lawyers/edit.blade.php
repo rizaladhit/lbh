@@ -1,13 +1,13 @@
 <x-app-layout>
-    <x-slot name="header">Edit Data Lawyer</x-slot>
+    <x-slot name="header">Edit Data Advocate</x-slot>
 
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-edit me-2"></i>Form Edit Lawyer</h6>
-                        <div class="text-muted small">Perbarui data lawyer atau paralegal secara cepat dan jelas.</div>
+                        <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-edit me-2"></i>Form Edit Advocate</h6>
+                        <div class="text-muted small">Perbarui data advocate atau paralegal secara cepat dan jelas.</div>
                     </div>
                     <span class="badge bg-warning text-dark">Edit</span>
                 </div>
@@ -93,7 +93,7 @@
                         <div class="mb-3">
                             <label for="notes" class="form-label fw-bold small text-muted">Catatan</label>
                             <textarea id="notes" class="form-control @error('notes') is-invalid @enderror" 
-                                name="notes" rows="2" placeholder="Catatan tambahan tentang lawyer">{{ old('notes', $lawyer->notes) }}</textarea>
+                                name="notes" rows="2" placeholder="Catatan tambahan tentang advocate">{{ old('notes', $lawyer->notes) }}</textarea>
                             @error('notes')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                         </div>
 

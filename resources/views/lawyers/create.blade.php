@@ -1,13 +1,13 @@
 <x-app-layout>
-    <x-slot name="header">Tambah Data Lawyer Baru</x-slot>
+    <x-slot name="header">Tambah Data Advocate Baru</x-slot>
 
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-gavel me-2"></i>Form Tambah Lawyer</h6>
-                        <div class="text-muted small">Tambahkan lawyer atau paralegal baru untuk penugasan permohonan.</div>
+                        <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-gavel me-2"></i>Form Tambah Advocate</h6>
+                        <div class="text-muted small">Tambahkan advocate atau paralegal baru untuk penugasan permohonan.</div>
                     </div>
                     <span class="badge bg-info text-white">Baru</span>
                 </div>
@@ -92,13 +92,13 @@
                         <div class="mb-3">
                             <label for="notes" class="form-label fw-bold small text-muted">Catatan</label>
                             <textarea id="notes" class="form-control @error('notes') is-invalid @enderror" 
-                                name="notes" rows="2" placeholder="Catatan tambahan tentang lawyer">{{ old('notes') }}</textarea>
+                                name="notes" rows="2" placeholder="Catatan tambahan tentang advocate">{{ old('notes') }}</textarea>
                             @error('notes')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">
                             <a href="{{ route('lawyers.index') }}" class="btn btn-light fw-medium">Batalkan</a>
-                            <button type="submit" class="btn btn-primary fw-bold shadow-sm"><i class="fa-solid fa-save me-1"></i> Simpan Data Lawyer</button>
+                            <button type="submit" class="btn btn-primary fw-bold shadow-sm"><i class="fa-solid fa-save me-1"></i> Simpan Data Advocate</button>
                         </div>
                     </form>
                 </div>

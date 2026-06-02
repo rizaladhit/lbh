@@ -13,10 +13,7 @@
                     <p class="text-muted mb-4">
                         Tugaskan permohonan litigasi dari <strong>{{ $permohonanLitigasi->nama }}</strong> 
                         (No. Registrasi: <strong>{{ $permohonanLitigasi->no_registrasi }}</strong>) 
-                        kepada lawyer atau paralegal.
-                    </p>
-
-                    <form method="POST" action="{{ route('permohonan-litigasi.storeAssign', $permohonanLitigasi) }}" class="needs-validation" novalidate>
+                        kepada advocate atau paralegal.
                         @csrf
                         
                         <div class="mb-3">
@@ -33,7 +30,7 @@
                             @error('assigned_lawyer_id')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted d-block mt-2">Opsional - Pilih jika ada lawyer yang menangani kasus ini.</small>
+                            <small class="text-muted d-block mt-2">Opsional - Pilih jika ada Advocate yang menangani kasus ini.</small>
                         </div>
 
                         <div class="mb-3">
@@ -55,7 +52,7 @@
 
                         <div class="alert alert-info" role="alert">
                             <i class="fa-solid fa-circle-info me-2"></i>
-                            <strong>Catatan:</strong> Minimal pilih satu (lawyer atau paralegal) untuk menugaskan permohonan ini.
+                            <strong>Catatan:</strong> Minimal pilih satu (Advocate atau paralegal) untuk menugaskan permohonan ini.
                         </div>
 
                         <div class="row g-3">

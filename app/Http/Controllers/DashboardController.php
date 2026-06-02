@@ -65,11 +65,11 @@ class DashboardController extends Controller
             $dashboardCards = [
                 ['label' => 'Total Laporan', 'val' => $totalReports, 'icon' => 'fa-solid fa-file-contract', 'g' => 'linear-gradient(135deg,#6366f1,#8b5cf6)', 'sub' => 'Semua laporan kasus'],
                 ['label' => 'Total Pengguna', 'val' => User::count(), 'icon' => 'fa-solid fa-users', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Akun terdaftar'],
-                ['label' => 'Total Lawyer', 'val' => Lawyer::count(), 'icon' => 'fa-solid fa-gavel', 'g' => 'linear-gradient(135deg,#ec4899,#db2777)', 'sub' => 'Lawyer & paralegal'],
+                ['label' => 'Total Advocate', 'val' => Lawyer::count(), 'icon' => 'fa-solid fa-gavel', 'g' => 'linear-gradient(135deg,#ec4899,#db2777)', 'sub' => 'Advocate & paralegal'],
                 ['label' => 'Permohonan', 'val' => $totalPermohonan, 'icon' => 'fa-solid fa-file-lines', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Litigasi + Non-Litigasi'],
             ];
             $quickLinks[] = ['href' => route('users.create'), 'icon' => 'fa-solid fa-user-plus', 'label' => 'Tambah User', 'bg' => 'rgba(14,165,233,.12)', 'ic' => '#0ea5e9'];
-            $quickLinks[] = ['href' => route('lawyers.create'), 'icon' => 'fa-solid fa-person-circle-plus', 'label' => 'Tambah Lawyer', 'bg' => 'rgba(236,72,153,.12)', 'ic' => '#ec4899'];
+            $quickLinks[] = ['href' => route('lawyers.create'), 'icon' => 'fa-solid fa-person-circle-plus', 'label' => 'Tambah Advocate', 'bg' => 'rgba(236,72,153,.12)', 'ic' => '#ec4899'];
             $statusSummary = [
                 ['name' => 'Litigasi Terdaftar', 'count' => PermohonanLitigasi::where('status', PermohonanLitigasi::STATUS_REGISTERED)->count(), 'color' => '#6366f1'],
                 ['name' => 'Litigasi Ditugaskan', 'count' => PermohonanLitigasi::where('status', PermohonanLitigasi::STATUS_ASSIGNED)->count(), 'color' => '#f59e0b'],

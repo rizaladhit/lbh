@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AppSetting extends Model
 {
-    protected $fillable = ['app_name', 'logo_path', 'address', 'phone'];
+    protected $fillable = ['app_name', 'logo_path', 'address', 'phone', 'description'];
 
     /**
      * Get the single settings row (always ID 1).
@@ -16,6 +16,7 @@ class AppSetting extends Model
         return self::firstOrCreate(['id' => 1], [
             'app_name' => 'LBH App',
             'logo_path' => null,
+            'description' => null,
         ]);
     }
 }

@@ -79,7 +79,7 @@
 
                     @if($permohonanNonLitigasi->assignedLawyer)
                     <div class="d-flex border-bottom py-2">
-                        <div class="fw-semibold" style="min-width: 180px;">Lawyer Penanganan</div>
+                        <div class="fw-semibold" style="min-width: 180px;">Advocate Penanganan</div>
                         <div class="text-muted">: {{ $permohonanNonLitigasi->assignedLawyer->name }}</div>
                     </div>
                     @endif

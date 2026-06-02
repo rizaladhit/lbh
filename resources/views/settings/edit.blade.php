@@ -22,6 +22,15 @@
                             @error('app_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
+                        {{-- App Description --}}
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Deskripsi Aplikasi</label>
+                            <input type="text" name="description" class="form-control @error('description') is-invalid @enderror"
+                                   value="{{ old('description', $setting->description) }}"
+                                   placeholder="Contoh: Sistem Manajemen Bantuan Hukum">
+                            @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
                         {{-- Logo --}}
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Logo Aplikasi</label>
