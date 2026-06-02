@@ -13,14 +13,11 @@
                     <p class="text-muted mb-4">
                         Tugaskan permohonan litigasi dari <strong>{{ $permohonanNonLitigasi->nama }}</strong> 
                         (No. Registrasi: <strong>{{ $permohonanNonLitigasi->no_registrasi }}</strong>) 
-                        kepada lawyer atau paralegal.
-                    </p>
-
-                    <form method="POST" action="{{ route('permohonan-non-litigasi.storeAssign', $permohonanNonLitigasi) }}" class="needs-validation" novalidate>
+                        kepada advocate atau paralegal.
                         @csrf
                         
                         <div class="mb-3">
-                            <label for="assigned_lawyer_id" class="form-label fw-semibold">Pilih Lawyer</label>
+                            <label for="assigned_lawyer_id" class="form-label fw-semibold">Pilih Advocate</label>
                             <select class="form-select @error('assigned_lawyer_id') is-invalid @enderror" 
                                 id="assigned_lawyer_id" name="assigned_lawyer_id">
                                 <option value="">-- Tidak ada --</option>
@@ -33,7 +30,7 @@
                             @error('assigned_lawyer_id')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted d-block mt-2">Opsional - Pilih jika ada lawyer yang menangani kasus ini.</small>
+                            <small class="text-muted d-block mt-2">Opsional - Pilih jika ada advocate yang menangani kasus ini.</small>
                         </div>
 
                         <div class="mb-3">
@@ -55,7 +52,7 @@
 
                         <div class="alert alert-info" role="alert">
                             <i class="fa-solid fa-circle-info me-2"></i>
-                            <strong>Catatan:</strong> Minimal pilih satu (lawyer atau paralegal) untuk menugaskan permohonan ini.
+                            <strong>Catatan:</strong> Minimal pilih satu (advocate atau paralegal) untuk menugaskan permohonan ini.
                         </div>
 
                         <div class="row g-3">

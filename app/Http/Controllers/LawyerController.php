@@ -41,9 +41,9 @@ class LawyerController extends Controller
             'notes' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
         ], [
-            'name.required' => 'Nama lawyer harus diisi (pilih akun pengacara)',
+            'name.required' => 'Nama advocate harus diisi (pilih akun pengacara)',
             'email.required' => 'Email harus diisi',
-            'email.unique' => 'Email sudah terdaftar sebagai lawyer',
+            'email.unique' => 'Email sudah terdaftar sebagai advocate',
             'phone.required' => 'Nomor telepon harus diisi',
             'no_identitas.required' => 'Nomor identitas (SIU) harus diisi',
             'no_identitas.unique' => 'Nomor identitas sudah terdaftar',
@@ -53,7 +53,7 @@ class LawyerController extends Controller
 
         Lawyer::create($validated);
 
-        return redirect()->route('lawyers.index')->with('success', 'Data lawyer berhasil ditambahkan.');
+        return redirect()->route('lawyers.index')->with('success', 'Data advocate berhasil ditambahkan.');
     }
 
     /**
@@ -89,9 +89,9 @@ class LawyerController extends Controller
             'notes' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
         ], [
-            'name.required' => 'Nama lawyer harus diisi (pilih akun pengacara)',
+            'name.required' => 'Nama advocate harus diisi (pilih akun pengacara)',
             'email.required' => 'Email harus diisi',
-            'email.unique' => 'Email sudah terdaftar sebagai lawyer',
+            'email.unique' => 'Email sudah terdaftar sebagai advocate',
             'phone.required' => 'Nomor telepon harus diisi',
             'no_identitas.required' => 'Nomor identitas (SIU) harus diisi',
             'no_identitas.unique' => 'Nomor identitas sudah terdaftar',
@@ -101,7 +101,7 @@ class LawyerController extends Controller
 
         $lawyer->update($validated);
 
-        return redirect()->route('lawyers.show', $lawyer)->with('success', 'Data lawyer berhasil diperbarui.');
+        return redirect()->route('lawyers.show', $lawyer)->with('success', 'Data advocate berhasil diperbarui.');
     }
 
     /**
@@ -113,10 +113,10 @@ class LawyerController extends Controller
         $assigned = $lawyer->permohonanLitigasiAsLawyer()->count() + $lawyer->permohonanLitigasiAsParalegal()->count();
         
         if ($assigned > 0) {
-            return redirect()->back()->with('error', 'Tidak dapat menghapus lawyer yang masih memiliki penugasan aktif.');
+            return redirect()->back()->with('error', 'Tidak dapat menghapus advocate yang masih memiliki penugasan aktif.');
         }
 
         $lawyer->delete();
-        return redirect()->route('lawyers.index')->with('success', 'Data lawyer berhasil dihapus.');
+        return redirect()->route('lawyers.index')->with('success', 'Data advocate berhasil dihapus.');
     }
 }

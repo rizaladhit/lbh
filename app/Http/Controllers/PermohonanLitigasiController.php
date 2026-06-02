@@ -244,12 +244,12 @@ class PermohonanLitigasiController extends Controller
             'assigned_lawyer_id' => 'nullable|exists:lawyers,id',
             'assigned_paralegal_id' => 'nullable|exists:lawyers,id',
         ], [
-            'assigned_lawyer_id.exists' => 'Lawyer yang dipilih tidak valid',
+            'assigned_lawyer_id.exists' => 'Advocate yang dipilih tidak valid',
             'assigned_paralegal_id.exists' => 'Paralegal yang dipilih tidak valid',
         ]);
 
         if (!$validated['assigned_lawyer_id'] && !$validated['assigned_paralegal_id']) {
-            return redirect()->back()->with('error', 'Pilih minimal satu lawyer atau paralegal.');
+            return redirect()->back()->with('error', 'Pilih minimal satu advocate atau paralegal.');
         }
 
         $permohonanLitigasi->assign(

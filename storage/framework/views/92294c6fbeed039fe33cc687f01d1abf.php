@@ -257,7 +257,7 @@
         </div>
         <div>
             <div class="sidebar-logo-text"><?php echo e(isset($appSetting) ? $appSetting->app_name : 'LBH'); ?></div>
-            <div class="sidebar-logo-sub">Sistem Manajemen Bantuan Hukum</div>
+            <div class="sidebar-logo-sub"><?php echo e(isset($appSetting) && $appSetting->description ? $appSetting->description : 'Sistem Manajemen Bantuan Hukum'); ?></div>
         </div>
     </a>
 
@@ -377,7 +377,7 @@
                 <div class="nav-icon" style="background:rgba(100,116,139,.08);">
                     <i class="fa-solid fa-gavel" style="color:#64748b;"></i>
                 </div>
-                Lawyer & Paralegal
+                Advocate
             </a>
         </div>
 
