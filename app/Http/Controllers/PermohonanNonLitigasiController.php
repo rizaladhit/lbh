@@ -86,10 +86,10 @@ class PermohonanNonLitigasiController extends Controller
     public function show(PermohonanNonLitigasi $permohonanNonLitigasi)
     {
         $user = auth()->user();
-        $isOwner = $permohonanNonLitigasi->user_id === $user->id;
+        $isOwner = $permohonanNonLitigasi->user_id == $user->id;
         $isAssigned = $user->role === 'pengacara' && $user->lawyer && 
-                      ($permohonanNonLitigasi->assigned_lawyer_id === $user->lawyer->id || 
-                       $permohonanNonLitigasi->assigned_paralegal_id === $user->lawyer->id);
+                      ($permohonanNonLitigasi->assigned_lawyer_id == $user->lawyer->id || 
+                       $permohonanNonLitigasi->assigned_paralegal_id == $user->lawyer->id);
 
         if ($user->role !== 'admin' && !$isOwner && !$isAssigned) {
             abort(403);
@@ -99,7 +99,7 @@ class PermohonanNonLitigasiController extends Controller
 
     public function printForm(PermohonanNonLitigasi $permohonanNonLitigasi)
     {
-        if (auth()->user()->role !== 'admin' && $permohonanNonLitigasi->user_id !== auth()->id()) {
+        if (auth()->user()->role !== 'admin' && $permohonanNonLitigasi->user_id != auth()->id()) {
             abort(403);
         }
         return view('permohonan.non_litigasi.print', compact('permohonanNonLitigasi'));
@@ -107,7 +107,7 @@ class PermohonanNonLitigasiController extends Controller
 
     public function destroy(PermohonanNonLitigasi $permohonanNonLitigasi)
     {
-        if (auth()->user()->role !== 'admin' && $permohonanNonLitigasi->user_id !== auth()->id()) {
+        if (auth()->user()->role !== 'admin' && $permohonanNonLitigasi->user_id != auth()->id()) {
             abort(403);
         }
         Storage::disk('public')->delete([$permohonanNonLitigasi->file_ktp_kk, $permohonanNonLitigasi->file_sktm, $permohonanNonLitigasi->file_ttd]);

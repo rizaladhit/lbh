@@ -90,10 +90,10 @@ class PermohonanLitigasiController extends Controller
     public function show(PermohonanLitigasi $permohonanLitigasi)
     {
         $user = auth()->user();
-        $isOwner = $permohonanLitigasi->user_id === $user->id;
+        $isOwner = $permohonanLitigasi->user_id == $user->id;
         $isAssigned = $user->role === 'pengacara' && $user->lawyer && 
-                      ($permohonanLitigasi->assigned_lawyer_id === $user->lawyer->id || 
-                       $permohonanLitigasi->assigned_paralegal_id === $user->lawyer->id);
+                      ($permohonanLitigasi->assigned_lawyer_id == $user->lawyer->id || 
+                       $permohonanLitigasi->assigned_paralegal_id == $user->lawyer->id);
 
         if ($user->role !== 'admin' && !$isOwner && !$isAssigned) {
             abort(403);
@@ -103,7 +103,7 @@ class PermohonanLitigasiController extends Controller
 
     public function printForm(PermohonanLitigasi $permohonanLitigasi)
     {
-        if (auth()->user()->role !== 'admin' && $permohonanLitigasi->user_id !== auth()->id()) {
+        if (auth()->user()->role !== 'admin' && $permohonanLitigasi->user_id != auth()->id()) {
             abort(403);
         }
         return view('permohonan.litigasi.print', compact('permohonanLitigasi'));
@@ -111,7 +111,7 @@ class PermohonanLitigasiController extends Controller
 
     public function destroy(PermohonanLitigasi $permohonanLitigasi)
     {
-        if (auth()->user()->role !== 'admin' && $permohonanLitigasi->user_id !== auth()->id()) {
+        if (auth()->user()->role !== 'admin' && $permohonanLitigasi->user_id != auth()->id()) {
             abort(403);
         }
         Storage::disk('public')->delete([$permohonanLitigasi->file_ktp_kk, $permohonanLitigasi->file_sktm, $permohonanLitigasi->file_ttd]);
