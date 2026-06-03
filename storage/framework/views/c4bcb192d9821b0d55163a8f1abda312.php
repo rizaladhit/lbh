@@ -9,21 +9,21 @@
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
-        Tugaskan Permohonan Litigasi
+        Tugaskan Permohonan Non-Litigasi
      <?php $__env->endSlot(); ?>
 
     <div class="row justify-content-center">
         <div class="col-xl-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header py-3 bg-info">
-                    <h6 class="m-0 fw-bold text-white"><i class="fa-solid fa-user-check me-2"></i>Tugaskan Permohonan Litigasi</h6>
+                    <h6 class="m-0 fw-bold text-white"><i class="fa-solid fa-user-check me-2"></i>Tugaskan Permohonan Non-Litigasi</h6>
                 </div>
                 <div class="card-body p-4">
-                    <form action="<?php echo e(route('permohonan-litigasi.storeAssign', $permohonanLitigasi)); ?>" method="POST">
+                    <form action="<?php echo e(route('permohonan-non-litigasi.storeAssign', $permohonanNonLitigasi)); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <p class="text-muted mb-4">
-                            Tugaskan permohonan litigasi dari <strong><?php echo e($permohonanLitigasi->nama); ?></strong> 
-                            (No. Registrasi: <strong><?php echo e($permohonanLitigasi->no_registrasi); ?></strong>) 
+                            Tugaskan permohonan litigasi dari <strong><?php echo e($permohonanNonLitigasi->nama); ?></strong> 
+                            (No. Registrasi: <strong><?php echo e($permohonanNonLitigasi->no_registrasi); ?></strong>) 
                             kepada advocate atau paralegal.
                         </p>
 
@@ -55,7 +55,7 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                            <small class="text-muted d-block mt-2">Opsional - Pilih jika ada Advocate yang menangani kasus ini.</small>
+                            <small class="text-muted d-block mt-2">Opsional - Pilih jika ada advocate yang menangani kasus ini.</small>
                         </div>
 
                         <div class="mb-3">
@@ -91,12 +91,12 @@ unset($__errorArgs, $__bag); ?>
 
                         <div class="alert alert-info" role="alert">
                             <i class="fa-solid fa-circle-info me-2"></i>
-                            <strong>Catatan:</strong> Minimal pilih satu (Advocate atau paralegal) untuk menugaskan permohonan ini.
+                            <strong>Catatan:</strong> Minimal pilih satu (advocate atau paralegal) untuk menugaskan permohonan ini.
                         </div>
 
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <a href="<?php echo e(route('permohonan-litigasi.show', $permohonanLitigasi)); ?>" class="btn btn-light border fw-medium w-100">Batalkan</a>
+                                <a href="<?php echo e(route('permohonan-non-litigasi.show', $permohonanNonLitigasi)); ?>" class="btn btn-light border fw-medium w-100">Batalkan</a>
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-info fw-bold w-100">
@@ -117,18 +117,18 @@ unset($__errorArgs, $__bag); ?>
                     <div class="d-flex border-bottom py-2 mb-3">
                         <div class="fw-semibold" style="min-width: 180px;">Status Saat Ini</div>
                         <div>
-                            <span class="badge <?php echo e($permohonanLitigasi->getStatusBadgeColor()); ?> fs-6">
-                                <?php echo e($permohonanLitigasi->getStatusLabel()); ?> (<?php echo e($permohonanLitigasi->status); ?>)
+                            <span class="badge <?php echo e($permohonanNonLitigasi->getStatusBadgeColor()); ?> fs-6">
+                                <?php echo e($permohonanNonLitigasi->getStatusLabel()); ?> (<?php echo e($permohonanNonLitigasi->status); ?>)
                             </span>
                         </div>
                     </div>
 
                     <?php $fields = [
-                        'Nama Pemohon' => $permohonanLitigasi->nama,
-                        'Nomor Registrasi' => $permohonanLitigasi->no_registrasi,
-                        'Jenis Perkara' => $permohonanLitigasi->jenis_perkara,
-                        'Nomor Perkara' => $permohonanLitigasi->no_perkara,
-                        'Catatan Verifikasi' => $permohonanLitigasi->verification_notes ?? '-',
+                        'Nama Pemohon' => $permohonanNonLitigasi->nama,
+                        'Nomor Registrasi' => $permohonanNonLitigasi->no_registrasi,
+                        'Jenis Perkara' => $permohonanNonLitigasi->jenis_perkara,
+                        'Nomor Perkara' => $permohonanNonLitigasi->no_perkara,
+                        'Catatan Verifikasi' => $permohonanNonLitigasi->verification_notes ?? '-',
                     ]; ?>
                     <?php $__currentLoopData = $fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $label => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="d-flex border-bottom py-2">
@@ -150,4 +150,6 @@ unset($__errorArgs, $__bag); ?>
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
 <?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\lbh\resources\views/permohonan/litigasi/assign.blade.php ENDPATH**/ ?>
+
+
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/permohonan/non_litigasi/assign.blade.php ENDPATH**/ ?>

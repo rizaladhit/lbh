@@ -78,7 +78,7 @@
 
                     <?php if($permohonanNonLitigasi->assignedLawyer): ?>
                     <div class="d-flex border-bottom py-2">
-                        <div class="fw-semibold" style="min-width: 220px;">Lawyer</div>
+                        <div class="fw-semibold" style="min-width: 220px;">Advocate</div>
                         <div class="text-muted">: <?php echo e($permohonanNonLitigasi->assignedLawyer->name); ?></div>
                     </div>
                     <?php endif; ?>

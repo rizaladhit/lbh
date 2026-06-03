@@ -193,6 +193,25 @@ class PermohonanNonLitigasiController extends Controller
         return view('permohonan.non_litigasi.verify', compact('permohonanNonLitigasi'));
     }
 
+    public function storeVerify(Request $request, PermohonanNonLitigasi $permohonanNonLitigasi)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'verification_notes' => 'required|string|min:10',
+        ], [
+            'verification_notes.required' => 'Catatan verifikasi harus diisi',
+            'verification_notes.min' => 'Catatan verifikasi minimal 10 karakter',
+        ]);
+
+        $permohonanNonLitigasi->verify($validated['verification_notes']);
+
+        return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
+            ->with('success', 'Permohonan berhasil diverifikasi.');
+    }
+
     /**
      * Assign permohonan to lawyer/paralegal
      */

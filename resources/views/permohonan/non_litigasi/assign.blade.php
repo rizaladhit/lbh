@@ -10,12 +10,14 @@
                     <h6 class="m-0 fw-bold text-white"><i class="fa-solid fa-user-check me-2"></i>Tugaskan Permohonan Non-Litigasi</h6>
                 </div>
                 <div class="card-body p-4">
-                    <p class="text-muted mb-4">
-                        Tugaskan permohonan litigasi dari <strong>{{ $permohonanNonLitigasi->nama }}</strong> 
-                        (No. Registrasi: <strong>{{ $permohonanNonLitigasi->no_registrasi }}</strong>) 
-                        kepada advocate atau paralegal.
+                    <form action="{{ route('permohonan-non-litigasi.storeAssign', $permohonanNonLitigasi) }}" method="POST">
                         @csrf
-                        
+                        <p class="text-muted mb-4">
+                            Tugaskan permohonan litigasi dari <strong>{{ $permohonanNonLitigasi->nama }}</strong> 
+                            (No. Registrasi: <strong>{{ $permohonanNonLitigasi->no_registrasi }}</strong>) 
+                            kepada advocate atau paralegal.
+                        </p>
+
                         <div class="mb-3">
                             <label for="assigned_lawyer_id" class="form-label fw-semibold">Pilih Advocate</label>
                             <select class="form-select @error('assigned_lawyer_id') is-invalid @enderror" 
