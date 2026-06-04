@@ -402,7 +402,14 @@
                      class="user-avatar" alt="">
                 <div style="flex:1;overflow:hidden;">
                     <div class="user-name text-truncate"><?php echo e(auth()->user()->name ?? 'User'); ?></div>
-                    <span class="user-role"><?php echo e(ucfirst(auth()->user()->role ?? 'user')); ?></span>
+                    <?php
+                        $roleLabel = match(auth()->user()->role ?? 'user') {
+                            'admin' => 'Admin',
+                            'pengacara' => 'Advocate',
+                            default => ucfirst(auth()->user()->role ?? 'user')
+                        };
+                    ?>
+                    <span class="user-role"><?php echo e($roleLabel); ?></span>
                 </div>
             </div>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="border-radius:var(--radius-sm);min-width:180px;">

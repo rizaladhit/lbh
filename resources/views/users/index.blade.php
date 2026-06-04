@@ -99,9 +99,16 @@
                             @endif
                         </td>
                         <td>
+                            @php
+                                $roleLabel = match($user->role) {
+                                    'admin' => 'Admin',
+                                    'pengacara' => 'Advocate',
+                                    default => ucfirst($user->role)
+                                };
+                            @endphp
                             <span class="role-badge {{ $user->role === 'admin' ? 'admin' : 'user' }}">
                                 <i class="fa-solid {{ $user->role === 'admin' ? 'fa-shield-halved' : 'fa-user' }}"></i>
-                                {{ ucfirst($user->role) }}
+                                {{ $roleLabel }}
                             </span>
                         </td>
                         <td style="padding-right:24px;text-align:right;">
