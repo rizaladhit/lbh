@@ -68,7 +68,7 @@ unset($__errorArgs, $__bag); ?>
                             <select id="role" name="role" class="form-select" required>
                                 <option value="user" <?php echo e(old('role', $user->role) == 'user' ? 'selected' : ''); ?>>User</option>
                                 <option value="admin" <?php echo e(old('role', $user->role) == 'admin' ? 'selected' : ''); ?>>Admin</option>
-                                <option value="pengacara" <?php echo e(old('role', $user->role) == 'pengacara' ? 'selected' : ''); ?>>Pengacara</option>
+                                <option value="pengacara" <?php echo e(old('role', $user->role) == 'pengacara' ? 'selected' : ''); ?>>Advocate</option>
                             </select>
                             <?php $__errorArgs = ['role'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

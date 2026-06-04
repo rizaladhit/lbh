@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisPelayanan;
 use App\Models\PermohonanNonLitigasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -39,9 +40,70 @@ class PermohonanNonLitigasiController extends Controller
     public function create()
     {
         if (auth()->user()->role === 'pengacara') {
-            abort(403, 'Akses ditolak. Pengacara hanya memiliki akses baca.');
+            abort(403, 'Akses ditolak. Advocate hanya memiliki akses baca.');
         }
-        return view('permohonan.non_litigasi.create');
+        $jenisPelayanans = JenisPelayanan::orderBy('nama')->get();
+        return view('permohonan.non_litigasi.create', compact('jenisPelayanans'));
+    }
+
+    public function edit(PermohonanNonLitigasi $permohonanNonLitigasi)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        $jenisPelayanans = JenisPelayanan::orderBy('nama')->get();
+        return view('permohonan.non_litigasi.edit', compact('permohonanNonLitigasi', 'jenisPelayanans'));
+    }
+
+    public function update(Request $request, PermohonanNonLitigasi $permohonanNonLitigasi)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'nama_pemohon' => 'required|string|max:255',
+            'alamat_pemohon' => 'required|string',
+            'telp_hp_pemohon' => 'required|string|max:20',
+            'nik_pemohon' => 'required|string|size:16',
+            'jenis_perkara' => 'required|string|exists:jenis_pelayanans,nama',
+            'tgl_rencana_kunjungan' => 'required|date',
+            'uraian_singkat' => 'required|string',
+            'file_ktp_kk' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'file_sktm' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'file_ttd' => 'nullable|string',
+        ]);
+
+        if ($request->hasFile('file_ktp_kk')) {
+            Storage::disk('public')->delete($permohonanNonLitigasi->file_ktp_kk);
+            $validated['file_ktp_kk'] = $request->file('file_ktp_kk')->store('permohonan/ktp_kk', 'public');
+        } else {
+            unset($validated['file_ktp_kk']);
+        }
+
+        if ($request->hasFile('file_sktm')) {
+            Storage::disk('public')->delete($permohonanNonLitigasi->file_sktm);
+            $validated['file_sktm'] = $request->file('file_sktm')->store('permohonan/sktm', 'public');
+        } else {
+            unset($validated['file_sktm']);
+        }
+
+        $ttdData = $request->input('file_ttd');
+        if ($ttdData && str_starts_with($ttdData, 'data:image')) {
+            Storage::disk('public')->delete($permohonanNonLitigasi->file_ttd);
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $ttdData));
+            $filename = 'permohonan/ttd/ttd_' . time() . '.png';
+            Storage::disk('public')->put($filename, $imageData);
+            $validated['file_ttd'] = $filename;
+        } else {
+            unset($validated['file_ttd']);
+        }
+
+        $permohonanNonLitigasi->update($validated);
+
+        return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
+            ->with('success', 'Permohonan berhasil diperbarui.');
     }
 
     public function store(Request $request)
@@ -54,7 +116,7 @@ class PermohonanNonLitigasiController extends Controller
             'alamat_pemohon' => 'required|string',
             'telp_hp_pemohon' => 'required|string|max:20',
             'nik_pemohon' => 'required|string|size:16',
-            'jenis_perkara' => 'required|string|max:255',
+            'jenis_perkara' => 'required|string|exists:jenis_pelayanans,nama',
             'tgl_rencana_kunjungan' => 'required|date',
             'uraian_singkat' => 'required|string',
             'file_ktp_kk' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -99,9 +161,16 @@ class PermohonanNonLitigasiController extends Controller
 
     public function printForm(PermohonanNonLitigasi $permohonanNonLitigasi)
     {
-        if (auth()->user()->role !== 'admin' && $permohonanNonLitigasi->user_id != auth()->id()) {
+        $user = auth()->user();
+        $isOwner = $permohonanNonLitigasi->user_id == $user->id;
+        $isAssigned = $user->role === 'pengacara' && $user->lawyer &&
+                      ($permohonanNonLitigasi->assigned_lawyer_id == $user->lawyer->id ||
+                       $permohonanNonLitigasi->assigned_paralegal_id == $user->lawyer->id);
+
+        if ($user->role !== 'admin' && !$isOwner && !$isAssigned) {
             abort(403);
         }
+
         return view('permohonan.non_litigasi.print', compact('permohonanNonLitigasi'));
     }
 

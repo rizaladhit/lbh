@@ -114,16 +114,24 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-semibold small">Jenis Perkara <span class="text-danger">*</span></label>
+                            <label class="col-sm-4 col-form-label fw-semibold small">Jenis Layanan <span class="text-danger">*</span></label>
                             <div class="col-sm-8">
-                                <input type="text" name="jenis_perkara" class="form-control border-secondary border-opacity-50 <?php $__errorArgs = ['jenis_perkara'];
+                                <select name="jenis_perkara" class="form-select border-secondary border-opacity-50 <?php $__errorArgs = ['jenis_perkara'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('jenis_perkara')); ?>" required>
+unset($__errorArgs, $__bag); ?>" required>
+                                    <option value="" disabled <?php echo e(old('jenis_perkara') ? '' : 'selected'); ?>>Pilih jenis layanan</option>
+                                    <?php $__currentLoopData = $jenisPelayanans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jenis): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($jenis->nama); ?>" <?php echo e(old('jenis_perkara') === $jenis->nama ? 'selected' : ''); ?>><?php echo e($jenis->nama); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                                <?php if($jenisPelayanans->isEmpty()): ?>
+                                    <div class="form-text text-danger">Belum ada jenis layanan. Hubungi admin untuk menambah.</div>
+                                <?php endif; ?>
                                 <?php $__errorArgs = ['jenis_perkara'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

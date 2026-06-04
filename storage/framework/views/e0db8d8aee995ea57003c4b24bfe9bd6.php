@@ -154,6 +154,67 @@ unset($__errorArgs, $__bag); ?>
                     </form>
                 </div>
             </div>
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-list-check me-2"></i>Master Jenis Pelayanan</h6>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="<?php echo e(route('jenis-pelayanan.store')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input type="text" name="nama" class="form-control <?php $__errorArgs = ['nama'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Tambah jenis layanan baru" value="<?php echo e(old('nama')); ?>" required>
+                                <button class="btn btn-primary" type="submit">Tambah</button>
+                            </div>
+                            <?php $__errorArgs = ['nama'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <div class="invalid-feedback d-block"><?php echo e($message); ?></div> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive border rounded" style="background: var(--bs-secondary-bg);">
+                        <table class="table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="py-3">Nama Layanan</th>
+                                    <th class="py-3 text-end">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $__empty_1 = true; $__currentLoopData = $jenisPelayanans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jenis): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <tr>
+                                    <td><?php echo e($jenis->nama); ?></td>
+                                    <td class="text-end">
+                                        <form method="POST" action="<?php echo e(route('jenis-pelayanan.destroy', $jenis)); ?>" class="d-inline">
+                                            <?php echo csrf_field(); ?>
+                                            <?php echo method_field('DELETE'); ?>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                <tr>
+                                    <td colspan="2" class="text-muted">Belum ada jenis pelayanan.</td>
+                                </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
  <?php echo $__env->renderComponent(); ?>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">{{ $isAdmin ? 'Dashboard Admin' : ($isLawyer ? 'Dashboard Pengacara' : 'Dashboard Pengguna') }}</x-slot>
+    <x-slot name="header">{{ $isAdmin ? 'Dashboard Admin' : ($isLawyer ? 'Dashboard Advocate' : 'Dashboard Pengguna') }}</x-slot>
 
     @php
         $cards = $dashboardCards;

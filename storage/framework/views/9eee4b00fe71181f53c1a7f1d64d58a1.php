@@ -9,24 +9,24 @@
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
-        Ajukan Permohonan Bantuan Layanan Litigasi
+        Edit Permohonan Bantuan Layanan Litigasi
      <?php $__env->endSlot(); ?>
 
     <div class="row justify-content-center">
         <div class="col-xl-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-scale-balanced me-2"></i>Form Bantuan Layanan Litigasi</h6>
+                    <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-scale-balanced me-2"></i>Edit Permohonan Bantuan Litigasi</h6>
                 </div>
                 <div class="card-body p-4">
-                    <form method="POST" action="<?php echo e(route('permohonan-litigasi.store')); ?>" enctype="multipart/form-data" id="litigasiForm">
+                    <form method="POST" action="<?php echo e(route('permohonan-litigasi.update', $permohonanLitigasi)); ?>" enctype="multipart/form-data" id="litigasiForm">
                         <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
 
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-semibold small">No. Registrasi</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control border-secondary border-opacity-50 bg-secondary bg-opacity-10" value="(Otomatis)" disabled>
-                                <div class="form-text">Nomor akan dibuat otomatis saat pengiriman.</div>
+                                <input type="text" class="form-control border-secondary border-opacity-50 bg-secondary bg-opacity-10" value="<?php echo e($permohonanLitigasi->no_registrasi); ?>" disabled>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -39,7 +39,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('nama')); ?>" required>
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('nama', $permohonanLitigasi->nama)); ?>" required>
                                 <?php $__errorArgs = ['nama'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -60,7 +60,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" rows="3" required><?php echo e(old('alamat')); ?></textarea>
+unset($__errorArgs, $__bag); ?>" rows="3" required><?php echo e(old('alamat', $permohonanLitigasi->alamat)); ?></textarea>
                                 <?php $__errorArgs = ['alamat'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -81,7 +81,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('telp_hp')); ?>" required>
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('telp_hp', $permohonanLitigasi->telp_hp)); ?>" required>
                                 <?php $__errorArgs = ['telp_hp'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -102,7 +102,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('nik')); ?>" maxlength="16" required>
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('nik', $permohonanLitigasi->nik)); ?>" maxlength="16" required>
                                 <?php $__errorArgs = ['nik'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -123,8 +123,29 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('jenis_perkara')); ?>" required>
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('jenis_perkara', $permohonanLitigasi->jenis_perkara)); ?>" required>
                                 <?php $__errorArgs = ['jenis_perkara'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <div class="invalid-feedback"><?php echo e($message); ?></div> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold small">No. Perkara <span class="text-danger">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" name="no_perkara" class="form-control border-secondary border-opacity-50 <?php $__errorArgs = ['no_perkara'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('no_perkara', $permohonanLitigasi->no_perkara)); ?>" required>
+                                <?php $__errorArgs = ['no_perkara'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -144,7 +165,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('tgl_rencana_kunjungan')); ?>" required>
+unset($__errorArgs, $__bag); ?>" value="<?php echo e(old('tgl_rencana_kunjungan', $permohonanLitigasi->tgl_rencana_kunjungan?->format('Y-m-d'))); ?>" required>
                                 <?php $__errorArgs = ['tgl_rencana_kunjungan'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -165,7 +186,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" rows="4" required><?php echo e(old('uraian_singkat')); ?></textarea>
+unset($__errorArgs, $__bag); ?>" rows="4" required><?php echo e(old('uraian_singkat', $permohonanLitigasi->uraian_singkat)); ?></textarea>
                                 <?php $__errorArgs = ['uraian_singkat'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -180,8 +201,16 @@ unset($__errorArgs, $__bag); ?>
                         <hr class="my-4">
                         <p class="small text-muted fw-semibold text-uppercase mb-3">Upload Dokumen</p>
 
+                        <?php if($permohonanLitigasi->file_ktp_kk): ?>
                         <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-semibold small">Upload KTP/KK <span class="text-danger">*</span></label>
+                            <label class="col-sm-4 col-form-label fw-semibold small">KTP/KK Saat Ini</label>
+                            <div class="col-sm-8">
+                                <a href="<?php echo e(Storage::url($permohonanLitigasi->file_ktp_kk)); ?>" target="_blank" class="btn btn-sm btn-outline-primary">Lihat File Saat Ini</a>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                        <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold small">Upload KTP/KK</label>
                             <div class="col-sm-8">
                                 <input type="file" name="file_ktp_kk" class="form-control border-secondary border-opacity-50 <?php $__errorArgs = ['file_ktp_kk'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -190,8 +219,8 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" accept=".jpg,.jpeg,.png,.pdf" required>
-                                <div class="form-text">Format: JPG, PNG, PDF. Maks. 2MB.</div>
+unset($__errorArgs, $__bag); ?>" accept=".jpg,.jpeg,.png,.pdf">
+                                <div class="form-text">Opsional. Format: JPG, PNG, PDF. Maks. 2MB.</div>
                                 <?php $__errorArgs = ['file_ktp_kk'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -202,6 +231,15 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
+
+                        <?php if($permohonanLitigasi->file_sktm): ?>
+                        <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold small">SKTM Saat Ini</label>
+                            <div class="col-sm-8">
+                                <a href="<?php echo e(Storage::url($permohonanLitigasi->file_sktm)); ?>" target="_blank" class="btn btn-sm btn-outline-primary">Lihat File Saat Ini</a>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         <div class="mb-3 row">
                             <label class="col-sm-4 col-form-label fw-semibold small">Upload SKTM</label>
                             <div class="col-sm-8">
@@ -226,14 +264,23 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <hr class="my-4">
-                        <p class="small text-muted fw-semibold text-uppercase mb-3">Tanda Tangan Pemohon <span class="text-danger">*</span></p>
+                        <p class="small text-muted fw-semibold text-uppercase mb-3">Tanda Tangan Pemohon <span class="text-muted">(Opsional)</span></p>
 
+                        <?php if($permohonanLitigasi->file_ttd): ?>
+                        <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label fw-semibold small">TTD Saat Ini</label>
+                            <div class="col-sm-8">
+                                <img src="<?php echo e(Storage::url($permohonanLitigasi->file_ttd)); ?>" class="img-thumbnail" style="max-height: 120px;" alt="TTD Saat Ini">
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         <div class="mb-4">
                             <div class="border rounded p-2 mb-2" style="background-color: var(--bs-secondary-bg);">
                                 <canvas id="signaturePad" class="w-100 rounded" style="height: 180px; cursor: crosshair; touch-action: none;"></canvas>
                             </div>
                             <div class="d-flex gap-2 mb-2">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" id="clearSignature"><i class="fa-solid fa-eraser me-1"></i>Hapus TTD</button>
+                                <span class="text-muted small">Gambar ulang tanda tangan jika ingin mengganti.</span>
                             </div>
                             <input type="hidden" name="file_ttd" id="signatureInput">
                             <?php $__errorArgs = ['file_ttd'];
@@ -244,12 +291,11 @@ $message = $__bag->first($__errorArgs[0]); ?> <div class="text-danger small"><?p
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                            <div id="signatureError" class="text-danger small d-none">Tanda tangan wajib diisi.</div>
                         </div>
 
                         <div class="d-flex justify-content-end pt-3 border-top gap-2">
-                            <a href="<?php echo e(route('permohonan-litigasi.index')); ?>" class="btn btn-light border fw-medium">Batal</a>
-                            <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm" id="submitBtn"><i class="fa-solid fa-paper-plane me-1"></i> Kirim Permohonan</button>
+                            <a href="<?php echo e(route('permohonan-litigasi.show', $permohonanLitigasi)); ?>" class="btn btn-light border fw-medium">Batal</a>
+                            <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm" id="submitBtn"><i class="fa-solid fa-pen-to-square me-1"></i> Perbarui Permohonan</button>
                         </div>
                     </form>
                 </div>
@@ -264,7 +310,6 @@ unset($__errorArgs, $__bag); ?>
         const input = document.getElementById('signatureInput');
         const clearBtn = document.getElementById('clearSignature');
         const form = document.getElementById('litigasiForm');
-        const sigError = document.getElementById('signatureError');
         let isDrawing = false, hasSignature = false;
 
         function resizeCanvas() {
@@ -292,10 +337,10 @@ unset($__errorArgs, $__bag); ?>
 
         clearBtn.addEventListener('click', () => { ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='white'; ctx.fillRect(0,0,canvas.width,canvas.height); hasSignature = false; input.value = ''; });
 
-        form.addEventListener('submit', function(e) {
-            if (!hasSignature) { e.preventDefault(); sigError.classList.remove('d-none'); return; }
-            sigError.classList.add('d-none');
-            // Crop canvas to just the signature area before saving
+        form.addEventListener('submit', async function(e) {
+            if (!hasSignature) {
+                return;
+            }
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const pixels = imageData.data;
             let top = canvas.height, bottom = 0, left = canvas.width, right = 0;
@@ -322,27 +367,6 @@ unset($__errorArgs, $__bag); ?>
         });
     });
     </script>
-    <?php $__env->startPush('scripts'); ?>
-    <script>
-    // Convert dataURL signature to file upload
-    document.getElementById('litigasiForm').addEventListener('submit', async function(e) {
-        const input = document.getElementById('signatureInput');
-        if (input.value && input.value.startsWith('data:')) {
-            const res = await fetch(input.value);
-            const blob = await res.blob();
-            const dt = new DataTransfer();
-            dt.items.add(new File([blob], 'signature.png', {type:'image/png'}));
-            // Create a real file input to send
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.name = 'file_ttd';
-            fileInput.files = dt.files;
-            this.appendChild(fileInput);
-            input.remove();
-        }
-    });
-    </script>
-    <?php $__env->stopPush(); ?>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
@@ -353,4 +377,4 @@ unset($__errorArgs, $__bag); ?>
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
 <?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\lbh\resources\views/permohonan/litigasi/create.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/permohonan/litigasi/edit.blade.php ENDPATH**/ ?>

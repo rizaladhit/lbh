@@ -8,7 +8,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Master Data Lawyer <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> Master Data Advocate <?php $__env->endSlot(); ?>
 
     <style>
         .panel { border-radius: 16px; border: none; box-shadow: 0 4px 24px rgba(0,0,0,.07); overflow: hidden; }
@@ -63,12 +63,12 @@
                     <i class="fa-solid fa-gavel text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 fw-bold text-body">Daftar Lawyer</h6>
-                    <div style="font-size:.72rem;color:#94a3b8;">Total <?php echo e($lawyers->total()); ?> lawyer terdaftar</div>
+                    <h6 class="mb-0 fw-bold text-body">Daftar Advocate</h6>
+                    <div style="font-size:.72rem;color:#94a3b8;">Total <?php echo e($lawyers->total()); ?> advocate terdaftar</div>
                 </div>
             </div>
             <a href="<?php echo e(route('lawyers.create')); ?>" class="btn-cta">
-                <i class="fa-solid fa-plus"></i><span class="d-none d-sm-inline">Tambah Lawyer</span>
+                <i class="fa-solid fa-plus"></i><span class="d-none d-sm-inline">Tambah Advocate</span>
             </a>
         </div>
 
@@ -76,7 +76,7 @@
             <table class="data-table table">
                 <thead>
                     <tr>
-                        <th style="padding-left:24px;">Lawyer</th>
+                        <th style="padding-left:24px;">Advocate</th>
                         <th>Email & Info</th>
                         <th>Identitas</th>
                         <th>Keahlian</th>
@@ -124,7 +124,7 @@
                         </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <tr><td colspan="6" class="text-center text-muted py-4">Belum ada data lawyer tercatat.</td></tr>
+                    <tr><td colspan="6" class="text-center text-muted py-4">Belum ada data advocate tercatat.</td></tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -142,7 +142,7 @@
     <form id="deleteForm" method="POST" style="display:none;"><?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?></form>
     <script>
         function confirmDelete(action){
-            if(!confirm('Hapus data lawyer ini? Pastikan tidak ada penugasan aktif.')) return;
+            if(!confirm('Hapus data advocate ini? Pastikan tidak ada penugasan aktif.')) return;
             const f = document.getElementById('deleteForm'); f.action = action; f.submit();
         }
     </script>

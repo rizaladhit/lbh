@@ -317,7 +317,7 @@
                 <div class="nav-icon" style="background:<?php echo e(request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)'); ?>;">
                     <i class="fa-solid fa-book-bookmark" style="color:<?php echo e(request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'var(--brand-1)' : '#64748b'); ?>;"></i>
                 </div>
-                Laporan BPHN
+                Laporan BPHN/KANWIL
                 <i class="fa-solid fa-chevron-right ms-auto" style="font-size:.6rem;transition:var(--trans);" id="bphnMenuArrow"></i>
             </button>
             <div class="submenu-wrap" id="bphnMenu" style="display:<?php echo e(request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'block' : 'none'); ?>;">
@@ -517,6 +517,7 @@
         }
     });
 </script>
+<?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>
 <?php /**PATH C:\xampp\htdocs\lbh\resources\views/layouts/app.blade.php ENDPATH**/ ?>

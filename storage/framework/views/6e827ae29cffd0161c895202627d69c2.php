@@ -26,6 +26,7 @@
                         </div>
                         <?php if(auth()->user()->role === 'admin'): ?>
                         <div class="btn-group" role="group">
+                            <a href="<?php echo e(route('permohonan-litigasi.edit', $permohonanLitigasi)); ?>" class="btn btn-sm btn-secondary">Edit</a>
                             <?php if($permohonanLitigasi->canBeApproved()): ?>
                             <a href="<?php echo e(route('permohonan-litigasi.approve', $permohonanLitigasi)); ?>" class="btn btn-sm btn-info">Setujui</a>
                             <a href="<?php echo e(route('permohonan-litigasi.reject', $permohonanLitigasi)); ?>" class="btn btn-sm btn-danger">Tolak</a>
