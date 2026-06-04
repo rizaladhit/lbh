@@ -412,7 +412,14 @@
                      class="user-avatar" alt="">
                 <div style="flex:1;overflow:hidden;">
                     <div class="user-name text-truncate">{{ auth()->user()->name ?? 'User' }}</div>
-                    <span class="user-role">{{ ucfirst(auth()->user()->role ?? 'user') }}</span>
+                    @php
+                        $roleLabel = match(auth()->user()->role ?? 'user') {
+                            'admin' => 'Admin',
+                            'pengacara' => 'Advocate',
+                            default => ucfirst(auth()->user()->role ?? 'user')
+                        };
+                    @endphp
+                    <span class="user-role">{{ $roleLabel }}</span>
                 </div>
             </div>
             <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="border-radius:var(--radius-sm);min-width:180px;">

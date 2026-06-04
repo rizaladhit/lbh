@@ -108,9 +108,16 @@
                             <?php endif; ?>
                         </td>
                         <td>
+                            <?php
+                                $roleLabel = match($user->role) {
+                                    'admin' => 'Admin',
+                                    'pengacara' => 'Advocate',
+                                    default => ucfirst($user->role)
+                                };
+                            ?>
                             <span class="role-badge <?php echo e($user->role === 'admin' ? 'admin' : 'user'); ?>">
                                 <i class="fa-solid <?php echo e($user->role === 'admin' ? 'fa-shield-halved' : 'fa-user'); ?>"></i>
-                                <?php echo e(ucfirst($user->role)); ?>
+                                <?php echo e($roleLabel); ?>
 
                             </span>
                         </td>
