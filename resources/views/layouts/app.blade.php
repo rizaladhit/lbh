@@ -317,7 +317,7 @@
                 <div class="nav-icon" style="background:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)' }};">
                     <i class="fa-solid fa-book-bookmark" style="color:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'var(--brand-1)' : '#64748b' }};"></i>
                 </div>
-                Laporan BPHN
+                Laporan BPHN/KANWIL
                 <i class="fa-solid fa-chevron-right ms-auto" style="font-size:.6rem;transition:var(--trans);" id="bphnMenuArrow"></i>
             </button>
             <div class="submenu-wrap" id="bphnMenu" style="display:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'block' : 'none' }};">
@@ -526,5 +526,6 @@
         }
     });
 </script>
+@stack('scripts')
 </body>
 </html>

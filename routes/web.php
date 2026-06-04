@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AppSettingController;
+use App\Http\Controllers\JenisPelayananController;
 use App\Http\Controllers\LawyerController;
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('lawyers', LawyerController::class);
     Route::get('settings', [AppSettingController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [AppSettingController::class, 'update'])->name('settings.update');
+    Route::resource('jenis-pelayanan', JenisPelayananController::class)->only(['store', 'destroy']);
 });
 
 use App\Http\Controllers\ReportController;
@@ -101,6 +103,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('permohonan-litigasi.verify');
     Route::post('permohonan-litigasi/{permohonanLitigasi}/verify', [PermohonanLitigasiController::class, 'storeVerify'])
         ->name('permohonan-litigasi.storeVerify');
+    Route::get('permohonan-litigasi/{permohonanLitigasi}/edit', [PermohonanLitigasiController::class, 'edit'])
+        ->name('permohonan-litigasi.edit');
+    Route::put('permohonan-litigasi/{permohonanLitigasi}', [PermohonanLitigasiController::class, 'update'])
+        ->name('permohonan-litigasi.update');
     Route::get('permohonan-litigasi/{permohonanLitigasi}/assign', [PermohonanLitigasiController::class, 'assignForm'])
         ->name('permohonan-litigasi.assignForm');
     Route::post('permohonan-litigasi/{permohonanLitigasi}/assign', [PermohonanLitigasiController::class, 'storeAssign'])
@@ -129,6 +135,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('permohonan-non-litigasi.verify');
     Route::post('permohonan-non-litigasi/{permohonanNonLitigasi}/verify', [PermohonanNonLitigasiController::class, 'storeVerify'])
         ->name('permohonan-non-litigasi.storeVerify');
+    Route::get('permohonan-non-litigasi/{permohonanNonLitigasi}/edit', [PermohonanNonLitigasiController::class, 'edit'])
+        ->name('permohonan-non-litigasi.edit');
+    Route::put('permohonan-non-litigasi/{permohonanNonLitigasi}', [PermohonanNonLitigasiController::class, 'update'])
+        ->name('permohonan-non-litigasi.update');
     Route::get('permohonan-non-litigasi/{permohonanNonLitigasi}/assign', [PermohonanNonLitigasiController::class, 'assignForm'])
         ->name('permohonan-non-litigasi.assignForm');
     Route::post('permohonan-non-litigasi/{permohonanNonLitigasi}/assign', [PermohonanNonLitigasiController::class, 'storeAssign'])

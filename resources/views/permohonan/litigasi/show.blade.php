@@ -17,6 +17,7 @@
                         </div>
                         @if(auth()->user()->role === 'admin')
                         <div class="btn-group" role="group">
+                            <a href="{{ route('permohonan-litigasi.edit', $permohonanLitigasi) }}" class="btn btn-sm btn-secondary">Edit</a>
                             @if($permohonanLitigasi->canBeApproved())
                             <a href="{{ route('permohonan-litigasi.approve', $permohonanLitigasi) }}" class="btn btn-sm btn-info">Setujui</a>
                             <a href="{{ route('permohonan-litigasi.reject', $permohonanLitigasi) }}" class="btn btn-sm btn-danger">Tolak</a>

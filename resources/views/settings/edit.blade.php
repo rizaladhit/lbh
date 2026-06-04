@@ -75,6 +75,53 @@
                     </form>
                 </div>
             </div>
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-list-check me-2"></i>Master Jenis Pelayanan</h6>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ route('jenis-pelayanan.store') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" placeholder="Tambah jenis layanan baru" value="{{ old('nama') }}" required>
+                                <button class="btn btn-primary" type="submit">Tambah</button>
+                            </div>
+                            @error('nama') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                        </div>
+                    </form>
+
+                    <div class="table-responsive border rounded" style="background: var(--bs-secondary-bg);">
+                        <table class="table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="py-3">Nama Layanan</th>
+                                    <th class="py-3 text-end">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($jenisPelayanans as $jenis)
+                                <tr>
+                                    <td>{{ $jenis->nama }}</td>
+                                    <td class="text-end">
+                                        <form method="POST" action="{{ route('jenis-pelayanan.destroy', $jenis) }}" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="2" class="text-muted">Belum ada jenis pelayanan.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

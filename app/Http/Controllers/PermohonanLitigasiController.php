@@ -42,9 +42,69 @@ class PermohonanLitigasiController extends Controller
     public function create()
     {
         if (auth()->user()->role === 'pengacara') {
-            abort(403, 'Akses ditolak. Pengacara hanya memiliki akses baca.');
+            abort(403, 'Akses ditolak. Advocate hanya memiliki akses baca.');
         }
         return view('permohonan.litigasi.create');
+    }
+
+    public function edit(PermohonanLitigasi $permohonanLitigasi)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        return view('permohonan.litigasi.edit', compact('permohonanLitigasi'));
+    }
+
+    public function update(Request $request, PermohonanLitigasi $permohonanLitigasi)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'telp_hp' => 'required|string|max:20',
+            'nik' => 'required|string|size:16',
+            'jenis_perkara' => 'required|string|max:255',
+            'no_perkara' => 'required|string|max:100',
+            'tgl_rencana_kunjungan' => 'required|date',
+            'uraian_singkat' => 'required|string',
+            'file_ktp_kk' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'file_sktm' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'file_ttd' => 'nullable|string',
+        ]);
+
+        if ($request->hasFile('file_ktp_kk')) {
+            Storage::disk('public')->delete($permohonanLitigasi->file_ktp_kk);
+            $validated['file_ktp_kk'] = $request->file('file_ktp_kk')->store('permohonan/ktp_kk', 'public');
+        } else {
+            unset($validated['file_ktp_kk']);
+        }
+
+        if ($request->hasFile('file_sktm')) {
+            Storage::disk('public')->delete($permohonanLitigasi->file_sktm);
+            $validated['file_sktm'] = $request->file('file_sktm')->store('permohonan/sktm', 'public');
+        } else {
+            unset($validated['file_sktm']);
+        }
+
+        $ttdData = $request->input('file_ttd');
+        if ($ttdData && str_starts_with($ttdData, 'data:image')) {
+            Storage::disk('public')->delete($permohonanLitigasi->file_ttd);
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $ttdData));
+            $filename = 'permohonan/ttd/ttd_' . time() . '.png';
+            Storage::disk('public')->put($filename, $imageData);
+            $validated['file_ttd'] = $filename;
+        } else {
+            unset($validated['file_ttd']);
+        }
+
+        $permohonanLitigasi->update($validated);
+
+        return redirect()->route('permohonan-litigasi.show', $permohonanLitigasi)
+            ->with('success', 'Permohonan berhasil diperbarui.');
     }
 
     public function store(Request $request)
@@ -58,7 +118,6 @@ class PermohonanLitigasiController extends Controller
             'telp_hp' => 'required|string|max:20',
             'nik' => 'required|string|size:16',
             'jenis_perkara' => 'required|string|max:255',
-            'no_perkara' => 'required|string|max:100',
             'tgl_rencana_kunjungan' => 'required|date',
             'uraian_singkat' => 'required|string',
             'file_ktp_kk' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -82,6 +141,9 @@ class PermohonanLitigasiController extends Controller
             unset($validated['file_ttd']);
         }
 
+        // No nomor perkara is generated at creation; admin will fill it later.
+        $validated['no_perkara'] = '';
+
         auth()->user()->permohonanLitigasi()->create($validated);
 
         return redirect()->route('permohonan-litigasi.index')->with('success', 'Form Permohonan Litigasi berhasil dikirim.');
@@ -103,9 +165,16 @@ class PermohonanLitigasiController extends Controller
 
     public function printForm(PermohonanLitigasi $permohonanLitigasi)
     {
-        if (auth()->user()->role !== 'admin' && $permohonanLitigasi->user_id != auth()->id()) {
+        $user = auth()->user();
+        $isOwner = $permohonanLitigasi->user_id == $user->id;
+        $isAssigned = $user->role === 'pengacara' && $user->lawyer &&
+                      ($permohonanLitigasi->assigned_lawyer_id == $user->lawyer->id ||
+                       $permohonanLitigasi->assigned_paralegal_id == $user->lawyer->id);
+
+        if ($user->role !== 'admin' && !$isOwner && !$isAssigned) {
             abort(403);
         }
+
         return view('permohonan.litigasi.print', compact('permohonanLitigasi'));
     }
 

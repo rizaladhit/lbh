@@ -18,7 +18,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold small text-muted">Nama Lengkap</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" 
-                                name="name" value="{{ old('name') }}" placeholder="Pilih akun pengacara terlebih dahulu" required autofocus>
+                                name="name" value="{{ old('name') }}" placeholder="Pilih akun Advocate terlebih dahulu" required autofocus>
                             @error('name')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                         </div>
 
@@ -32,9 +32,9 @@
 
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label for="user_id" class="form-label fw-bold small text-muted">Email (Akun Pengacara)</label>
+                                <label for="user_id" class="form-label fw-bold small text-muted">Email (Akun Advocate)</label>
                                 <select id="user_id" class="form-select @error('user_id') is-invalid @enderror" name="user_id" required>
-                                    <option value="" data-name="">-- Pilih Akun Pengacara --</option>
+                                    <option value="" data-name="">-- Pilih Akun Advocate --</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}" 
                                                 data-name="{{ $user->name }}" 

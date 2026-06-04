@@ -38,7 +38,7 @@
                             <select id="role" name="role" class="form-select" required>
                                 <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
                                 <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="pengacara" {{ old('role', $user->role) == 'pengacara' ? 'selected' : '' }}>Pengacara</option>
+                                <option value="pengacara" {{ old('role', $user->role) == 'pengacara' ? 'selected' : '' }}>Advocate</option>
                             </select>
                             @error('role')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                         </div>
