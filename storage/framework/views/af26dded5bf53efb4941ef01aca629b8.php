@@ -8,7 +8,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> <?php echo e($isAdmin ? 'Dashboard Admin' : ($isLawyer ? 'Dashboard Pengacara' : 'Dashboard Pengguna')); ?> <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> <?php echo e($isAdmin ? 'Dashboard Admin' : ($isLawyer ? 'Dashboard Advocate' : 'Dashboard Pengguna')); ?> <?php $__env->endSlot(); ?>
 
     <?php
         $cards = $dashboardCards;

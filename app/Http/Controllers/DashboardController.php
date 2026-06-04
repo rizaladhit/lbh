@@ -56,10 +56,15 @@ class DashboardController extends Controller
         ];
 
         $dashboardCards = [];
-        $quickLinks = [
-            ['href' => route('permohonan-litigasi.create'), 'icon' => 'fa-solid fa-scale-balanced', 'label' => 'Ajukan Litigasi', 'bg' => 'rgba(99,102,241,.12)', 'ic' => '#6366f1'],
-            ['href' => route('permohonan-non-litigasi.create'), 'icon' => 'fa-solid fa-handshake', 'label' => 'Ajukan Non-Litigasi', 'bg' => 'rgba(16,185,129,.12)', 'ic' => '#10b981'],
-        ];
+        $quickLinks = [];
+        
+        // Quick Links - hanya untuk user biasa, tidak untuk advocate
+        if (!$isLawyer) {
+            $quickLinks = [
+                ['href' => route('permohonan-litigasi.create'), 'icon' => 'fa-solid fa-scale-balanced', 'label' => 'Ajukan Litigasi', 'bg' => 'rgba(99,102,241,.12)', 'ic' => '#6366f1'],
+                ['href' => route('permohonan-non-litigasi.create'), 'icon' => 'fa-solid fa-handshake', 'label' => 'Ajukan Non-Litigasi', 'bg' => 'rgba(16,185,129,.12)', 'ic' => '#10b981'],
+            ];
+        }
 
         if ($isAdmin) {
             $dashboardCards = [
