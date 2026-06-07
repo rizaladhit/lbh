@@ -34,12 +34,9 @@ class Lawyer extends Model
         return $this->hasMany(PermohonanLitigasi::class, 'assigned_lawyer_id');
     }
 
-    /**
-     * Get permohonan litigasi that assigned to this paralegal
-     */
-    public function permohonanLitigasiAsParalegal()
+    public function permohonanNonLitigasiAsLawyer()
     {
-        return $this->hasMany(PermohonanLitigasi::class, 'assigned_paralegal_id');
+        return $this->hasMany(PermohonanNonLitigasi::class, 'assigned_lawyer_id');
     }
 
     /**

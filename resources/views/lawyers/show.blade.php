@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            @if($lawyer->permohonanLitigasiAsLawyer()->count() > 0 || $lawyer->permohonanLitigasiAsParalegal()->count() > 0)
+            @if($lawyer->permohonanLitigasiAsLawyer()->count() > 0)
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-scale-balanced me-2"></i>Permohonan Litigasi yang Ditugaskan</h6>
@@ -60,18 +60,6 @@
                                     <td>{{ $permohonan->nama }}</td>
                                     <td>{{ $permohonan->jenis_perkara }}</td>
                                     <td><span class="badge bg-primary">Advocate</span></td>
-                                    <td><span class="badge {{ $permohonan->getStatusBadgeColor() }}">{{ $permohonan->getStatusLabel() }}</span></td>
-                                    <td class="pe-4 text-end">
-                                        <a href="{{ route('permohonan-litigasi.show', $permohonan) }}" class="btn btn-light btn-sm text-info border"><i class="fa-solid fa-eye"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @foreach($lawyer->permohonanLitigasiAsParalegal as $permohonan)
-                                <tr>
-                                    <td class="ps-4"><span class="badge bg-info-subtle text-info">{{ $permohonan->no_registrasi }}</span></td>
-                                    <td>{{ $permohonan->nama }}</td>
-                                    <td>{{ $permohonan->jenis_perkara }}</td>
-                                    <td><span class="badge bg-info">Paralegal</span></td>
                                     <td><span class="badge {{ $permohonan->getStatusBadgeColor() }}">{{ $permohonan->getStatusLabel() }}</span></td>
                                     <td class="pe-4 text-end">
                                         <a href="{{ route('permohonan-litigasi.show', $permohonan) }}" class="btn btn-light btn-sm text-info border"><i class="fa-solid fa-eye"></i></a>

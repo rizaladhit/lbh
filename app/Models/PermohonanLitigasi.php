@@ -59,7 +59,7 @@ class PermohonanLitigasi extends Model
 
     public function assignedParalegal()
     {
-        return $this->belongsTo(Lawyer::class, 'assigned_paralegal_id');
+        return $this->belongsTo(Paralegal::class, 'assigned_paralegal_id');
     }
 
     protected static function boot()

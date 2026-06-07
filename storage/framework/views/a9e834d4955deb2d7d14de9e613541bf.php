@@ -250,7 +250,7 @@
                                class="form-control search-input" placeholder="Cari nama / perkara…">
                     </div>
                 </form>
-                <?php if(auth()->user()->role !== 'pengacara'): ?>
+                <?php if(!in_array(auth()->user()->role, ['pengacara', 'paralegal'])): ?>
                 <a href="<?php echo e(route('permohonan-non-litigasi.create')); ?>" class="btn-cta">
                     <i class="fa-solid fa-plus"></i><span class="d-none d-sm-inline">Ajukan Permohonan</span>
                 </a>

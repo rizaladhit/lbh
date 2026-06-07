@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Lawyer::class);
     }
+
+    public function paralegal()
+    {
+        return $this->hasOne(Paralegal::class);
+    }
 }

@@ -14,10 +14,10 @@ class PermohonanNonLitigasiController extends Controller
         $baseQuery = PermohonanNonLitigasi::query();
         if (auth()->user()->role === 'pengacara') {
             $lawyerId = auth()->user()->lawyer?->id;
-            $baseQuery->where(function($q) use ($lawyerId) {
-                $q->where('assigned_lawyer_id', $lawyerId)
-                  ->orWhere('assigned_paralegal_id', $lawyerId);
-            });
+            $lawyerId ? $baseQuery->where('assigned_lawyer_id', $lawyerId) : $baseQuery->whereRaw('1 = 0');
+        } elseif (auth()->user()->role === 'paralegal') {
+            $paralegalId = auth()->user()->paralegal?->id;
+            $paralegalId ? $baseQuery->where('assigned_paralegal_id', $paralegalId) : $baseQuery->whereRaw('1 = 0');
         } elseif (auth()->user()->role !== 'admin') {
             $baseQuery->where('user_id', auth()->id());
         }
@@ -32,15 +32,25 @@ class PermohonanNonLitigasiController extends Controller
         if ($request->filled('status') && in_array($request->status, ['REGISTERED', 'APPROVED', 'VERIFIED', 'ASSIGNED', 'DONE', 'REJECTED'])) {
             $query->where('status', $request->status);
         }
-        $permohonan = $query->paginate(15)->withQueryString();
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_pemohon', 'like', "%{$search}%")
+                  ->orWhere('nik_pemohon', 'like', "%{$search}%")
+                  ->orWhere('jenis_perkara', 'like', "%{$search}%")
+                  ->orWhere('no_registrasi', 'like', "%{$search}%")
+                  ->orWhere('uraian_singkat', 'like', "%{$search}%");
+            });
+        }
+        $permohonan = $query->paginate(10)->withQueryString();
 
         return view('permohonan.non_litigasi.index', compact('permohonan', 'statusCounts', 'totalAll'));
     }
 
     public function create()
     {
-        if (auth()->user()->role === 'pengacara') {
-            abort(403, 'Akses ditolak. Advocate hanya memiliki akses baca.');
+        if (in_array(auth()->user()->role, ['pengacara', 'paralegal'])) {
+            abort(403, 'Akses ditolak. Advocate dan Paralegal hanya memiliki akses baca.');
         }
         $jenisPelayanans = JenisPelayanan::orderBy('nama')->get();
         return view('permohonan.non_litigasi.create', compact('jenisPelayanans'));
@@ -108,7 +118,7 @@ class PermohonanNonLitigasiController extends Controller
 
     public function store(Request $request)
     {
-        if (auth()->user()->role === 'pengacara') {
+        if (in_array(auth()->user()->role, ['pengacara', 'paralegal'])) {
             abort(403);
         }
         $validated = $request->validate([
@@ -149,9 +159,11 @@ class PermohonanNonLitigasiController extends Controller
     {
         $user = auth()->user();
         $isOwner = $permohonanNonLitigasi->user_id == $user->id;
-        $isAssigned = $user->role === 'pengacara' && $user->lawyer && 
-                      ($permohonanNonLitigasi->assigned_lawyer_id == $user->lawyer->id || 
-                       $permohonanNonLitigasi->assigned_paralegal_id == $user->lawyer->id);
+        $isAssignedLawyer = $user->role === 'pengacara' && $user->lawyer &&
+            $permohonanNonLitigasi->assigned_lawyer_id == $user->lawyer->id;
+        $isAssignedParalegal = $user->role === 'paralegal' && $user->paralegal &&
+            $permohonanNonLitigasi->assigned_paralegal_id == $user->paralegal->id;
+        $isAssigned = $isAssignedLawyer || $isAssignedParalegal;
 
         if ($user->role !== 'admin' && !$isOwner && !$isAssigned) {
             abort(403);
@@ -163,9 +175,11 @@ class PermohonanNonLitigasiController extends Controller
     {
         $user = auth()->user();
         $isOwner = $permohonanNonLitigasi->user_id == $user->id;
-        $isAssigned = $user->role === 'pengacara' && $user->lawyer &&
-                      ($permohonanNonLitigasi->assigned_lawyer_id == $user->lawyer->id ||
-                       $permohonanNonLitigasi->assigned_paralegal_id == $user->lawyer->id);
+        $isAssignedLawyer = $user->role === 'pengacara' && $user->lawyer &&
+            $permohonanNonLitigasi->assigned_lawyer_id == $user->lawyer->id;
+        $isAssignedParalegal = $user->role === 'paralegal' && $user->paralegal &&
+            $permohonanNonLitigasi->assigned_paralegal_id == $user->paralegal->id;
+        $isAssigned = $isAssignedLawyer || $isAssignedParalegal;
 
         if ($user->role !== 'admin' && !$isOwner && !$isAssigned) {
             abort(403);
@@ -295,8 +309,9 @@ class PermohonanNonLitigasiController extends Controller
         }
 
         $lawyers = \App\Models\Lawyer::active()->latest('name')->get();
+        $paralegals = \App\Models\Paralegal::active()->latest('name')->get();
         
-        return view('permohonan.non_litigasi.assign', compact('permohonanNonLitigasi', 'lawyers'));
+        return view('permohonan.non_litigasi.assign', compact('permohonanNonLitigasi', 'lawyers', 'paralegals'));
     }
 
     public function storeAssign(Request $request, PermohonanNonLitigasi $permohonanNonLitigasi)
@@ -307,7 +322,7 @@ class PermohonanNonLitigasiController extends Controller
 
         $validated = $request->validate([
             'assigned_lawyer_id' => 'nullable|exists:lawyers,id',
-            'assigned_paralegal_id' => 'nullable|exists:lawyers,id',
+            'assigned_paralegal_id' => 'nullable|exists:paralegals,id',
         ], [
             'assigned_lawyer_id.exists' => 'Advocate yang dipilih tidak valid',
             'assigned_paralegal_id.exists' => 'Paralegal yang dipilih tidak valid',

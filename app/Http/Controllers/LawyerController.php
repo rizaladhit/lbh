@@ -110,7 +110,7 @@ class LawyerController extends Controller
     public function destroy(Lawyer $lawyer)
     {
         // Check if lawyer is assigned to any active permohonan
-        $assigned = $lawyer->permohonanLitigasiAsLawyer()->count() + $lawyer->permohonanLitigasiAsParalegal()->count();
+        $assigned = $lawyer->permohonanLitigasiAsLawyer()->count() + $lawyer->permohonanNonLitigasiAsLawyer()->count();
         
         if ($assigned > 0) {
             return redirect()->back()->with('error', 'Tidak dapat menghapus Advocate yang masih memiliki penugasan aktif.');

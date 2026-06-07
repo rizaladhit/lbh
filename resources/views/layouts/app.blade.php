@@ -356,6 +356,37 @@
         @endif
 
         @if(auth()->check() && auth()->user()->role === 'admin')
+        <div class="nav-item-custom">
+            <button class="nav-link-custom {{ request()->routeIs('laporan-ph.*') ? 'active' : '' }}"
+                    onclick="toggleSubmenu('laporanPHMenu', this)">
+                <div class="nav-icon" style="background:{{ request()->routeIs('laporan-ph.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)' }};">
+                    <i class="fa-solid fa-file-lines" style="color:{{ request()->routeIs('laporan-ph.*') ? 'var(--brand-1)' : '#64748b' }};"></i>
+                </div>
+                Laporan Penasehat Hukum (PH)
+                <i class="fa-solid fa-chevron-right ms-auto" style="font-size:.6rem;transition:var(--trans);" id="laporanPHMenuArrow"></i>
+            </button>
+            <div class="submenu-wrap" id="laporanPHMenu" style="display:{{ request()->routeIs('laporan-ph.*') ? 'block' : 'none' }};">
+                <div class="submenu-inner">
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('laporan-ph.pengadilan.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('laporan-ph.pengadilan.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gavel me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Laporan Pengadilan Subang
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('laporan-ph.lapas.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('laporan-ph.lapas.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-building-ngo me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Laporan Lapas Subang
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        @if(auth()->check() && auth()->user()->role === 'admin')
         <div class="sidebar-section" style="margin-top:4px;">Master Data</div>
 
         <div class="nav-item-custom">
@@ -392,6 +423,16 @@
         </div>
 
         <div class="nav-item-custom">
+            <a href="{{ route('paralegals.index') }}"
+               class="nav-link-custom {{ request()->routeIs('paralegals.*') ? 'active' : '' }}">
+                <div class="nav-icon" style="background:{{ request()->routeIs('paralegals.*') ? 'rgba(16,185,129,.15)' : 'rgba(100,116,139,.08)' }};">
+                    <i class="fa-solid fa-user-shield" style="color:{{ request()->routeIs('paralegals.*') ? '#10b981' : '#64748b' }};"></i>
+                </div>
+                Paralegal
+            </a>
+        </div>
+
+        <div class="nav-item-custom">
             <a href="{{ route('settings.edit') }}"
                class="nav-link-custom {{ request()->routeIs('settings.*') ? 'active' : '' }}">
                 <div class="nav-icon" style="background:rgba(100,116,139,.08);">
@@ -416,6 +457,7 @@
                         $roleLabel = match(auth()->user()->role ?? 'user') {
                             'admin' => 'Admin',
                             'pengacara' => 'Advocate',
+                            'paralegal' => 'Paralegal',
                             default => ucfirst(auth()->user()->role ?? 'user')
                         };
                     @endphp
