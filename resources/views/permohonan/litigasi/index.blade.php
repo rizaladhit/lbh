@@ -275,7 +275,7 @@
                                class="form-control search-input" placeholder="Cari nama / perkara…">
                     </div>
                 </form>
-                @if(auth()->user()->role !== 'pengacara')
+                @if(!in_array(auth()->user()->role, ['pengacara', 'paralegal']))
                 <a href="{{ route('permohonan-litigasi.create') }}" class="btn-cta">
                     <i class="fa-solid fa-plus"></i>
                     <span class="d-none d-sm-inline">Ajukan Permohonan</span>

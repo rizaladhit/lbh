@@ -43,14 +43,29 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AppSettingController;
 use App\Http\Controllers\JenisPelayananController;
 use App\Http\Controllers\LawyerController;
+use App\Http\Controllers\LaporanPHController;
+use App\Http\Controllers\ParalegalController;
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('lawyers', LawyerController::class);
+    Route::resource('paralegals', ParalegalController::class);
     Route::get('settings', [AppSettingController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [AppSettingController::class, 'update'])->name('settings.update');
     Route::resource('jenis-pelayanan', JenisPelayananController::class)->only(['store', 'destroy']);
+
+    // Laporan Penasehat Hukum (PH) - Admin only
+    Route::get('laporan-ph/pengadilan', [LaporanPHController::class, 'indexPengadilan'])->name('laporan-ph.pengadilan.index');
+    Route::get('laporan-ph/pengadilan/print', [LaporanPHController::class, 'printPengadilan'])->name('laporan-ph.pengadilan.print');
+    Route::get('laporan-ph/pengadilan/create', [LaporanPHController::class, 'createPengadilan'])->name('laporan-ph.pengadilan.create');
+    Route::post('laporan-ph/pengadilan', [LaporanPHController::class, 'storePengadilan'])->name('laporan-ph.pengadilan.store');
+    Route::get('laporan-ph/lapas', [LaporanPHController::class, 'indexLapas'])->name('laporan-ph.lapas.index');
+    Route::get('laporan-ph/lapas/print', [LaporanPHController::class, 'printLapas'])->name('laporan-ph.lapas.print');
+    Route::get('laporan-ph/lapas/create', [LaporanPHController::class, 'createLapas'])->name('laporan-ph.lapas.create');
+    Route::post('laporan-ph/lapas', [LaporanPHController::class, 'storeLapas'])->name('laporan-ph.lapas.store');
+    // Lookup litigasi by registration number (for autofill)
+    Route::get('laporan-ph/lookup-litigasi', [LaporanPHController::class, 'lookupLitigasi'])->name('litigasi.lookup');
 });
 
 use App\Http\Controllers\ReportController;

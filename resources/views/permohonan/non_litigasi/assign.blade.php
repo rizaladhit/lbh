@@ -13,7 +13,7 @@
                     <form action="{{ route('permohonan-non-litigasi.storeAssign', $permohonanNonLitigasi) }}" method="POST">
                         @csrf
                         <p class="text-muted mb-4">
-                            Tugaskan permohonan litigasi dari <strong>{{ $permohonanNonLitigasi->nama }}</strong> 
+                            Tugaskan permohonan non-litigasi dari <strong>{{ $permohonanNonLitigasi->nama_pemohon }}</strong> 
                             (No. Registrasi: <strong>{{ $permohonanNonLitigasi->no_registrasi }}</strong>) 
                             kepada advocate atau paralegal.
                         </p>
@@ -24,7 +24,7 @@
                                 id="assigned_lawyer_id" name="assigned_lawyer_id">
                                 <option value="">-- Tidak ada --</option>
                                 @foreach($lawyers as $lawyer)
-                                <option value="{{ $lawyer->id }}" {{ old('assigned_lawyer_id') == $lawyer->id ? 'selected' : '' }}>
+                                <option value="{{ $lawyer->id }}" {{ old('assigned_lawyer_id', $permohonanNonLitigasi->assigned_lawyer_id) == $lawyer->id ? 'selected' : '' }}>
                                     {{ $lawyer->name }} - {{ $lawyer->specialization }} ({{ $lawyer->no_identitas }})
                                 </option>
                                 @endforeach
@@ -40,9 +40,9 @@
                             <select class="form-select @error('assigned_paralegal_id') is-invalid @enderror" 
                                 id="assigned_paralegal_id" name="assigned_paralegal_id">
                                 <option value="">-- Tidak ada --</option>
-                                @foreach($lawyers as $lawyer)
-                                <option value="{{ $lawyer->id }}" {{ old('assigned_paralegal_id') == $lawyer->id ? 'selected' : '' }}>
-                                    {{ $lawyer->name }} - {{ $lawyer->specialization }} ({{ $lawyer->no_identitas }})
+                                @foreach($paralegals as $paralegal)
+                                <option value="{{ $paralegal->id }}" {{ old('assigned_paralegal_id', $permohonanNonLitigasi->assigned_paralegal_id) == $paralegal->id ? 'selected' : '' }}>
+                                    {{ $paralegal->name }} - {{ $paralegal->specialization }} ({{ $paralegal->no_identitas }})
                                 </option>
                                 @endforeach
                             </select>
@@ -87,10 +87,9 @@
                     </div>
 
                     @php $fields = [
-                        'Nama Pemohon' => $permohonanNonLitigasi->nama,
+                        'Nama Pemohon' => $permohonanNonLitigasi->nama_pemohon,
                         'Nomor Registrasi' => $permohonanNonLitigasi->no_registrasi,
                         'Jenis Perkara' => $permohonanNonLitigasi->jenis_perkara,
-                        'Nomor Perkara' => $permohonanNonLitigasi->no_perkara,
                         'Catatan Verifikasi' => $permohonanNonLitigasi->verification_notes ?? '-',
                     ]; @endphp
                     @foreach($fields as $label => $value)

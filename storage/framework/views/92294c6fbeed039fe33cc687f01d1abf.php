@@ -356,6 +356,37 @@
         <?php endif; ?>
 
         <?php if(auth()->check() && auth()->user()->role === 'admin'): ?>
+        <div class="nav-item-custom">
+            <button class="nav-link-custom <?php echo e(request()->routeIs('laporan-ph.*') ? 'active' : ''); ?>"
+                    onclick="toggleSubmenu('laporanPHMenu', this)">
+                <div class="nav-icon" style="background:<?php echo e(request()->routeIs('laporan-ph.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)'); ?>;">
+                    <i class="fa-solid fa-file-lines" style="color:<?php echo e(request()->routeIs('laporan-ph.*') ? 'var(--brand-1)' : '#64748b'); ?>;"></i>
+                </div>
+                Laporan Penasehat Hukum (PH)
+                <i class="fa-solid fa-chevron-right ms-auto" style="font-size:.6rem;transition:var(--trans);" id="laporanPHMenuArrow"></i>
+            </button>
+            <div class="submenu-wrap" id="laporanPHMenu" style="display:<?php echo e(request()->routeIs('laporan-ph.*') ? 'block' : 'none'); ?>;">
+                <div class="submenu-inner">
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="<?php echo e(route('laporan-ph.pengadilan.index')); ?>"
+                           class="nav-link-custom <?php echo e(request()->routeIs('laporan-ph.pengadilan.*') ? 'active' : ''); ?>">
+                            <i class="fa-solid fa-gavel me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Laporan Pengadilan Subang
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="<?php echo e(route('laporan-ph.lapas.index')); ?>"
+                           class="nav-link-custom <?php echo e(request()->routeIs('laporan-ph.lapas.*') ? 'active' : ''); ?>">
+                            <i class="fa-solid fa-building-ngo me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Laporan Lapas Subang
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if(auth()->check() && auth()->user()->role === 'admin'): ?>
         <div class="sidebar-section" style="margin-top:4px;">Master Data</div>
 
         <div class="nav-item-custom">
@@ -378,6 +409,16 @@
                     <i class="fa-solid fa-gavel" style="color:#64748b;"></i>
                 </div>
                 Advocate
+            </a>
+        </div>
+
+        <div class="nav-item-custom">
+            <a href="<?php echo e(route('paralegals.index')); ?>"
+               class="nav-link-custom <?php echo e(request()->routeIs('paralegals.*') ? 'active' : ''); ?>">
+                <div class="nav-icon" style="background:<?php echo e(request()->routeIs('paralegals.*') ? 'rgba(16,185,129,.15)' : 'rgba(100,116,139,.08)'); ?>;">
+                    <i class="fa-solid fa-user-shield" style="color:<?php echo e(request()->routeIs('paralegals.*') ? '#10b981' : '#64748b'); ?>;"></i>
+                </div>
+                Paralegal
             </a>
         </div>
 
@@ -406,6 +447,7 @@
                         $roleLabel = match(auth()->user()->role ?? 'user') {
                             'admin' => 'Admin',
                             'pengacara' => 'Advocate',
+                            'paralegal' => 'Paralegal',
                             default => ucfirst(auth()->user()->role ?? 'user')
                         };
                     ?>

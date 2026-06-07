@@ -17,7 +17,7 @@
             <!-- Status Card -->
             <div class="card shadow-sm border-0 mb-3">
                 <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-3">
                         <div>
                             <small class="text-muted d-block">Status Permohonan</small>
                             <span class="badge <?php echo e($permohonanLitigasi->getStatusBadgeColor()); ?> fs-6 px-3 py-2">
@@ -25,7 +25,7 @@
                             </span>
                         </div>
                         <?php if(auth()->user()->role === 'admin'): ?>
-                        <div class="btn-group" role="group">
+                        <div class="d-flex flex-wrap gap-2 justify-content-start justify-content-md-end">
                             <a href="<?php echo e(route('permohonan-litigasi.edit', $permohonanLitigasi)); ?>" class="btn btn-sm btn-secondary">Edit</a>
                             <?php if($permohonanLitigasi->canBeApproved()): ?>
                             <a href="<?php echo e(route('permohonan-litigasi.approve', $permohonanLitigasi)); ?>" class="btn btn-sm btn-info">Setujui</a>
@@ -51,7 +51,7 @@
                     <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-scale-balanced me-2"></i>Detail Permohonan Bantuan Litigasi</h6>
                     <span class="badge bg-primary fs-6"><?php echo e($permohonanLitigasi->no_registrasi); ?></span>
                 </div>
-                <div class="card-body p-4" style="font-size: 0.95rem;">
+                <div class="card-body p-3 p-md-4" style="font-size: 0.95rem;">
                     <?php $fields = [
                         'Nama' => $permohonanLitigasi->nama,
                         'Alamat' => $permohonanLitigasi->alamat,
@@ -65,62 +65,62 @@
                         'Tanggal Pengajuan' => $permohonanLitigasi->created_at->format('d M Y, H:i'),
                     ]; ?>
                     <?php $__currentLoopData = $fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $label => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="d-flex border-bottom py-2">
-                        <div class="fw-semibold" style="min-width: 220px;"><?php echo e($label); ?></div>
-                        <div class="text-muted">: <?php echo e($value); ?></div>
+                    <div class="d-flex flex-column flex-md-row border-bottom py-2">
+                        <div class="fw-semibold text-nowrap pe-md-3" style="min-width: fit-content;"><?php echo e($label); ?></div>
+                        <div class="text-muted"><span class="d-md-none">: </span><span class="d-none d-md-inline">: </span><?php echo e($value); ?></div>
                     </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     <?php if($permohonanLitigasi->verification_notes): ?>
-                    <div class="d-flex border-bottom py-2">
-                        <div class="fw-semibold" style="min-width: 220px;">Catatan Verifikasi</div>
-                        <div class="text-muted">: <?php echo e($permohonanLitigasi->verification_notes); ?></div>
+                    <div class="d-flex flex-column flex-md-row border-bottom py-2">
+                        <div class="fw-semibold text-nowrap pe-md-3" style="min-width: fit-content;">Catatan Verifikasi</div>
+                        <div class="text-muted"><span class="d-md-none">: </span><span class="d-none d-md-inline">: </span><?php echo e($permohonanLitigasi->verification_notes); ?></div>
                     </div>
                     <?php endif; ?>
 
                     <?php if($permohonanLitigasi->assignedLawyer): ?>
-                    <div class="d-flex border-bottom py-2">
-                        <div class="fw-semibold" style="min-width: 220px;">Advocate</div>
-                        <div class="text-muted">: <?php echo e($permohonanLitigasi->assignedLawyer->name); ?></div>
+                    <div class="d-flex flex-column flex-md-row border-bottom py-2">
+                        <div class="fw-semibold text-nowrap pe-md-3" style="min-width: fit-content;">Advocate</div>
+                        <div class="text-muted"><span class="d-md-none">: </span><span class="d-none d-md-inline">: </span><?php echo e($permohonanLitigasi->assignedLawyer->name); ?></div>
                     </div>
                     <?php endif; ?>
 
                     <?php if($permohonanLitigasi->assignedParalegal): ?>
-                    <div class="d-flex border-bottom py-2">
-                        <div class="fw-semibold" style="min-width: 220px;">Paralegal</div>
-                        <div class="text-muted">: <?php echo e($permohonanLitigasi->assignedParalegal->name); ?></div>
+                    <div class="d-flex flex-column flex-md-row border-bottom py-2">
+                        <div class="fw-semibold text-nowrap pe-md-3" style="min-width: fit-content;">Paralegal</div>
+                        <div class="text-muted"><span class="d-md-none">: </span><span class="d-none d-md-inline">: </span><?php echo e($permohonanLitigasi->assignedParalegal->name); ?></div>
                     </div>
                     <?php endif; ?>
 
                     <?php if($permohonanLitigasi->activity_notes): ?>
-                    <div class="d-flex border-bottom py-2">
-                        <div class="fw-semibold" style="min-width: 220px;">Catatan Aktivitas</div>
-                        <div class="text-muted">: <?php echo e($permohonanLitigasi->activity_notes); ?></div>
+                    <div class="d-flex flex-column flex-md-row border-bottom py-2">
+                        <div class="fw-semibold text-nowrap pe-md-3" style="min-width: fit-content;">Catatan Aktivitas</div>
+                        <div class="text-muted"><span class="d-md-none">: </span><span class="d-none d-md-inline">: </span><?php echo e($permohonanLitigasi->activity_notes); ?></div>
                     </div>
                     <?php endif; ?>
 
-                    <div class="mt-4 row g-3">
+                    <div class="mt-4 row g-2 g-md-3">
                         <?php if($permohonanLitigasi->file_ktp_kk): ?>
-                        <div class="col-md-4">
+                        <div class="col-12 col-sm-6 col-md-4">
                             <p class="fw-semibold small mb-1">KTP / KK</p>
                             <a href="<?php echo e(Storage::url($permohonanLitigasi->file_ktp_kk)); ?>" target="_blank" class="btn btn-sm btn-outline-primary w-100"><i class="fa-solid fa-file me-1"></i> Lihat File</a>
                         </div>
                         <?php endif; ?>
                         <?php if($permohonanLitigasi->file_sktm): ?>
-                        <div class="col-md-4">
+                        <div class="col-12 col-sm-6 col-md-4">
                             <p class="fw-semibold small mb-1">SKTM</p>
                             <a href="<?php echo e(Storage::url($permohonanLitigasi->file_sktm)); ?>" target="_blank" class="btn btn-sm btn-outline-primary w-100"><i class="fa-solid fa-file me-1"></i> Lihat File</a>
                         </div>
                         <?php endif; ?>
                         <?php if($permohonanLitigasi->file_ttd): ?>
-                        <div class="col-md-4">
+                        <div class="col-12 col-sm-6 col-md-4">
                             <p class="fw-semibold small mb-1">Tanda Tangan</p>
                             <img src="<?php echo e(Storage::url($permohonanLitigasi->file_ttd)); ?>" class="img-thumbnail" style="max-height: 100px;" alt="TTD">
                         </div>
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="card-footer py-3 d-flex gap-2 justify-content-end">
+                <div class="card-footer py-2 py-md-3 d-flex flex-column flex-md-row gap-2 justify-content-end">
                     <a href="<?php echo e(route('permohonan-litigasi.index')); ?>" class="btn btn-light border fw-medium">Kembali</a>
                     <a href="<?php echo e(route('permohonan-litigasi.print', $permohonanLitigasi)); ?>" target="_blank" class="btn btn-success fw-bold shadow-sm"><i class="fa-solid fa-print me-1"></i> Cetak Formulir</a>
                 </div>

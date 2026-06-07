@@ -8,15 +8,15 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Edit Data Lawyer <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> Edit Data Advocate <?php $__env->endSlot(); ?>
 
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-edit me-2"></i>Form Edit Lawyer</h6>
-                        <div class="text-muted small">Perbarui data lawyer atau paralegal secara cepat dan jelas.</div>
+                        <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-edit me-2"></i>Form Edit Advocate</h6>
+                        <div class="text-muted small">Perbarui data advocate atau paralegal secara cepat dan jelas.</div>
                     </div>
                     <span class="badge bg-warning text-dark">Edit</span>
                 </div>
@@ -35,7 +35,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                name="name" value="<?php echo e(old('name', $lawyer->name)); ?>" placeholder="Pilih akun pengacara terlebih dahulu" required autofocus>
+                                name="name" value="<?php echo e(old('name', $lawyer->name)); ?>" placeholder="Pilih akun Advocate terlebih dahulu" required autofocus>
                             <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -70,7 +70,7 @@ unset($__errorArgs, $__bag); ?>
 
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label for="user_id" class="form-label fw-bold small text-muted">Email (Akun Pengacara)</label>
+                                <label for="user_id" class="form-label fw-bold small text-muted">Email (Akun Advocate)</label>
                                 <select id="user_id" class="form-select <?php $__errorArgs = ['user_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -79,7 +79,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" name="user_id" required>
-                                    <option value="" data-name="">-- Pilih Akun Pengacara --</option>
+                                    <option value="" data-name="">-- Pilih Akun Advocate --</option>
                                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($user->id); ?>" 
                                                 data-name="<?php echo e($user->name); ?>" 
@@ -208,7 +208,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                name="notes" rows="2" placeholder="Catatan tambahan tentang lawyer"><?php echo e(old('notes', $lawyer->notes)); ?></textarea>
+                                name="notes" rows="2" placeholder="Catatan tambahan tentang advocate"><?php echo e(old('notes', $lawyer->notes)); ?></textarea>
                             <?php $__errorArgs = ['notes'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

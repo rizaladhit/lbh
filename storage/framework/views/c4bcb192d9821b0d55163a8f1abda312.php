@@ -22,7 +22,7 @@
                     <form action="<?php echo e(route('permohonan-non-litigasi.storeAssign', $permohonanNonLitigasi)); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <p class="text-muted mb-4">
-                            Tugaskan permohonan litigasi dari <strong><?php echo e($permohonanNonLitigasi->nama); ?></strong> 
+                            Tugaskan permohonan non-litigasi dari <strong><?php echo e($permohonanNonLitigasi->nama_pemohon); ?></strong> 
                             (No. Registrasi: <strong><?php echo e($permohonanNonLitigasi->no_registrasi); ?></strong>) 
                             kepada advocate atau paralegal.
                         </p>
@@ -40,7 +40,7 @@ unset($__errorArgs, $__bag); ?>"
                                 id="assigned_lawyer_id" name="assigned_lawyer_id">
                                 <option value="">-- Tidak ada --</option>
                                 <?php $__currentLoopData = $lawyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lawyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($lawyer->id); ?>" <?php echo e(old('assigned_lawyer_id') == $lawyer->id ? 'selected' : ''); ?>>
+                                <option value="<?php echo e($lawyer->id); ?>" <?php echo e(old('assigned_lawyer_id', $permohonanNonLitigasi->assigned_lawyer_id) == $lawyer->id ? 'selected' : ''); ?>>
                                     <?php echo e($lawyer->name); ?> - <?php echo e($lawyer->specialization); ?> (<?php echo e($lawyer->no_identitas); ?>)
                                 </option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -70,9 +70,9 @@ endif;
 unset($__errorArgs, $__bag); ?>" 
                                 id="assigned_paralegal_id" name="assigned_paralegal_id">
                                 <option value="">-- Tidak ada --</option>
-                                <?php $__currentLoopData = $lawyers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lawyer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($lawyer->id); ?>" <?php echo e(old('assigned_paralegal_id') == $lawyer->id ? 'selected' : ''); ?>>
-                                    <?php echo e($lawyer->name); ?> - <?php echo e($lawyer->specialization); ?> (<?php echo e($lawyer->no_identitas); ?>)
+                                <?php $__currentLoopData = $paralegals; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $paralegal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($paralegal->id); ?>" <?php echo e(old('assigned_paralegal_id', $permohonanNonLitigasi->assigned_paralegal_id) == $paralegal->id ? 'selected' : ''); ?>>
+                                    <?php echo e($paralegal->name); ?> - <?php echo e($paralegal->specialization); ?> (<?php echo e($paralegal->no_identitas); ?>)
                                 </option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
@@ -124,10 +124,9 @@ unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <?php $fields = [
-                        'Nama Pemohon' => $permohonanNonLitigasi->nama,
+                        'Nama Pemohon' => $permohonanNonLitigasi->nama_pemohon,
                         'Nomor Registrasi' => $permohonanNonLitigasi->no_registrasi,
                         'Jenis Perkara' => $permohonanNonLitigasi->jenis_perkara,
-                        'Nomor Perkara' => $permohonanNonLitigasi->no_perkara,
                         'Catatan Verifikasi' => $permohonanNonLitigasi->verification_notes ?? '-',
                     ]; ?>
                     <?php $__currentLoopData = $fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $label => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

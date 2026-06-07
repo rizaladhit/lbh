@@ -112,6 +112,7 @@
                                 $roleLabel = match($user->role) {
                                     'admin' => 'Admin',
                                     'pengacara' => 'Advocate',
+                                    'paralegal' => 'Paralegal',
                                     default => ucfirst($user->role)
                                 };
                             ?>
