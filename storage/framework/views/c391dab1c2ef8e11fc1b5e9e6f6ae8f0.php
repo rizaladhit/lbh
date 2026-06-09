@@ -169,7 +169,7 @@
                         <td class="number"><?php echo e($i + 1); ?></td>
                         <td><?php echo e($report->no_registrasi_perkara ?: '-'); ?></td>
                         <!--<td><?php echo e($report->nama ?: '-'); ?></td>-->
-                        <td><?php echo e($report->terdakwa ?: '-'); ?></td>
+                        <td><?php echo e($report->nama ?: '-'); ?></td>
                         <td><?php echo e($report->nama_jaksa ?: '-'); ?></td>
                         <td><?php echo e($report->nama_penasehat_hukum ?: '-'); ?></td>
                         <td><?php echo e($report->jenis_perkara ?: '-'); ?></td>

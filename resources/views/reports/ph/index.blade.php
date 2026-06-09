@@ -278,8 +278,7 @@
                     <tr>
                         <th style="padding-left:24px;">No</th>
                         <th>No. Registrasi</th>
-                        <th>Nama</th>
-                        <th>Terdakwa</th>
+                        <th>Nama Terdakwa</th>
                         <th>Jaksa</th>
                         <th>Penasehat Hukum</th>
                         <th>Jenis Perkara</th>
@@ -303,9 +302,7 @@
                                 <div class="fw-semibold text-body" style="font-size:.87rem;">{{ $r->nama ?: '-' }}</div>
                             </div>
                         </td>
-                        <td>
-                            <span class="text-body fw-medium" style="font-size:.83rem;">{{ $r->terdakwa ?: '-' }}</span>
-                        </td>
+
                         <td>
                             <span class="text-body fw-medium" style="font-size:.83rem;">{{ $r->nama_jaksa ?: '-' }}</span>
                         </td>
@@ -332,7 +329,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8">
+                        <td colspan="7">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
                                 <h6 class="fw-bold text-body mb-1">Belum Ada Laporan</h6>
