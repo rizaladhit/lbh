@@ -1,13 +1,22 @@
-<x-app-layout>
-    <x-slot name="header">Laporan Penasehat Hukum - Pengadilan Subang</x-slot>
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Laporan Penasehat Hukum - Pengadilan Subang <?php $__env->endSlot(); ?>
 
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0">
                 <div class="card-header">Form Laporan Pengadilan Subang</div>
                 <div class="card-body p-4">
-                    <form method="POST" action="{{ route('laporan-ph.pengadilan.store') }}">
-                        @csrf
+                    <form method="POST" action="<?php echo e(route('laporan-ph.pengadilan.store')); ?>">
+                        <?php echo csrf_field(); ?>
                         <div class="mb-3">
                             <label class="form-label">No. Registrasi Perkara</label>
                             <input type="text" name="no_registrasi_perkara" id="no_registrasi_perkara"
@@ -37,7 +46,7 @@
                         </div>
 
                         <div class="d-flex gap-2 justify-content-end">
-                            <a href="{{ route('laporan-ph.pengadilan.index') }}"
+                            <a href="<?php echo e(route('laporan-ph.pengadilan.index')); ?>"
                                 class="btn btn-light border">Kembali</a>
                             <button class="btn btn-primary">Simpan Laporan</button>
                         </div>
@@ -47,7 +56,7 @@
         </div>
     </div>
 
-    @push('scripts')
+    <?php $__env->startPush('scripts'); ?>
         <script>
             const nomorRegistrasiInput = document.getElementById('no_registrasi_perkara');
             const litigasiOptions = document.getElementById('litigasiOptions');
@@ -58,7 +67,7 @@
                 if (!val) return;
 
                 try {
-                    const res = await fetch("{{ route('litigasi.lookup') }}?no_registrasi=" + encodeURIComponent(val), { headers: { 'Accept': 'application/json' } });
+                    const res = await fetch("<?php echo e(route('litigasi.lookup')); ?>?no_registrasi=" + encodeURIComponent(val), { headers: { 'Accept': 'application/json' } });
                     if (!res.ok) return;
                     const data = await res.json();
                     if (data) {
@@ -79,7 +88,7 @@
 
                 autocompleteTimer = setTimeout(async () => {
                     try {
-                        const res = await fetch("{{ route('litigasi.lookup') }}?q=" + encodeURIComponent(keyword), { headers: { 'Accept': 'application/json' } });
+                        const res = await fetch("<?php echo e(route('litigasi.lookup')); ?>?q=" + encodeURIComponent(keyword), { headers: { 'Accept': 'application/json' } });
                         if (!res.ok) return;
 
                         const items = await res.json();
@@ -105,5 +114,14 @@
                 fillLitigasiData(this.value);
             });
         </script>
-    @endpush
-</x-app-layout>
+    <?php $__env->stopPush(); ?>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\lbh\resources\views/reports/ph/pengadilan.blade.php ENDPATH**/ ?>

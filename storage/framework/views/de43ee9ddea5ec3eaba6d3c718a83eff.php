@@ -24,13 +24,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Nama</label>
+                            <label class="form-label">Nama Terdakwa</label>
                             <input type="text" name="nama" id="nama" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Terdakwa</label>
-                            <input type="text" name="terdakwa" id="terdakwa" class="form-control">
                         </div>
 
                         <div class="mb-3">
@@ -74,7 +69,6 @@
                 const data = await res.json();
                 if(data){
                     document.getElementById('nama').value = data.nama || '';
-                    document.getElementById('terdakwa').value = data.terdakwa || '';
                     document.getElementById('jenis_perkara').value = data.jenis_perkara || '';
                 }
             }catch(e){ console.error(e); }

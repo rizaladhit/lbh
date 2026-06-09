@@ -169,7 +169,7 @@
                         <td class="number">{{ $i + 1 }}</td>
                         <td>{{ $report->no_registrasi_perkara ?: '-' }}</td>
                         <!--<td>{{ $report->nama ?: '-' }}</td>-->
-                        <td>{{ $report->terdakwa ?: '-' }}</td>
+                        <td>{{ $report->nama ?: '-' }}</td>
                         <td>{{ $report->nama_jaksa ?: '-' }}</td>
                         <td>{{ $report->nama_penasehat_hukum ?: '-' }}</td>
                         <td>{{ $report->jenis_perkara ?: '-' }}</td>
