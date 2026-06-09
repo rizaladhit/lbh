@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @php
+    <?php
         $isTypePengadilan = $type === 'pengadilan';
         //$typeLabel = $isTypePengadilan ? 'Pengadilan Subang' : 'Lapas Subang';
         $typeLabel = $isTypePengadilan ? '(Di Pengadilan Negeri Subang)' : '(Di Lembaga Pemasyarakatan Kelas II A Subang)';
@@ -20,8 +20,8 @@
         } elseif ($dateTo) {
             $rangeLabel = 'Sampai ' . \Carbon\Carbon::parse($dateTo)->format('d M Y');
         }
-    @endphp
-    <title>Cetak Daftar Laporan {{ $typeLabel }}</title>
+    ?>
+    <title>Cetak Daftar Laporan <?php echo e($typeLabel); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -128,7 +128,7 @@
         <button onclick="window.print()" class="btn btn-success btn-sm fw-bold">
             <i class="fa-solid fa-print me-1"></i> Cetak / Simpan PDF
         </button>
-        <a href="{{ route($backRoute, request()->only(['date_from', 'date_to'])) }}"
+        <a href="<?php echo e(route($backRoute, request()->only(['date_from', 'date_to']))); ?>"
             class="btn btn-secondary btn-sm fw-medium">
             Kembali
         </a>
@@ -138,16 +138,16 @@
         <div class="doc-title">
             <!--<p>SIDANG PENUNJUKAN PERKARA</p>-->
             <h1>SIDANG PENUNJUKAN PERKARA</h1>
-            <!--<h1>Daftar Laporan Penasehat Hukum {{ $typeLabel }}</h1>-->
+            <!--<h1>Daftar Laporan Penasehat Hukum <?php echo e($typeLabel); ?></h1>-->
             <h1>LEMBAGA BANTUAN HUKUM UNIVERSITAS SUBANG (LBH UNSUB)</h1>
-            <h1>{{ $typeLabel }}</h1>
-            <!--<p>Periode dibuat: {{ $rangeLabel }}</p>-->
-            <p>Periode dibuat: {{ $rangeLabel }}</p>
+            <h1><?php echo e($typeLabel); ?></h1>
+            <!--<p>Periode dibuat: <?php echo e($rangeLabel); ?></p>-->
+            <p>Periode dibuat: <?php echo e($rangeLabel); ?></p>
         </div>
 
         <div class="meta">
-            <div><strong>Total data:</strong> {{ $reports->count() }} laporan</div>
-            <div><strong>Tanggal cetak:</strong> {{ now()->format('d M Y H:i') }}</div>
+            <div><strong>Total data:</strong> <?php echo e($reports->count()); ?> laporan</div>
+            <div><strong>Tanggal cetak:</strong> <?php echo e(now()->format('d M Y H:i')); ?></div>
         </div>
 
         <table>
@@ -164,22 +164,22 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($reports as $i => $report)
+                <?php $__empty_1 = true; $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr>
-                        <td class="number">{{ $i + 1 }}</td>
-                        <td>{{ $report->no_registrasi_perkara ?: '-' }}</td>
-                        <!--<td>{{ $report->nama ?: '-' }}</td>-->
-                        <td>{{ $report->terdakwa ?: '-' }}</td>
-                        <td>{{ $report->nama_jaksa ?: '-' }}</td>
-                        <td>{{ $report->nama_penasehat_hukum ?: '-' }}</td>
-                        <td>{{ $report->jenis_perkara ?: '-' }}</td>
-                        <!--<td>{{ $report->created_at->format('d M Y H:i') }}</td>-->
+                        <td class="number"><?php echo e($i + 1); ?></td>
+                        <td><?php echo e($report->no_registrasi_perkara ?: '-'); ?></td>
+                        <!--<td><?php echo e($report->nama ?: '-'); ?></td>-->
+                        <td><?php echo e($report->terdakwa ?: '-'); ?></td>
+                        <td><?php echo e($report->nama_jaksa ?: '-'); ?></td>
+                        <td><?php echo e($report->nama_penasehat_hukum ?: '-'); ?></td>
+                        <td><?php echo e($report->jenis_perkara ?: '-'); ?></td>
+                        <!--<td><?php echo e($report->created_at->format('d M Y H:i')); ?></td>-->
                     </tr>
-                @empty
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
                         <td colspan="8" class="empty">Tidak ada laporan pada periode ini.</td>
                     </tr>
-                @endforelse
+                <?php endif; ?>
             </tbody>
         </table>
     </main>
@@ -187,4 +187,4 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </body>
 
-</html>
+</html><?php /**PATH C:\xampp\htdocs\lbh\resources\views/reports/ph/print.blade.php ENDPATH**/ ?>
