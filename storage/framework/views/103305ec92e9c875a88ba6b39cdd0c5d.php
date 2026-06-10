@@ -8,47 +8,58 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Laporan Penasehat Hukum - Pengadilan Subang <?php $__env->endSlot(); ?>
+    <?php
+        $isEdit = isset($report) && $report->exists;
+    ?>
+     <?php $__env->slot('header', null, []); ?> <?php echo e($isEdit ? 'Edit' : 'Buat'); ?> Laporan Penasehat Hukum - Pengadilan Subang <?php $__env->endSlot(); ?>
 
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0">
-                <div class="card-header">Form Laporan Pengadilan Subang</div>
+                <div class="card-header"><?php echo e($isEdit ? 'Edit' : 'Form'); ?> Laporan Pengadilan Subang</div>
                 <div class="card-body p-4">
-                    <form method="POST" action="<?php echo e(route('laporan-ph.pengadilan.store')); ?>">
+                    <form method="POST" action="<?php echo e($isEdit ? route('laporan-ph.pengadilan.update', $report) : route('laporan-ph.pengadilan.store')); ?>">
                         <?php echo csrf_field(); ?>
+                        <?php if($isEdit): ?>
+                            <?php echo method_field('PUT'); ?>
+                        <?php endif; ?>
                         <div class="mb-3">
                             <label class="form-label">No. Registrasi Perkara</label>
                             <input type="text" name="no_registrasi_perkara" id="no_registrasi_perkara"
                                 class="form-control" list="litigasiOptions"
+                                value="<?php echo e(old('no_registrasi_perkara', $report->no_registrasi_perkara ?? '')); ?>"
                                 placeholder="Ketik No. Registrasi / Nama / Jenis Perkara" autocomplete="off" required>
                             <datalist id="litigasiOptions"></datalist>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Nama Terdakwa</label>
-                            <input type="text" name="nama" id="nama" class="form-control" required>
+                            <input type="text" name="nama" id="nama" class="form-control" 
+                                value="<?php echo e(old('nama', $report->nama ?? '')); ?>" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Nama Jaksa</label>
-                            <input type="text" name="nama_jaksa" class="form-control">
+                            <input type="text" name="nama_jaksa" class="form-control"
+                                value="<?php echo e(old('nama_jaksa', $report->nama_jaksa ?? '')); ?>">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Nama Penasehat Hukum</label>
-                            <input type="text" name="nama_penasehat_hukum" class="form-control">
+                            <input type="text" name="nama_penasehat_hukum" class="form-control"
+                                value="<?php echo e(old('nama_penasehat_hukum', $report->nama_penasehat_hukum ?? '')); ?>">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Jenis Perkara</label>
-                            <input type="text" name="jenis_perkara" id="jenis_perkara" class="form-control">
+                            <input type="text" name="jenis_perkara" id="jenis_perkara" class="form-control"
+                                value="<?php echo e(old('jenis_perkara', $report->jenis_perkara ?? '')); ?>">
                         </div>
 
                         <div class="d-flex gap-2 justify-content-end">
                             <a href="<?php echo e(route('laporan-ph.pengadilan.index')); ?>"
                                 class="btn btn-light border">Kembali</a>
-                            <button class="btn btn-primary">Simpan Laporan</button>
+                            <button class="btn btn-primary"><?php echo e($isEdit ? 'Update' : 'Simpan'); ?> Laporan</button>
                         </div>
                     </form>
                 </div>

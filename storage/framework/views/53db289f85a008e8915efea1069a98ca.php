@@ -291,7 +291,8 @@
                         <th>Jaksa</th>
                         <th>Penasehat Hukum</th>
                         <th>Jenis Perkara</th>
-                        <th style="padding-right:24px;">Dibuat</th>
+                        <th>Dibuat</th>
+                        <th style="padding-right:24px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -325,7 +326,7 @@
 
                             </span>
                         </td>
-                        <td style="padding-right:24px;">
+                        <td>
                             <div class="d-flex align-items-center gap-2">
                                 <div style="width:30px;height:30px;border-radius:8px;background:rgba(250,130,49,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                                     <i class="fa-solid fa-calendar-days" style="font-size:.75rem;color:#fa8231;"></i>
@@ -336,10 +337,35 @@
                                 </div>
                             </div>
                         </td>
+                        <td style="padding-right:24px;">
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="<?php echo e(route($isTypePengadilan ? 'laporan-ph.pengadilan.edit' : 'laporan-ph.lapas.edit', $r)); ?>" 
+                                   class="btn btn-sm btn-warning d-inline-flex align-items-center gap-1" 
+                                   style="border-radius:8px;font-size:.75rem;padding:6px 12px;font-weight:600;" 
+                                   title="Edit">
+                                    <i class="fa-solid fa-pen-to-square" style="font-size:.7rem;"></i>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </a>
+                                <form action="<?php echo e(route($isTypePengadilan ? 'laporan-ph.pengadilan.destroy' : 'laporan-ph.lapas.destroy', $r)); ?>" 
+                                      method="POST" 
+                                      class="d-inline"
+                                      onsubmit="return confirm('Yakin ingin menghapus laporan ini?');">
+                                    <?php echo csrf_field(); ?>
+                                    <?php echo method_field('DELETE'); ?>
+                                    <button type="submit" 
+                                            class="btn btn-sm btn-danger d-inline-flex align-items-center gap-1" 
+                                            style="border-radius:8px;font-size:.75rem;padding:6px 12px;font-weight:600;" 
+                                            title="Hapus">
+                                        <i class="fa-solid fa-trash" style="font-size:.7rem;"></i>
+                                        <span class="d-none d-md-inline">Hapus</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
                                 <h6 class="fw-bold text-body mb-1">Belum Ada Laporan</h6>

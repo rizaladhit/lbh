@@ -23,11 +23,6 @@ class LaporanPHController extends Controller
         return $query;
     }
 
-    public function createPengadilan()
-    {
-        return view('reports.ph.pengadilan');
-    }
-
     public function indexPengadilan(Request $request)
     {
         $type = 'pengadilan';
@@ -69,20 +64,54 @@ class LaporanPHController extends Controller
         return view('reports.ph.print', compact('reports', 'type'));
     }
 
+    // ── Pengadilan ────────────────────────────────────────────────────────────
+
+    public function createPengadilan()
+    {
+        return view('reports.ph.pengadilan');
+    }
+
     public function storePengadilan(Request $request)
     {
         $data = $request->validate([
             'no_registrasi_perkara' => 'required|string',
-            'nama' => 'required|string',
-            'terdakwa' => 'nullable|string',
-            'nama_jaksa' => 'nullable|string',
-            'nama_penasehat_hukum' => 'nullable|string',
-            'jenis_perkara' => 'nullable|string',
+            'nama'                  => 'required|string',
+            'terdakwa'              => 'nullable|string',
+            'nama_jaksa'            => 'nullable|string',
+            'nama_penasehat_hukum'  => 'nullable|string',
+            'jenis_perkara'         => 'nullable|string',
         ]);
         $data['type'] = 'pengadilan';
         LaporanPH::create($data);
         return redirect()->route('laporan-ph.pengadilan.create')->with('success', 'Laporan Pengadilan berhasil disimpan.');
     }
+
+    public function editPengadilan(LaporanPH $laporanPH)
+    {
+        return view('reports.ph.pengadilan', ['report' => $laporanPH]);
+    }
+
+    public function updatePengadilan(Request $request, LaporanPH $laporanPH)
+    {
+        $data = $request->validate([
+            'no_registrasi_perkara' => 'required|string',
+            'nama'                  => 'required|string',
+            'terdakwa'              => 'nullable|string',
+            'nama_jaksa'            => 'nullable|string',
+            'nama_penasehat_hukum'  => 'nullable|string',
+            'jenis_perkara'         => 'nullable|string',
+        ]);
+        $laporanPH->update($data);
+        return redirect()->route('laporan-ph.pengadilan.index')->with('success', 'Laporan Pengadilan berhasil diperbarui.');
+    }
+
+    public function destroyPengadilan(LaporanPH $laporanPH)
+    {
+        $laporanPH->delete();
+        return redirect()->route('laporan-ph.pengadilan.index')->with('success', 'Laporan Pengadilan berhasil dihapus.');
+    }
+
+    // ── Lapas ─────────────────────────────────────────────────────────────────
 
     public function createLapas()
     {
@@ -93,16 +122,43 @@ class LaporanPHController extends Controller
     {
         $data = $request->validate([
             'no_registrasi_perkara' => 'required|string',
-            'nama' => 'required|string',
-            'terdakwa' => 'nullable|string',
-            'nama_jaksa' => 'nullable|string',
-            'nama_penasehat_hukum' => 'nullable|string',
-            'jenis_perkara' => 'nullable|string',
+            'nama'                  => 'required|string',
+            'terdakwa'              => 'nullable|string',
+            'nama_jaksa'            => 'nullable|string',
+            'nama_penasehat_hukum'  => 'nullable|string',
+            'jenis_perkara'         => 'nullable|string',
         ]);
         $data['type'] = 'lapas';
         LaporanPH::create($data);
         return redirect()->route('laporan-ph.lapas.create')->with('success', 'Laporan Lapas berhasil disimpan.');
     }
+
+    public function editLapas(LaporanPH $laporanPH)
+    {
+        return view('reports.ph.lapas', ['report' => $laporanPH]);
+    }
+
+    public function updateLapas(Request $request, LaporanPH $laporanPH)
+    {
+        $data = $request->validate([
+            'no_registrasi_perkara' => 'required|string',
+            'nama'                  => 'required|string',
+            'terdakwa'              => 'nullable|string',
+            'nama_jaksa'            => 'nullable|string',
+            'nama_penasehat_hukum'  => 'nullable|string',
+            'jenis_perkara'         => 'nullable|string',
+        ]);
+        $laporanPH->update($data);
+        return redirect()->route('laporan-ph.lapas.index')->with('success', 'Laporan Lapas berhasil diperbarui.');
+    }
+
+    public function destroyLapas(LaporanPH $laporanPH)
+    {
+        $laporanPH->delete();
+        return redirect()->route('laporan-ph.lapas.index')->with('success', 'Laporan Lapas berhasil dihapus.');
+    }
+
+    // ── Lookup ────────────────────────────────────────────────────────────────
 
     public function lookupLitigasi(Request $request)
     {
@@ -120,9 +176,9 @@ class LaporanPHController extends Controller
                 ->get(['no_registrasi', 'nama', 'jenis_perkara'])
                 ->map(fn ($item) => [
                     'no_registrasi' => $item->no_registrasi,
-                    'nama' => $item->nama,
+                    'nama'          => $item->nama,
                     'jenis_perkara' => $item->jenis_perkara,
-                    'label' => "{$item->no_registrasi} - {$item->nama} ({$item->jenis_perkara})",
+                    'label'         => "{$item->no_registrasi} - {$item->nama} ({$item->jenis_perkara})",
                 ]);
         }
 
@@ -135,8 +191,8 @@ class LaporanPHController extends Controller
             return response()->json(null, 404);
         }
         return response()->json([
-            'nama' => $p->nama,
-            'terdakwa' => $p->nama,
+            'nama'          => $p->nama,
+            'terdakwa'      => $p->nama,
             'jenis_perkara' => $p->jenis_perkara,
         ]);
     }
