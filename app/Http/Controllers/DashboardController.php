@@ -68,11 +68,12 @@ class DashboardController extends Controller
 
         if ($isAdmin) {
             $dashboardCards = [
-                ['label' => 'Total Laporan', 'val' => $totalReports, 'icon' => 'fa-solid fa-file-contract', 'g' => 'linear-gradient(135deg,#6366f1,#8b5cf6)', 'sub' => 'Semua laporan kasus'],
-                ['label' => 'Total Pengguna', 'val' => User::count(), 'icon' => 'fa-solid fa-users', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Akun terdaftar'],
-                ['label' => 'Total Advocate', 'val' => Lawyer::count(), 'icon' => 'fa-solid fa-gavel', 'g' => 'linear-gradient(135deg,#ec4899,#db2777)', 'sub' => 'Advocate terdaftar'],
-                ['label' => 'Total Paralegal', 'val' => Paralegal::count(), 'icon' => 'fa-solid fa-user-shield', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Paralegal terdaftar'],
-                ['label' => 'Permohonan', 'val' => $totalPermohonan, 'icon' => 'fa-solid fa-file-lines', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Litigasi + Non-Litigasi'],
+                ['label' => 'Total Laporan', 'val' => $totalReports, 'icon' => 'fa-solid fa-file-contract', 'g' => 'linear-gradient(135deg,#6366f1,#8b5cf6)', 'sub' => 'Semua laporan kasus', 'href' => null],
+                ['label' => 'Total Pengguna', 'val' => User::count(), 'icon' => 'fa-solid fa-users', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Akun terdaftar', 'href' => route('users.index')],
+                ['label' => 'Total Advocate', 'val' => Lawyer::count(), 'icon' => 'fa-solid fa-gavel', 'g' => 'linear-gradient(135deg,#ec4899,#db2777)', 'sub' => 'Advocate terdaftar', 'href' => route('lawyers.index')],
+                ['label' => 'Total Paralegal', 'val' => Paralegal::count(), 'icon' => 'fa-solid fa-user-shield', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Paralegal terdaftar', 'href' => route('paralegals.index')],
+                ['label' => 'Permohonan Litigasi', 'val' => $totalLitigasi, 'icon' => 'fa-solid fa-scale-balanced', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Total permohonan litigasi', 'href' => route('permohonan-litigasi.index')],
+                ['label' => 'Permohonan Non-Litigasi', 'val' => $totalNonLitigasi, 'icon' => 'fa-solid fa-handshake', 'g' => 'linear-gradient(135deg,#f97316,#ea580c)', 'sub' => 'Total permohonan non-litigasi', 'href' => route('permohonan-non-litigasi.index')],
             ];
             $quickLinks[] = ['href' => route('users.create'), 'icon' => 'fa-solid fa-user-plus', 'label' => 'Tambah User', 'bg' => 'rgba(14,165,233,.12)', 'ic' => '#0ea5e9'];
             $quickLinks[] = ['href' => route('lawyers.create'), 'icon' => 'fa-solid fa-person-circle-plus', 'label' => 'Tambah Advocate', 'bg' => 'rgba(236,72,153,.12)', 'ic' => '#ec4899'];
@@ -96,10 +97,10 @@ class DashboardController extends Controller
                 : 0;
 
             $dashboardCards = [
-                ['label' => 'Tugas Ditugaskan', 'val' => $openTasks, 'icon' => 'fa-solid fa-briefcase', 'g' => 'linear-gradient(135deg,#8b5cf6,#6366f1)', 'sub' => 'Kasus aktif milik Anda'],
-                ['label' => 'Litigasi Ditugaskan', 'val' => $assignedLitigasi, 'icon' => 'fa-solid fa-scale-balanced', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Permohonan litigasi'],
-                ['label' => 'Non-Litigasi Ditugaskan', 'val' => $assignedNonLitigasi, 'icon' => 'fa-solid fa-handshake', 'g' => 'linear-gradient(135deg,#f97316,#ea580c)', 'sub' => 'Permohonan non-litigasi'],
-                ['label' => 'Total Permohonan', 'val' => $totalPermohonan, 'icon' => 'fa-solid fa-file-lines', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Semua permohonan terkait'],
+                ['label' => 'Tugas Ditugaskan', 'val' => $openTasks, 'icon' => 'fa-solid fa-briefcase', 'g' => 'linear-gradient(135deg,#8b5cf6,#6366f1)', 'sub' => 'Kasus aktif milik Anda', 'href' => null],
+                ['label' => 'Litigasi Ditugaskan', 'val' => $assignedLitigasi, 'icon' => 'fa-solid fa-scale-balanced', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Permohonan litigasi', 'href' => route('permohonan-litigasi.index')],
+                ['label' => 'Non-Litigasi Ditugaskan', 'val' => $assignedNonLitigasi, 'icon' => 'fa-solid fa-handshake', 'g' => 'linear-gradient(135deg,#f97316,#ea580c)', 'sub' => 'Permohonan non-litigasi', 'href' => route('permohonan-non-litigasi.index')],
+                ['label' => 'Total Permohonan', 'val' => $totalPermohonan, 'icon' => 'fa-solid fa-file-lines', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Semua permohonan terkait', 'href' => null],
             ];
 
             $verifiedTasks = $assignmentId
@@ -122,10 +123,11 @@ class DashboardController extends Controller
                 + PermohonanNonLitigasi::where('user_id', $user->id)->whereIn('status', [PermohonanNonLitigasi::STATUS_REGISTERED, PermohonanNonLitigasi::STATUS_APPROVED, PermohonanNonLitigasi::STATUS_VERIFIED])->count();
 
             $dashboardCards = [
-                ['label' => 'Laporan Anda', 'val' => $totalReports, 'icon' => 'fa-solid fa-file-contract', 'g' => 'linear-gradient(135deg,#6366f1,#8b5cf6)', 'sub' => 'Laporan yang Anda buat'],
-                ['label' => 'Permohonan Anda', 'val' => $totalPermohonan, 'icon' => 'fa-solid fa-file-lines', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Litigasi + Non-Litigasi'],
-                ['label' => 'Menunggu', 'val' => $pendingRequests, 'icon' => 'fa-solid fa-hourglass-half', 'g' => 'linear-gradient(135deg,#f59e0b,#d97706)', 'sub' => 'Permohonan belum selesai'],
-                ['label' => 'Selesai', 'val' => $completedRequests, 'icon' => 'fa-solid fa-circle-check', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Permohonan yang selesai'],
+                ['label' => 'Laporan Anda', 'val' => $totalReports, 'icon' => 'fa-solid fa-file-contract', 'g' => 'linear-gradient(135deg,#6366f1,#8b5cf6)', 'sub' => 'Laporan yang Anda buat', 'href' => null],
+                ['label' => 'Permohonan Litigasi', 'val' => $totalLitigasi, 'icon' => 'fa-solid fa-scale-balanced', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Permohonan litigasi Anda', 'href' => route('permohonan-litigasi.index')],
+                ['label' => 'Permohonan Non-Litigasi', 'val' => $totalNonLitigasi, 'icon' => 'fa-solid fa-handshake', 'g' => 'linear-gradient(135deg,#f97316,#ea580c)', 'sub' => 'Permohonan non-litigasi Anda', 'href' => route('permohonan-non-litigasi.index')],
+                ['label' => 'Menunggu', 'val' => $pendingRequests, 'icon' => 'fa-solid fa-hourglass-half', 'g' => 'linear-gradient(135deg,#f59e0b,#d97706)', 'sub' => 'Permohonan belum selesai', 'href' => null],
+                ['label' => 'Selesai', 'val' => $completedRequests, 'icon' => 'fa-solid fa-circle-check', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Permohonan yang selesai', 'href' => null],
             ];
         }
 
