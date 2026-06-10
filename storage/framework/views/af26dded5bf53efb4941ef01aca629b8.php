@@ -38,6 +38,16 @@
         .dash-card-val { font-size: 2.4rem; font-weight: 800; line-height: 1; }
         .dash-card-label { font-size: .78rem; font-weight: 600; opacity: .9; margin-top: 4px; }
         .dash-card-sub { font-size: .7rem; opacity: .7; margin-top: 2px; }
+        a.dash-card { text-decoration: none; cursor: pointer; display: block; }
+        a.dash-card .dash-card-arrow {
+            position: absolute; top: 16px; right: 16px;
+            width: 28px; height: 28px; border-radius: 8px;
+            background: rgba(255,255,255,.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: .7rem; opacity: 0;
+            transition: opacity .2s;
+        }
+        a.dash-card:hover .dash-card-arrow { opacity: 1; }
 
         .panel { border-radius: 16px; border: none; box-shadow: 0 4px 24px rgba(0,0,0,.07); overflow: hidden; }
         [data-bs-theme="dark"] .panel { background: #1a2035; }
@@ -106,12 +116,22 @@
     <div class="row g-4 mb-4">
         <?php $__currentLoopData = $cards; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="col-12 col-sm-6 col-xl-3">
+            <?php if(!empty($c['href'])): ?>
+            <a href="<?php echo e($c['href']); ?>" class="dash-card" style="background: <?php echo e($c['g']); ?>;">
+                <div class="dash-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="dash-card-icon"><i class="<?php echo e($c['icon']); ?> text-white"></i></div>
+                <div class="dash-card-val"><?php echo e($c['val']); ?></div>
+                <div class="dash-card-label"><?php echo e($c['label']); ?></div>
+                <div class="dash-card-sub"><?php echo e($c['sub']); ?></div>
+            </a>
+            <?php else: ?>
             <div class="dash-card" style="background: <?php echo e($c['g']); ?>;">
                 <div class="dash-card-icon"><i class="<?php echo e($c['icon']); ?> text-white"></i></div>
                 <div class="dash-card-val"><?php echo e($c['val']); ?></div>
                 <div class="dash-card-label"><?php echo e($c['label']); ?></div>
                 <div class="dash-card-sub"><?php echo e($c['sub']); ?></div>
             </div>
+            <?php endif; ?>
         </div>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
@@ -161,7 +181,7 @@
 
     <div class="row g-4">
         
-        <div class="col-lg-5">
+        <div class="<?php echo e($isAdmin ? 'col-lg-5' : 'col-lg-12'); ?>">
             <div class="panel h-100">
                 <div class="panel-head">
                     <div class="panel-head-icon" style="background:rgba(99,102,241,.1);">
@@ -196,6 +216,7 @@
         </div>
 
         
+        <?php if($isAdmin): ?>
         <div class="col-lg-7">
             <div class="panel h-100">
                 <div class="panel-head">
@@ -245,6 +266,7 @@
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
