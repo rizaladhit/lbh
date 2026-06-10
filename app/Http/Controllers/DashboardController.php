@@ -68,7 +68,6 @@ class DashboardController extends Controller
 
         if ($isAdmin) {
             $dashboardCards = [
-                ['label' => 'Total Laporan', 'val' => $totalReports, 'icon' => 'fa-solid fa-file-contract', 'g' => 'linear-gradient(135deg,#6366f1,#8b5cf6)', 'sub' => 'Semua laporan kasus', 'href' => null],
                 ['label' => 'Total Pengguna', 'val' => User::count(), 'icon' => 'fa-solid fa-users', 'g' => 'linear-gradient(135deg,#0ea5e9,#0284c7)', 'sub' => 'Akun terdaftar', 'href' => route('users.index')],
                 ['label' => 'Total Advocate', 'val' => Lawyer::count(), 'icon' => 'fa-solid fa-gavel', 'g' => 'linear-gradient(135deg,#ec4899,#db2777)', 'sub' => 'Advocate terdaftar', 'href' => route('lawyers.index')],
                 ['label' => 'Total Paralegal', 'val' => Paralegal::count(), 'icon' => 'fa-solid fa-user-shield', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Paralegal terdaftar', 'href' => route('paralegals.index')],
@@ -123,7 +122,6 @@ class DashboardController extends Controller
                 + PermohonanNonLitigasi::where('user_id', $user->id)->whereIn('status', [PermohonanNonLitigasi::STATUS_REGISTERED, PermohonanNonLitigasi::STATUS_APPROVED, PermohonanNonLitigasi::STATUS_VERIFIED])->count();
 
             $dashboardCards = [
-                ['label' => 'Laporan Anda', 'val' => $totalReports, 'icon' => 'fa-solid fa-file-contract', 'g' => 'linear-gradient(135deg,#6366f1,#8b5cf6)', 'sub' => 'Laporan yang Anda buat', 'href' => null],
                 ['label' => 'Permohonan Litigasi', 'val' => $totalLitigasi, 'icon' => 'fa-solid fa-scale-balanced', 'g' => 'linear-gradient(135deg,#10b981,#059669)', 'sub' => 'Permohonan litigasi Anda', 'href' => route('permohonan-litigasi.index')],
                 ['label' => 'Permohonan Non-Litigasi', 'val' => $totalNonLitigasi, 'icon' => 'fa-solid fa-handshake', 'g' => 'linear-gradient(135deg,#f97316,#ea580c)', 'sub' => 'Permohonan non-litigasi Anda', 'href' => route('permohonan-non-litigasi.index')],
                 ['label' => 'Menunggu', 'val' => $pendingRequests, 'icon' => 'fa-solid fa-hourglass-half', 'g' => 'linear-gradient(135deg,#f59e0b,#d97706)', 'sub' => 'Permohonan belum selesai', 'href' => null],

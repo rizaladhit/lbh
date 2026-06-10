@@ -106,7 +106,7 @@
     {{-- Stat Cards --}}
     <div class="row g-4 mb-4">
         @foreach($cards as $c)
-        <div class="col-12 col-sm-6 col-xl-3">
+        <div class="col-12 col-sm-6 col-xl">
             @if(!empty($c['href']))
             <a href="{{ $c['href'] }}" class="dash-card" style="background: {{ $c['g'] }};">
                 <div class="dash-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -130,7 +130,7 @@
     {{-- Quick Links --}}
     <div class="row g-3 mb-4">
         @foreach($quickLinks as $l)
-        <div class="col-6 col-md-3">
+        <div class="col">
             <a href="{{ $l['href'] }}" class="quick-link">
                 <div class="quick-link-icon" style="background:{{ $l['bg'] }};">
                     <i class="{{ $l['icon'] }}" style="color:{{ $l['ic'] }};"></i>

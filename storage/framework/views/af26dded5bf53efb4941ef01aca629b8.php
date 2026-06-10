@@ -115,7 +115,7 @@
     
     <div class="row g-4 mb-4">
         <?php $__currentLoopData = $cards; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="col-12 col-sm-6 col-xl-3">
+        <div class="col-12 col-sm-6 col-xl">
             <?php if(!empty($c['href'])): ?>
             <a href="<?php echo e($c['href']); ?>" class="dash-card" style="background: <?php echo e($c['g']); ?>;">
                 <div class="dash-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -139,7 +139,7 @@
     
     <div class="row g-3 mb-4">
         <?php $__currentLoopData = $quickLinks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $l): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="col-6 col-md-3">
+        <div class="col">
             <a href="<?php echo e($l['href']); ?>" class="quick-link">
                 <div class="quick-link-icon" style="background:<?php echo e($l['bg']); ?>;">
                     <i class="<?php echo e($l['icon']); ?>" style="color:<?php echo e($l['ic']); ?>;"></i>
