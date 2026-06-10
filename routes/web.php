@@ -60,12 +60,19 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('laporan-ph/pengadilan/print', [LaporanPHController::class, 'printPengadilan'])->name('laporan-ph.pengadilan.print');
     Route::get('laporan-ph/pengadilan/create', [LaporanPHController::class, 'createPengadilan'])->name('laporan-ph.pengadilan.create');
     Route::post('laporan-ph/pengadilan', [LaporanPHController::class, 'storePengadilan'])->name('laporan-ph.pengadilan.store');
+    Route::get('laporan-ph/pengadilan/{laporanPH}/edit', [LaporanPHController::class, 'editPengadilan'])->name('laporan-ph.pengadilan.edit');
+    Route::put('laporan-ph/pengadilan/{laporanPH}', [LaporanPHController::class, 'updatePengadilan'])->name('laporan-ph.pengadilan.update');
+    Route::delete('laporan-ph/pengadilan/{laporanPH}', [LaporanPHController::class, 'destroyPengadilan'])->name('laporan-ph.pengadilan.destroy');
     Route::get('laporan-ph/lapas', [LaporanPHController::class, 'indexLapas'])->name('laporan-ph.lapas.index');
     Route::get('laporan-ph/lapas/print', [LaporanPHController::class, 'printLapas'])->name('laporan-ph.lapas.print');
     Route::get('laporan-ph/lapas/create', [LaporanPHController::class, 'createLapas'])->name('laporan-ph.lapas.create');
     Route::post('laporan-ph/lapas', [LaporanPHController::class, 'storeLapas'])->name('laporan-ph.lapas.store');
+    Route::get('laporan-ph/lapas/{laporanPH}/edit', [LaporanPHController::class, 'editLapas'])->name('laporan-ph.lapas.edit');
+    Route::put('laporan-ph/lapas/{laporanPH}', [LaporanPHController::class, 'updateLapas'])->name('laporan-ph.lapas.update');
+    Route::delete('laporan-ph/lapas/{laporanPH}', [LaporanPHController::class, 'destroyLapas'])->name('laporan-ph.lapas.destroy');
     // Lookup litigasi by registration number (for autofill)
     Route::get('laporan-ph/lookup-litigasi', [LaporanPHController::class, 'lookupLitigasi'])->name('litigasi.lookup');
+
 });
 
 use App\Http\Controllers\ReportController;
