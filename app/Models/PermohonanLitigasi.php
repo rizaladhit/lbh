@@ -96,7 +96,7 @@ class PermohonanLitigasi extends Model
 
     public function canBeAssigned(): bool
     {
-        return $this->status === self::STATUS_VERIFIED;
+        return $this->status === self::STATUS_VERIFIED || $this->status === self::STATUS_ASSIGNED;
     }
 
     public function canBeCompleted(): bool
