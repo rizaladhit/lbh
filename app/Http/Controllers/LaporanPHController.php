@@ -58,7 +58,7 @@ class LaporanPHController extends Controller
     private function printByType(Request $request, string $type)
     {
         $reports = $this->filteredReportsQuery($request, $type)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('no_registrasi_perkara', 'asc')
             ->get();
 
         return view('reports.ph.print', compact('reports', 'type'));
