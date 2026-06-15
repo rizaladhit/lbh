@@ -111,7 +111,8 @@
 
         {{-- Header --}}
         <div class="text-center mb-4">
-            <p class="mb-1" style="font-size: 12pt;">LEMBAGA BANTUAN HUKUM UNSUB</p>
+            <h4 class="fw-bold text-uppercase mb-2" style="font-size: 15pt;">LEMBAGA BANTUAN HUKUM
+                UNSUB</h4>
             <h4 class="fw-bold text-uppercase mb-2"
                 style="text-decoration: underline; text-underline-offset: 5px; font-size: 15pt;">
                 Formulir Permohonan Bantuan Layanan Litigasi
