@@ -79,23 +79,27 @@ class PermohonanLitigasi extends Model
     /**
      * Status Workflow Methods
      */
+    public function canBeVerified(): bool
+    {
+        //return $this->status === self::STATUS_REGISTERED;
+        return $this->status === self::STATUS_APPROVED;
+    }
+
     public function canBeApproved(): bool
     {
+        //return $this->status === self::STATUS_VERIFIED;
         return $this->status === self::STATUS_REGISTERED;
     }
 
     public function canBeRejected(): bool
     {
+        //return $this->status === self::STATUS_VERIFIED;
         return $this->status === self::STATUS_REGISTERED;
-    }
-
-    public function canBeVerified(): bool
-    {
-        return $this->status === self::STATUS_APPROVED;
     }
 
     public function canBeAssigned(): bool
     {
+        //return $this->status === self::STATUS_APPROVED || $this->status === self::STATUS_ASSIGNED;
         return $this->status === self::STATUS_VERIFIED || $this->status === self::STATUS_ASSIGNED;
     }
 
