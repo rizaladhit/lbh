@@ -88,6 +88,11 @@ class PermohonanNonLitigasi extends Model
         return $this->status === self::STATUS_APPROVED;
     }
 
+    public function canBeAssigned()
+    {
+        return $this->status === self::STATUS_VERIFIED || $this->status === self::STATUS_ASSIGNED;
+    }
+
     public function approve($notes)
     {
         if ($this->canBeApproved()) {
@@ -117,11 +122,6 @@ class PermohonanNonLitigasi extends Model
                 'verification_notes' => $notes,
             ]);
         }
-    }
-
-    public function canBeAssigned()
-    {
-        return $this->status === self::STATUS_VERIFIED || $this->status === self::STATUS_ASSIGNED;
     }
 
     public function assign($lawyerId, $paralegalId)
