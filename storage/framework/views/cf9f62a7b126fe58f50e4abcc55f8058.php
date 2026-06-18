@@ -1,5 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">Detail Laporan Negosiasi</x-slot>
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Detail Laporan Negosiasi <?php $__env->endSlot(); ?>
 
     <style>
         /* ── Screen only: hide print-view ─────────────────────────── */
@@ -118,9 +127,9 @@
         .form-preview-label { width: 220px; flex-shrink: 0; }
     </style>
 
-    {{-- ================================================================ --}}
-    {{-- SCREEN VIEW                                                        --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="d-print-none row justify-content-center">
         <div class="col-lg-10">
             <div class="card shadow-md border-0 mb-4 p-4 p-md-5">
@@ -134,41 +143,42 @@
                 <div class="card-body p-0" style="font-size:0.95rem;">
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">OBH</div>
-                        <div>: {{ $negosiasiReport->obh }}</div>
+                        <div>: <?php echo e($negosiasiReport->obh); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">ALAMAT</div>
-                        <div>: {{ $negosiasiReport->alamat }}</div>
+                        <div>: <?php echo e($negosiasiReport->alamat); ?></div>
                     </div>
                     <div class="d-flex mb-4">
                         <div class="fw-bold form-preview-label">PROVINSI</div>
-                        <div>: {{ $negosiasiReport->provinsi }}</div>
+                        <div>: <?php echo e($negosiasiReport->provinsi); ?></div>
                     </div>
 
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">KEGIATAN</div>
-                        <div class="text-uppercase">: {{ $negosiasiReport->kegiatan }}</div>
+                        <div class="text-uppercase">: <?php echo e($negosiasiReport->kegiatan); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">TGL PELAKSANAAN KEGIATAN</div>
-                        <div>: {{ $negosiasiReport->tgl_pelaksanaan->format('d M Y') }}</div>
+                        <div>: <?php echo e($negosiasiReport->tgl_pelaksanaan->format('d M Y')); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">KASUS</div>
-                        <div>: {{ $negosiasiReport->kasus }}</div>
+                        <div>: <?php echo e($negosiasiReport->kasus); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">PENERIMA BANTUAN HUKUM</div>
-                        <div class="w-100">: {{ $negosiasiReport->penerima_bantuan }}
-                            <span class="float-end pe-5"><strong>L/P:</strong> {{ $negosiasiReport->jk_penerima }}</span>
+                        <div class="w-100">: <?php echo e($negosiasiReport->penerima_bantuan); ?>
+
+                            <span class="float-end pe-5"><strong>L/P:</strong> <?php echo e($negosiasiReport->jk_penerima); ?></span>
                         </div>
                     </div>
                     <div class="d-flex mb-4">
                         <div class="fw-bold form-preview-label">NAMA NEGOSIATOR</div>
-                        <div>: {{ $negosiasiReport->nama_negosiator }}</div>
+                        <div>: <?php echo e($negosiasiReport->nama_negosiator); ?></div>
                     </div>
 
-                    @php
+                    <?php
                         $berkas_list = [
                             '1' => 'Formulir permohonan bantuan hukum',
                             '2' => 'SKTM Asli/ Legalisir Kartu JAMKESMAS/Kartu GAKIN/BLSM, dll.',
@@ -181,7 +191,7 @@
                         $get_check = function($idx, $field) use ($checklist) {
                             return isset($checklist[$idx][$field]) && $checklist[$idx][$field] ? 'v' : '&nbsp;';
                         };
-                    @endphp
+                    ?>
 
                     <table class="table table-bordered border-secondary align-middle mb-4">
                         <thead>
@@ -194,15 +204,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($berkas_list as $idx => $label)
+                            <?php $__currentLoopData = $berkas_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td class="text-center fw-bold">{{ $idx }}.</td>
-                                <td class="fw-medium">{{ $label }}</td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($idx, 'obh') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($idx, 'kanwil') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($idx, 'bphn') !!}</span></td>
+                                <td class="text-center fw-bold"><?php echo e($idx); ?>.</td>
+                                <td class="fw-medium"><?php echo e($label); ?></td>
+                                <td class="text-center"><span class="checklist-square"><?php echo $get_check($idx, 'obh'); ?></span></td>
+                                <td class="text-center"><span class="checklist-square"><?php echo $get_check($idx, 'kanwil'); ?></span></td>
+                                <td class="text-center"><span class="checklist-square"><?php echo $get_check($idx, 'bphn'); ?></span></td>
                             </tr>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
 
@@ -219,7 +229,7 @@
             </div>
 
             <div class="d-flex justify-content-end gap-2 mb-4">
-                <a href="{{ route('negosiasi-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="<?php echo e(route('negosiasi-reports.index')); ?>" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
                 </button>
@@ -227,35 +237,35 @@
         </div>
     </div>
 
-    {{-- ================================================================ --}}
-    {{-- PRINT VIEW — tampilan dokumen                                      --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="print-view">
 
         <div class="pv-title">Check List Berkas Laporan Negosiasi</div>
 
-        {{-- Grup 1: OBH, ALAMAT, PROVINSI --}}
+        
         <div class="pv-group pv-g1">
             <div class="pv-row">
                 <span class="pv-label">OBH</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $negosiasiReport->obh }}</span>
+                <span class="pv-val"><?php echo e($negosiasiReport->obh); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">ALAMAT</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $negosiasiReport->alamat }}</span>
+                <span class="pv-val"><?php echo e($negosiasiReport->alamat); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">PROVINSI</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $negosiasiReport->provinsi }}</span>
+                <span class="pv-val"><?php echo e($negosiasiReport->provinsi); ?></span>
             </div>
         </div>
 
         <div class="pv-gap"></div>
 
-        {{-- Grup 2: KEGIATAN, TGL, KASUS, PENERIMA, NAMA NEGOSIATOR --}}
+        
         <div class="pv-group pv-g2">
             <div class="pv-row">
                 <span class="pv-label">KEGIATAN</span>
@@ -265,29 +275,31 @@
             <div class="pv-row">
                 <span class="pv-label">TGL PELAKSANAAN KEGIATAN</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $negosiasiReport->tgl_pelaksanaan->format('d M Y') }}</span>
+                <span class="pv-val"><?php echo e($negosiasiReport->tgl_pelaksanaan->format('d M Y')); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">KASUS</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $negosiasiReport->kasus }}</span>
+                <span class="pv-val"><?php echo e($negosiasiReport->kasus); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">PENERIMA BANTUAN HUKUM</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $negosiasiReport->penerima_bantuan }}
-                    &nbsp;&nbsp;&nbsp; <strong>L/P:</strong> {{ $negosiasiReport->jk_penerima }}
+                <span class="pv-val"><?php echo e($negosiasiReport->penerima_bantuan); ?>
+
+                    &nbsp;&nbsp;&nbsp; <strong>L/P:</strong> <?php echo e($negosiasiReport->jk_penerima); ?>
+
                 </span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">NAMA NEGOSIATOR</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $negosiasiReport->nama_negosiator }}</span>
+                <span class="pv-val"><?php echo e($negosiasiReport->nama_negosiator); ?></span>
             </div>
         </div>
 
-        {{-- Tabel Checklist --}}
-        @php
+        
+        <?php
             $pv_berkas = [
                 '1' => 'Formulir permohonan bantuan hukum',
                 '2' => 'SKTM Asli/ Legalisir Kartu JAMKESMAS/Kartu GAKIN/BLSM, dll.',
@@ -300,7 +312,7 @@
             $pv_chk = function($idx, $field) use ($pv_checklist) {
                 return !empty($pv_checklist[$idx][$field]) ? 'v' : '';
             };
-        @endphp
+        ?>
 
         <table class="pv-table">
             <thead>
@@ -313,19 +325,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($pv_berkas as $idx => $label)
+                <?php $__currentLoopData = $pv_berkas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td class="no-col">{{ $idx }}.</td>
-                    <td>{{ $label }}</td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($idx, 'obh') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($idx, 'kanwil') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($idx, 'bphn') }}</span></td>
+                    <td class="no-col"><?php echo e($idx); ?>.</td>
+                    <td><?php echo e($label); ?></td>
+                    <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($idx, 'obh')); ?></span></td>
+                    <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($idx, 'kanwil')); ?></span></td>
+                    <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($idx, 'bphn')); ?></span></td>
                 </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
         </table>
 
-        {{-- KETERANGAN --}}
+        
         <div class="pv-keterangan">
             <div class="pv-ket-title">KETERANGAN :</div>
             - Jika <strong>ada</strong> beri tanda (&#10003;), <strong>tidak ada</strong> biarkan kosong.<br>
@@ -338,4 +350,14 @@
 
     </div>
 
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/negosiasi_reports/show.blade.php ENDPATH**/ ?>

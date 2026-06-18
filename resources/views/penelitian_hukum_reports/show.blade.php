@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">Detail Laporan Drafting Dokumen Hukum</x-slot>
+    <x-slot name="header">Detail Laporan Penelitian Hukum</x-slot>
 
     <style>
         /* ── Screen only: hide print-view ─────────────────────────── */
@@ -108,59 +108,60 @@
 
                 <div class="card-header bg-transparent border-0 mb-4 pb-0 text-center">
                     <h5 class="fw-bold text-uppercase d-inline-block text-decoration-underline" style="text-underline-offset:4px;">
-                        CHECK LIST BERKAS LAPORAN DRAFTING DOKUMEN HUKUM
+                        CHECK LIST BERKAS LAPORAN PENELITIAN HUKUM
                     </h5>
                 </div>
 
                 <div class="card-body p-0" style="font-size:0.95rem;">
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">OBH</div>
-                        <div>: {{ $draftingReport->obh }}</div>
+                        <div>: {{ $penelitianHukumReport->obh }}</div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">ALAMAT</div>
-                        <div>: {{ $draftingReport->alamat }}</div>
+                        <div>: {{ $penelitianHukumReport->alamat }}</div>
                     </div>
                     <div class="d-flex mb-4">
                         <div class="fw-bold form-preview-label">PROVINSI</div>
-                        <div>: {{ $draftingReport->provinsi }}</div>
+                        <div>: {{ $penelitianHukumReport->provinsi }}</div>
                     </div>
 
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">KEGIATAN</div>
-                        <div class="text-uppercase">: {{ $draftingReport->kegiatan }}</div>
+                        <div class="text-uppercase">: {{ $penelitianHukumReport->kegiatan }}</div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">TGL PELAKSANAAN KEGIATAN</div>
-                        <div>: {{ $draftingReport->tgl_pelaksanaan->format('d M Y') }}</div>
-                    </div>
-                    <div class="d-flex mb-1">
-                        <div class="fw-bold form-preview-label">KASUS</div>
-                        <div>: {{ $draftingReport->kasus }}</div>
-                    </div>
-                    <div class="d-flex mb-1">
-                        <div class="fw-bold form-preview-label">PENERIMA BANTUAN HUKUM</div>
-                        <div class="w-100">: {{ $draftingReport->penerima_bantuan }}
-                            <span class="float-end pe-5"><strong>L/P:</strong> {{ $draftingReport->jk_penerima }}</span>
-                        </div>
+                        <div>: {{ $penelitianHukumReport->tgl_pelaksanaan?->format('d M Y') ?? '-' }}</div>
                     </div>
                     <div class="d-flex mb-4">
-                        <div class="fw-bold form-preview-label">NAMA DRAFTER</div>
-                        <div>: {{ $draftingReport->nama_drafter }}</div>
+                        <div class="fw-bold form-preview-label">JUDUL PENELITIAN</div>
+                        <div>: {{ $penelitianHukumReport->judul_penelitian }}</div>
                     </div>
 
                     @php
-                        $d = $draftingReport->checklist_data ?? [];
-                        $berkas_list = [
-                            '1' => 'Formulir permohonan bantuan hukum',
-                            '2' => 'SKTM Asli/ Legalisir Kartu JAMKESMAS/Kartu GAKIN/BLSM, dll.',
-                            '3' => 'Dokumen hasil drafting (ditandatangani para pihak)',
-                            '4' => 'Laporan pelaksanaan drafting dokumen hukum',
-                            '5' => 'Kuitansi:',
+                        $items = [
+                            'item1' => 'SK Panitia Penelitian',
+                            'item2' => 'Proposal Penelitian Hukum',
+                            'item3' => 'Pembuatan Instrumen',
+                            'item4' => 'Penelitian Lapangan',
+                            'item5' => 'Pengolahan Data',
+                            'item6' => 'Laporan Sementara',
+                            'item7' => 'Pertemuan ilmiah/FGD',
+                            'item8' => 'Laporan Akhir hasil penelitian hukum',
+                            'item9' => 'Kuitansi:',
                         ];
-                        $get_check = function($arr, $idx, $col) {
-                            return isset($arr[$idx][$col]) && $arr[$idx][$col] == '1' ? 'v' : '&nbsp;';
-                        };
+                        $item9_sub = [
+                            'item9_1' => 'Pembuatan Proposal',
+                            'item9_2' => 'Pembuatan Instrumen',
+                            'item9_3' => 'Penelitian Lapangan',
+                            'item9_4' => 'Tabulasi/Pengolahan Data',
+                            'item9_5' => 'Pembuatan Laporan Sementara',
+                            'item9_6' => 'Pertemuan ilmiah/FGD',
+                            'item9_7' => 'Penggandaan dan Penjilidan akhir',
+                        ];
+                        $cl = $penelitianHukumReport->checklist_data ?? [];
+                        $chk = function($k, $f) use ($cl) { return !empty($cl[$k][$f]) ? 'v' : '&nbsp;'; };
                     @endphp
 
                     <table class="table table-bordered border-secondary align-middle mb-4">
@@ -174,33 +175,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($berkas_list as $idx => $label)
+                            @foreach($items as $key => $label)
                             <tr>
-                                <td class="text-center fw-bold">{{ $idx }}.</td>
+                                <td class="text-center fw-bold">{{ substr($key,4) }}.</td>
                                 <td class="fw-medium">{{ $label }}</td>
-                                @if($idx != 5)
-                                    <td class="text-center"><span class="checklist-square">{!! $get_check($d, $idx, 'obh') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $get_check($d, $idx, 'kanwil') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $get_check($d, $idx, 'bphn') !!}</span></td>
+                                @if($key !== 'item9')
+                                    <td class="text-center"><span class="checklist-square">{!! $chk($key,'obh') !!}</span></td>
+                                    <td class="text-center"><span class="checklist-square">{!! $chk($key,'kanwil') !!}</span></td>
+                                    <td class="text-center"><span class="checklist-square">{!! $chk($key,'bphn') !!}</span></td>
                                 @else
                                     <td></td><td></td><td></td>
                                 @endif
                             </tr>
-                            @if($idx == 5)
-                            <tr>
-                                <td></td>
-                                <td class="ps-4 text-muted">- Biaya Drafter (diberi stempel OBH)</td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_1', 'obh') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_1', 'kanwil') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_1', 'bphn') !!}</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td class="ps-4 text-muted">- Biaya penggandaan dan penjilidan laporan akhir</td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_2', 'obh') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_2', 'kanwil') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_2', 'bphn') !!}</span></td>
-                            </tr>
+                            @if($key === 'item9')
+                                @foreach($item9_sub as $sk => $sl)
+                                <tr>
+                                    <td></td>
+                                    <td class="ps-4 text-muted">- {{ $sl }}</td>
+                                    <td class="text-center"><span class="checklist-square">{!! $chk($sk,'obh') !!}</span></td>
+                                    <td class="text-center"><span class="checklist-square">{!! $chk($sk,'kanwil') !!}</span></td>
+                                    <td class="text-center"><span class="checklist-square">{!! $chk($sk,'bphn') !!}</span></td>
+                                </tr>
+                                @endforeach
                             @endif
                             @endforeach
                         </tbody>
@@ -211,17 +207,18 @@
                         - Jika <strong>ada</strong> beri tanda (&check;), <strong>tidak ada</strong> biarkan kosong.<br>
                         - Form ini harus dilampirkan diatas dokumen.<br>
                         - Berkas harus disusun berdasarkan urutan nomor.<br>
-                        - Drafting Dokumen Hukum diajukan per-paket 1 kasus.<br>
-                        - Berkas harus ASLI dan di fotocopy.<br>
-                        - Pemegang Kartu BPJS tidak diperkenankan.<br>
-                        - Form Pelaksanaan bisa dilihat di Buku Panduan.<br>
+                        - Proposal Penelitian diajukan anggota panitia kepada Pemberi Bantuan Hukum.<br>
+                        - Berkas harus ASLI dan difotokopi.<br>
+                        - Form Sistematika Proposal Penelitian dan Form Sistematika Laporan Akhir Penelitian Hukum bisa dilihat di Buku Panduan Implementasi Undang-Undang Nomor 16 Tahun 2011 Tentang Bantuan Hukum.<br>
+                        - Kuitansi Pembuatan Proposal, Pembuatan Instrumen, Tabulasi/Pengolahan data, dan Pembuatan Laporan Sementara diberi stempel OBH (&gt;Rp. 250rb diberi materai 3000).<br>
+                        - Kuitansi Penelitian lapangan sementara dan Pertemuan Ilmiah /FGD harus melampirkan bukti pengeluaran. Kuitansi harus dibubuhi stempel usaha ybs. dan melampirkan bon berkop dari usaha ybs. (&ge; 1jt diberi materai 6000).<br>
                         - Kuitansi biaya penggandaan harus dibubuhi stempel usaha fotokopi ybs. dan melampirkan bon berkop dari usaha ybs.
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-end gap-2 mb-4">
-                <a href="{{ route('drafting-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="{{ route('penelitian-hukum-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
                 </button>
@@ -241,17 +238,17 @@
             <div class="pv-row">
                 <span class="pv-label">OBH</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->obh }}</span>
+                <span class="pv-val">{{ $penelitianHukumReport->obh }}</span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">ALAMAT</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->alamat }}</span>
+                <span class="pv-val">{{ $penelitianHukumReport->alamat }}</span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">PROVINSI</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->provinsi }}</span>
+                <span class="pv-val">{{ $penelitianHukumReport->provinsi }}</span>
             </div>
         </div>
 
@@ -262,46 +259,44 @@
             <div class="pv-row">
                 <span class="pv-label">KEGIATAN</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val-fixed">DRAFTING DOKUMEN HUKUM</span>
+                <span class="pv-val-fixed">PENELITIAN HUKUM</span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">TGL PELAKSANAAN KEGIATAN</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->tgl_pelaksanaan->format('d M Y') }}</span>
+                <span class="pv-val">{{ $penelitianHukumReport->tgl_pelaksanaan?->format('d M Y') }}</span>
             </div>
             <div class="pv-row">
-                <span class="pv-label">KASUS</span>
+                <span class="pv-label">JUDUL PENELITIAN</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->kasus }}</span>
-            </div>
-            <div class="pv-row">
-                <span class="pv-label">PENERIMA BANTUAN HUKUM</span>
-                <span class="pv-sep">:</span>
-                <span class="pv-val" style="display:flex;justify-content:space-between;">
-                    <span>{{ $draftingReport->penerima_bantuan }}</span>
-                    <strong>L/P : {{ $draftingReport->jk_penerima }}</strong>
-                </span>
-            </div>
-            <div class="pv-row">
-                <span class="pv-label">NAMA DRAFTER</span>
-                <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->nama_drafter }}</span>
+                <span class="pv-val">{{ $penelitianHukumReport->judul_penelitian }}</span>
             </div>
         </div>
 
         {{-- Tabel Checklist --}}
         @php
-            $pv_d = $draftingReport->checklist_data ?? [];
-            $pv_berkas = [
-                '1' => 'Formulir permohonan bantuan hukum',
-                '2' => 'SKTM Asli/ Legalisir Kartu JAMKESMAS/Kartu GAKIN/BLSM, dll.',
-                '3' => 'Dokumen hasil drafting (ditandatangani para pihak)',
-                '4' => 'Laporan pelaksanaan drafting dokumen hukum',
-                '5' => 'Kuitansi:',
+            $pv_items = [
+                'item1' => 'SK Panitia Penelitian',
+                'item2' => 'Proposal Penelitian Hukum',
+                'item3' => 'Pembuatan Instrumen',
+                'item4' => 'Penelitian Lapangan',
+                'item5' => 'Pengolahan Data',
+                'item6' => 'Laporan Sementara',
+                'item7' => 'Pertemuan ilmiah/FGD',
+                'item8' => 'Laporan Akhir hasil penelitian hukum',
+                'item9' => 'Kuitansi:',
             ];
-            $pv_chk = function($arr, $idx, $col) {
-                return isset($arr[$idx][$col]) && $arr[$idx][$col] == '1' ? 'v' : '';
-            };
+            $pv_item9_sub = [
+                'item9_1' => 'Pembuatan Proposal',
+                'item9_2' => 'Pembuatan Instrumen',
+                'item9_3' => 'Penelitian Lapangan',
+                'item9_4' => 'Tabulasi/Pengolahan Data',
+                'item9_5' => 'Pembuatan Laporan Sementara',
+                'item9_6' => 'Pertemuan ilmiah/FGD',
+                'item9_7' => 'Penggandaan dan Penjilidan akhir',
+            ];
+            $pv_cl = $penelitianHukumReport->checklist_data ?? [];
+            $pv_chk = function($k, $f) use ($pv_cl) { return !empty($pv_cl[$k][$f]) ? 'v' : ''; };
         @endphp
 
         <table class="pv-table">
@@ -315,33 +310,28 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($pv_berkas as $idx => $label)
+                @foreach($pv_items as $key => $label)
                 <tr>
-                    <td class="no-col">{{ $idx }}.</td>
+                    <td class="no-col">{{ substr($key,4) }}.</td>
                     <td>{{ $label }}</td>
-                    @if($idx != 5)
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, $idx, 'obh') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, $idx, 'kanwil') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, $idx, 'bphn') }}</span></td>
+                    @if($key !== 'item9')
+                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'obh') }}</span></td>
+                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'kanwil') }}</span></td>
+                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'bphn') }}</span></td>
                     @else
                         <td></td><td></td><td></td>
                     @endif
                 </tr>
-                @if($idx == 5)
-                <tr>
-                    <td></td>
-                    <td style="padding-left:20px;">- Biaya Drafter (diberi stempel OBH)</td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_1', 'obh') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_1', 'kanwil') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_1', 'bphn') }}</span></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td style="padding-left:20px;">- Biaya penggandaan dan penjilidan laporan akhir</td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_2', 'obh') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_2', 'kanwil') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_2', 'bphn') }}</span></td>
-                </tr>
+                @if($key === 'item9')
+                    @foreach($pv_item9_sub as $sk => $sl)
+                    <tr>
+                        <td></td>
+                        <td style="padding-left:20px;">- {{ $sl }}</td>
+                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($sk,'obh') }}</span></td>
+                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($sk,'kanwil') }}</span></td>
+                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($sk,'bphn') }}</span></td>
+                    </tr>
+                    @endforeach
                 @endif
                 @endforeach
             </tbody>
@@ -350,13 +340,14 @@
         {{-- KETERANGAN --}}
         <div class="pv-keterangan">
             <div class="pv-ket-title">KETERANGAN :</div>
-            - Jika <strong>ada</strong> beri tanda (&#10003;), <strong>tidak ada</strong> biarkan kosong.<br>
+            - Jika <strong>ada</strong> beri tanda (&#10003;), <strong>tidak ada</strong> beri tanda (&#10007;).<br>
             - Form ini harus dilampirkan diatas dokumen.<br>
             - Berkas harus disusun berdasarkan urutan nomor.<br>
-            - Drafting Dokumen Hukum diajukan per-paket 1 kasus.<br>
-            - Berkas harus ASLI dan di fotocopy.<br>
-            - Pemegang Kartu BPJS tidak diperkenankan.<br>
-            - Form Pelaksanaan bisa dilihat di Buku Panduan.<br>
+            - Proposal Penelitian diajukan anggota panitia kepada Pemberi Bantuan Hukum.<br>
+            - Berkas harus ASLI dan difotokopi.<br>
+            - Form Sistematika Proposal Penelitian dan Form Sistematika Laporan Akhir Penelitian Hukum bisa dilihat di Buku Panduan Implementasi Undang-Undang Nomor 16 Tahun 2011 Tentang Bantuan Hukum.<br>
+            - Kuitansi Pembuatan Proposal, Pembuatan Instrumen, Tabulasi/Pengolahan data, dan Pembuatan Laporan Sementara diberi stempel OBH (&gt;Rp. 250rb diberi materai 3000).<br>
+            - Kuitansi Penelitian lapangan sementara dan Pertemuan Ilmiah /FGD harus melampirkan bukti pengeluaran. Kuitansi harus dibubuhi stempel usaha ybs. dan melampirkan bon berkop dari usaha ybs. (&ge; 1jt diberi materai 6000).<br>
             - Kuitansi biaya penggandaan harus dibubuhi stempel usaha fotokopi ybs. dan melampirkan bon berkop dari usaha ybs.
         </div>
 

@@ -1,0 +1,214 @@
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Buat Laporan Perdata <?php $__env->endSlot(); ?>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 fw-bold text-primary text-center fs-5 text-uppercase">Check List Berkas Reimbursement Litigasi</h6>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form action="<?php echo e(route('perdata-reports.store')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label fw-bold">OBH</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="obh" class="form-control border-secondary border-opacity-50" value="<?php echo e(old('obh')); ?>" required>
+                                <?php $__errorArgs = ['obh'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label fw-bold">ALAMAT</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="alamat" class="form-control border-secondary border-opacity-50" value="<?php echo e(old('alamat')); ?>" required>
+                                <?php $__errorArgs = ['alamat'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label class="col-sm-3 col-form-label fw-bold">PROVINSI</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="provinsi" class="form-control border-secondary border-opacity-50" value="<?php echo e(old('provinsi')); ?>" required>
+                                <?php $__errorArgs = ['provinsi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+
+                        <hr class="mb-4">
+
+                        <div class="row mb-3 align-items-center">
+                            <label class="col-sm-4 col-form-label fw-bold py-0">PERKARA</label>
+                            <div class="col-sm-8 text-primary fw-bold">: &nbsp; PERDATA</div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label fw-bold py-0">KASUS</label>
+                            <div class="col-sm-8 d-flex align-items-center">
+                                : <input type="text" name="kasus" class="form-control ms-2 border-secondary border-opacity-50" value="<?php echo e(old('kasus')); ?>">
+                                <?php $__errorArgs = ['kasus'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small ms-2"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label fw-bold py-0">NOMOR PERKARA</label>
+                            <div class="col-sm-8 d-flex align-items-center">
+                                : <input type="text" name="nomor_perkara" class="form-control ms-2 border-secondary border-opacity-50" value="<?php echo e(old('nomor_perkara')); ?>">
+                                <?php $__errorArgs = ['nomor_perkara'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small ms-2"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <label class="col-sm-4 col-form-label fw-bold py-0">PENERIMA BANTUAN HUKUM</label>
+                            <div class="col-sm-8 d-flex align-items-center">
+                                : <input type="text" name="penerima_bantuan" class="form-control mx-2 border-secondary border-opacity-50" value="<?php echo e(old('penerima_bantuan')); ?>">
+                                <select name="jk_penerima" class="form-select w-auto border-secondary border-opacity-50">
+                                    <option value="">L/P</option>
+                                    <option value="L" <?php echo e(old('jk_penerima') == 'L' ? 'selected' : ''); ?>>L</option>
+                                    <option value="P" <?php echo e(old('jk_penerima') == 'P' ? 'selected' : ''); ?>>P</option>
+                                </select>
+                                <?php $__errorArgs = ['penerima_bantuan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small ms-2"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mb-4">
+                            <table class="table table-bordered align-middle">
+                                <thead>
+                                    <tr class="text-center align-middle" style="background-color: var(--bs-secondary-bg) !important;">
+                                        <th style="width:50px;">NO</th>
+                                        <th>BERKAS</th>
+                                        <th style="width:80px;">OBH</th>
+                                        <th style="width:80px;">KANWIL</th>
+                                        <th style="width:80px;">BPHN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $items = [
+                                            'item1'  => 'Surat Permohonan Bantuan Hukum',
+                                            'item2'  => 'Surat Kuasa',
+                                            'item3'  => 'SKTM Asli/ Legalisir Kartu JAMKESMAS/Kartu GAKIN/BLSM',
+                                            'item4'  => 'Relaas/Bukti Persidangan',
+                                            'item5'  => 'Pendapat hukum (legal opinion)',
+                                            'item6'  => 'Somasi',
+                                            'item7'  => 'Gugatan atau jawaban',
+                                            'item8'  => 'Tawaran mediasi atau jawaban',
+                                            'item9'  => 'Replik',
+                                            'item10' => 'Putusan',
+                                            'item11' => 'Memori banding atau kontra memori banding (wajib melampirkan putusan sebelumnya)',
+                                            'item12' => 'Memori kasasi atau kontra memori kasasi (wajib melampirkan putusan sebelumnya)',
+                                            'item13' => 'Memori peninjauan kembali atau kontra memori peninjauan kembali (wajib melampirkan putusan sebelumnya)',
+                                            'item14' => 'Dokumen lain yang berkenaan dengan perkara, sebutkan:',
+                                            'item15' => 'Kuitansi (diberi materai 6000 dan stempel OBH)',
+                                        ];
+                                        $item14_sub = ['item14_a' => 'a', 'item14_b' => 'b', 'item14_c' => 'c'];
+                                    ?>
+
+                                    <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr>
+                                        <td class="text-center fw-bold"><?php echo e(substr($key, 4)); ?>.</td>
+                                        <td class="fw-medium"><?php echo e($label); ?></td>
+                                        <?php if($key !== 'item14'): ?>
+                                            <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[<?php echo e($key); ?>][obh]" value="1" <?php echo e(old('checklist_data.'.$key.'.obh') ? 'checked' : ''); ?>></td>
+                                            <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[<?php echo e($key); ?>][kanwil]" value="1" <?php echo e(old('checklist_data.'.$key.'.kanwil') ? 'checked' : ''); ?>></td>
+                                            <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[<?php echo e($key); ?>][bphn]" value="1" <?php echo e(old('checklist_data.'.$key.'.bphn') ? 'checked' : ''); ?>></td>
+                                        <?php else: ?>
+                                            <td></td><td></td><td></td>
+                                        <?php endif; ?>
+                                    </tr>
+                                    <?php if($key === 'item14'): ?>
+                                        <?php $__currentLoopData = $item14_sub; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sk => $letter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <tr>
+                                            <td></td>
+                                            <td class="ps-3">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="fw-semibold text-muted" style="min-width:18px;"><?php echo e($letter); ?>.</span>
+                                                    <input type="text" name="checklist_data[<?php echo e($sk); ?>][text]" class="form-control form-control-sm border-secondary border-opacity-50" placeholder="Sebutkan dokumen..." value="<?php echo e(old('checklist_data.'.$sk.'.text')); ?>">
+                                                </div>
+                                            </td>
+                                            <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[<?php echo e($sk); ?>][obh]" value="1" <?php echo e(old('checklist_data.'.$sk.'.obh') ? 'checked' : ''); ?>></td>
+                                            <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[<?php echo e($sk); ?>][kanwil]" value="1" <?php echo e(old('checklist_data.'.$sk.'.kanwil') ? 'checked' : ''); ?>></td>
+                                            <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[<?php echo e($sk); ?>][bphn]" value="1" <?php echo e(old('checklist_data.'.$sk.'.bphn') ? 'checked' : ''); ?>></td>
+                                        </tr>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="alert border small" style="background-color: var(--bs-secondary-bg);">
+                            <strong>KETERANGAN:</strong><br>
+                            - Jika <strong>ada</strong> beri tanda (&check;), <strong>tidak ada</strong> biarkan kosong.<br>
+                            - Form ini harus dilampirkan diatas dokumen.<br>
+                            - Berkas harus disusun berdasarkan urutan nomor.<br>
+                            - Dokumen dari pengadilan harus <strong>ASLI</strong> atau <strong>LEGALISIR</strong> Pengadilan.<br>
+                            - Dokumen yang wajib dilampirkan adalah yang terdapat dalam aplikasi.
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center pt-3 border-top">
+                            <a href="<?php echo e(route('perdata-reports.index')); ?>" class="btn btn-light border me-2 fw-medium">Batal</a>
+                            <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm"><i class="fa-solid fa-save me-1"></i> Simpan Laporan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/perdata_reports/create.blade.php ENDPATH**/ ?>

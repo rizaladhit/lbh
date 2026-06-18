@@ -8,7 +8,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Laporan Drafting Dokumen Hukum <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> Laporan Pemberdayaan Masyarakat <?php $__env->endSlot(); ?>
 
     <style>
         .panel { border-radius: 16px; border: none; box-shadow: 0 4px 24px rgba(0,0,0,.07); overflow: hidden; }
@@ -19,7 +19,7 @@
             display: flex; align-items: center; justify-content: space-between;
         }
         [data-bs-theme="dark"] .panel-head { border-color: rgba(255,255,255,.06); }
-        
+
         .data-table { margin: 0; }
         .data-table thead th {
             font-size: .7rem; font-weight: 700;
@@ -32,7 +32,7 @@
         .data-table tbody tr:hover { background: rgba(99,102,241,.04); }
         [data-bs-theme="dark"] .data-table tbody tr:hover { background: rgba(255,255,255,.03); }
         .data-table td { padding: 16px 18px; vertical-align: middle; border: none; }
-        
+
         .action-btn {
             width: 32px; height: 32px; border-radius: 8px;
             border: 1px solid rgba(0,0,0,.08); background: transparent;
@@ -41,7 +41,7 @@
         }
         .action-btn:hover { background: rgba(0,0,0,.05); transform: scale(1.08); }
         [data-bs-theme="dark"] .action-btn { border-color: rgba(255,255,255,.1); }
-        
+
         .btn-cta {
             background: linear-gradient(135deg,#6366f1,#8b5cf6);
             border: none; color: #fff; font-weight: 600; font-size: .8rem;
@@ -59,7 +59,7 @@
             margin: 0 auto 20px; font-size: 2rem; color: #6366f1;
         }
         .badge-kegiatan {
-            background: rgba(245,158,11,.15); color: #d97706;
+            background: rgba(99,102,241,.12); color: #6366f1;
             padding: 4px 10px; border-radius: 99px;
             font-size: .7rem; font-weight: 700; display: inline-block;
         }
@@ -69,15 +69,15 @@
         <div class="panel-head">
             <div class="d-flex align-items-center gap-3">
                 <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,.15);display:flex;align-items:center;justify-content:center;">
-                    <i class="fa-solid fa-file-contract text-primary"></i>
+                    <i class="fa-solid fa-person-chalkboard text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 fw-bold text-body">Daftar Laporan Drafting Dokumen Hukum</h6>
+                    <h6 class="mb-0 fw-bold text-body">Daftar Laporan Pemberdayaan Masyarakat</h6>
                     <div style="font-size:.72rem;color:#94a3b8;">Total <?php echo e($reports->total()); ?> laporan terdata</div>
                 </div>
             </div>
-            <a href="<?php echo e(route('drafting-reports.create')); ?>" class="btn-cta">
-                <i class="fa-solid fa-plus"></i><span class="d-none d-sm-inline">Buat Laporan Baru</span>
+            <a href="<?php echo e(route('reimbursement-reports.create-pemberdayaan')); ?>" class="btn-cta">
+                <i class="fa-solid fa-plus"></i><span class="d-none d-sm-inline">Buat Laporan</span>
             </a>
         </div>
 
@@ -85,11 +85,11 @@
             <table class="data-table table">
                 <thead>
                     <tr>
-                        <th style="padding-left:24px;">ID Kasus</th>
-                        <th>OBH & Kegiatan</th>
-                        <th>Penerima Bantuan</th>
+                        <th style="padding-left:24px;">OBH / Wilayah</th>
+                        <th>Materi</th>
+                        <th>Tempat Pelaksanaan</th>
+                        <th>Narasumber</th>
                         <th>Tgl Pelaksanaan</th>
-                        <th>Drafter</th>
                         <th style="padding-right:24px;text-align:right;">Aksi</th>
                     </tr>
                 </thead>
@@ -97,21 +97,17 @@
                     <?php $__empty_1 = true; $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr>
                         <td style="padding-left:24px;">
-                            <div style="font-size:.8rem;font-weight:700;font-family:monospace;" class="text-body"><?php echo e(Str::limit($report->kasus, 20)); ?></div>
+                            <div style="font-size:.85rem;font-weight:700;" class="text-body"><?php echo e($report->obh); ?></div>
                             <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;"><?php echo e($report->provinsi); ?></div>
                         </td>
                         <td>
-                            <div style="font-weight:600;font-size:.85rem;" class="text-body"><?php echo e($report->obh); ?></div>
-                            <div class="badge-kegiatan mt-1"><?php echo e($report->kegiatan); ?></div>
+                            <div style="font-size:.82rem;font-weight:500;" class="text-body"><?php echo e($report->materi ?? '-'); ?></div>
                         </td>
                         <td>
-                            <div class="d-flex align-items-center gap-2">
-                                <div style="width:28px;height:28px;border-radius:50%;background:<?php echo e($report->jk_penerima === 'L' ? 'rgba(59,130,246,.15)' : 'rgba(236,72,153,.15)'); ?>;display:flex;align-items:center;justify-content:center;color:<?php echo e($report->jk_penerima === 'L' ? '#3b82f6' : '#ec4899'); ?>;font-size:.7rem;font-weight:bold;">
-                                    <?php echo e($report->jk_penerima); ?>
-
-                                </div>
-                                <span style="font-size:.82rem;font-weight:500;" class="text-body"><?php echo e($report->penerima_bantuan); ?></span>
-                            </div>
+                            <div style="font-size:.82rem;" class="text-body"><?php echo e($report->tempat_pelaksanaan ?? '-'); ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size:.82rem;" class="text-body"><?php echo e($report->narasumber ?? '-'); ?></div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
@@ -119,19 +115,14 @@
                                 <span style="font-size:.82rem;font-weight:500;" class="text-body"><?php echo e($report->tgl_pelaksanaan->format('d M Y')); ?></span>
                             </div>
                         </td>
-                        <td>
-                            <div style="font-size:.82rem;" class="text-body"><?php echo e($report->nama_drafter); ?></div>
-                        </td>
                         <td style="padding-right:24px;text-align:right;">
                             <div class="d-flex justify-content-end gap-1">
-                                <a href="<?php echo e(route('drafting-reports.show', $report)); ?>" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
+                                <a href="<?php echo e(route('pemberdayaan-masyarakat.show', $report)); ?>" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                                <?php if(auth()->user()->role === 'admin'): ?>
-                                <button onclick="confirmDelete('<?php echo e(route('drafting-reports.destroy', $report)); ?>')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
+                                <button onclick="confirmDelete('<?php echo e(route('reimbursement-reports.destroy', $report)); ?>')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
-                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
@@ -139,10 +130,10 @@
                     <tr>
                         <td colspan="6">
                             <div class="empty-state">
-                                <div class="empty-icon"><i class="fa-regular fa-file-lines"></i></div>
-                                <h6 class="fw-bold text-body mb-1">Belum Ada Laporan BPHN</h6>
-                                <p class="text-muted mb-4" style="font-size:.85rem;">Mulai dengan membuat laporan Drafting Dokumen Hukum yang pertama.</p>
-                                <a href="<?php echo e(route('drafting-reports.create')); ?>" class="btn-cta" style="margin:auto;width:fit-content;">
+                                <div class="empty-icon"><i class="fa-solid fa-person-chalkboard"></i></div>
+                                <h6 class="fw-bold text-body mb-1">Belum Ada Laporan Pemberdayaan Masyarakat</h6>
+                                <p class="text-muted mb-4" style="font-size:.85rem;">Mulai dengan membuat laporan Pemberdayaan Masyarakat yang pertama.</p>
+                                <a href="<?php echo e(route('reimbursement-reports.create-pemberdayaan')); ?>" class="btn-cta" style="margin:auto;width:fit-content;">
                                     <i class="fa-solid fa-plus"></i> Buat Laporan
                                 </a>
                             </div>
@@ -165,7 +156,7 @@
     <form id="deleteForm" method="POST" style="display:none;"><?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?></form>
     <script>
         function confirmDelete(action){
-            if(!confirm('Hapus laporan BPHN ini secara permanen?')) return;
+            if(!confirm('Hapus laporan Pemberdayaan Masyarakat ini secara permanen?')) return;
             const f = document.getElementById('deleteForm'); f.action = action; f.submit();
         }
     </script>
@@ -179,4 +170,4 @@
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
 <?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\lbh\resources\views/bphn_reports/index.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/reimbursement_reports/index_pemberdayaan.blade.php ENDPATH**/ ?>

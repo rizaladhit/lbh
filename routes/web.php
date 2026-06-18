@@ -94,8 +94,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('reimbursement-reports', ReimbursementReportController::class)->parameters([
         'reimbursement-reports' => 'reimbursementReport'
     ]);
-    Route::get('reimbursement-reports/create/pemberdayaan-masyarakat', [ReimbursementReportController::class, 'createPemberdayaan'])->name('reimbursement-reports.create-pemberdayaan');
+    Route::get('pemberdayaan-masyarakat', [ReimbursementReportController::class, 'indexPemberdayaan'])->name('pemberdayaan-masyarakat.index');
+    Route::get('pemberdayaan-masyarakat/create', [ReimbursementReportController::class, 'createPemberdayaan'])->name('reimbursement-reports.create-pemberdayaan');
+    Route::get('pemberdayaan-masyarakat/{reimbursementReport}', [ReimbursementReportController::class, 'showPemberdayaan'])->name('pemberdayaan-masyarakat.show');
     Route::resource('negosiasi-reports', NegosiasiReportController::class)->only(['index', 'create', 'store', 'show', 'destroy']);
+    Route::resource('pendampingan-reports', \App\Http\Controllers\PendampinganReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'pendampingan-reports' => 'pendampinganReport'
+    ]);
+    Route::resource('penelitian-hukum-reports', \App\Http\Controllers\PenelitianHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'penelitian-hukum-reports' => 'penelitianHukumReport'
+    ]);
+    Route::resource('penyuluhan-hukum-reports', \App\Http\Controllers\PenyuluhanHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'penyuluhan-hukum-reports' => 'penyuluhanHukumReport'
+    ]);
+    Route::resource('perdata-reports', \App\Http\Controllers\PerdataReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'perdata-reports' => 'perdataReport'
+    ]);
+    Route::resource('pidana-reports', \App\Http\Controllers\PidanaReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'pidana-reports' => 'pidanaReport'
+    ]);
+    Route::resource('tun-reports', \App\Http\Controllers\TunReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'tun-reports' => 'tunReport'
+    ]);
+    Route::resource('konsultasi-hukum-reports', \App\Http\Controllers\KonsultasiHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'konsultasi-hukum-reports' => 'konsultasiHukumReport'
+    ]);
+    Route::resource('investigasi-kasus-reports', \App\Http\Controllers\InvestigasiKasusReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+        'investigasi-kasus-reports' => 'investigasiKasusReport'
+    ]);
 });
 
 use App\Http\Controllers\GoogleAuthController;

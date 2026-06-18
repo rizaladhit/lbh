@@ -29,9 +29,20 @@ class ReimbursementReportController extends Controller
         return view('reimbursement_reports.create', compact('kegiatan_type'));
     }
 
+    public function indexPemberdayaan()
+    {
+        $reports = ReimbursementReport::where('kegiatan', 'Pemberdayaan Masyarakat')->latest()->paginate(15);
+        return view('reimbursement_reports.index_pemberdayaan', compact('reports'));
+    }
+
     public function createPemberdayaan()
     {
         return view('reimbursement_reports.create_pemberdayaan');
+    }
+
+    public function showPemberdayaan(ReimbursementReport $reimbursementReport)
+    {
+        return view('reimbursement_reports.show_pemberdayaan', compact('reimbursementReport'));
     }
 
     public function store(Request $request)
