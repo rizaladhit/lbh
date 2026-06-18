@@ -1,5 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">Detail Laporan Drafting Dokumen Hukum</x-slot>
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Detail Laporan Mediasi <?php $__env->endSlot(); ?>
 
     <style>
         /* ── Screen only: hide print-view ─────────────────────────── */
@@ -99,69 +108,71 @@
         .form-preview-label { width: 220px; flex-shrink: 0; }
     </style>
 
-    {{-- ================================================================ --}}
-    {{-- SCREEN VIEW                                                        --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="d-print-none row justify-content-center">
         <div class="col-lg-10">
             <div class="card shadow-md border-0 mb-4 p-4 p-md-5">
 
                 <div class="card-header bg-transparent border-0 mb-4 pb-0 text-center">
                     <h5 class="fw-bold text-uppercase d-inline-block text-decoration-underline" style="text-underline-offset:4px;">
-                        CHECK LIST BERKAS LAPORAN DRAFTING DOKUMEN HUKUM
+                        CHECK LIST BERKAS LAPORAN MEDIASI
                     </h5>
                 </div>
 
                 <div class="card-body p-0" style="font-size:0.95rem;">
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">OBH</div>
-                        <div>: {{ $draftingReport->obh }}</div>
+                        <div>: <?php echo e($mediasiReport->obh); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">ALAMAT</div>
-                        <div>: {{ $draftingReport->alamat }}</div>
+                        <div>: <?php echo e($mediasiReport->alamat); ?></div>
                     </div>
                     <div class="d-flex mb-4">
                         <div class="fw-bold form-preview-label">PROVINSI</div>
-                        <div>: {{ $draftingReport->provinsi }}</div>
+                        <div>: <?php echo e($mediasiReport->provinsi); ?></div>
                     </div>
 
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">KEGIATAN</div>
-                        <div class="text-uppercase">: {{ $draftingReport->kegiatan }}</div>
+                        <div class="text-uppercase">: <?php echo e($mediasiReport->kegiatan); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">TGL PELAKSANAAN KEGIATAN</div>
-                        <div>: {{ $draftingReport->tgl_pelaksanaan->format('d M Y') }}</div>
+                        <div>: <?php echo e($mediasiReport->tgl_pelaksanaan->format('d M Y')); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">KASUS</div>
-                        <div>: {{ $draftingReport->kasus }}</div>
+                        <div>: <?php echo e($mediasiReport->kasus); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">PENERIMA BANTUAN HUKUM</div>
-                        <div class="w-100">: {{ $draftingReport->penerima_bantuan }}
-                            <span class="float-end pe-5"><strong>L/P:</strong> {{ $draftingReport->jk_penerima }}</span>
+                        <div class="w-100">: <?php echo e($mediasiReport->penerima_bantuan); ?>
+
+                            <span class="float-end pe-5"><strong>L/P:</strong> <?php echo e($mediasiReport->jk_penerima); ?></span>
                         </div>
                     </div>
                     <div class="d-flex mb-4">
-                        <div class="fw-bold form-preview-label">NAMA DRAFTER</div>
-                        <div>: {{ $draftingReport->nama_drafter }}</div>
+                        <div class="fw-bold form-preview-label">NAMA MEDIATOR</div>
+                        <div>: <?php echo e($mediasiReport->nama_mediator); ?></div>
                     </div>
 
-                    @php
-                        $d = $draftingReport->checklist_data ?? [];
+                    <?php
                         $berkas_list = [
                             '1' => 'Formulir permohonan bantuan hukum',
                             '2' => 'SKTM Asli/ Legalisir Kartu JAMKESMAS/Kartu GAKIN/BLSM, dll.',
-                            '3' => 'Dokumen hasil drafting (ditandatangani para pihak)',
-                            '4' => 'Laporan pelaksanaan drafting dokumen hukum',
-                            '5' => 'Kuitansi:',
+                            '3' => 'Berita acara mediasi (ditandatangani para pihak)',
+                            '4' => 'Laporan mediasi',
+                            '5' => 'Kuitansi: Biaya Mediator (diberi stempel OBH)',
+                            '6' => 'Kuitansi: Biaya penggandaan dan penjilidan laporan akhir',
                         ];
-                        $get_check = function($arr, $idx, $col) {
-                            return isset($arr[$idx][$col]) && $arr[$idx][$col] == '1' ? 'v' : '&nbsp;';
+                        $checklist_data = $mediasiReport->checklist_data ?? [];
+                        $get_check = function($idx, $field) use ($checklist_data) {
+                            return isset($checklist_data[$idx][$field]) && $checklist_data[$idx][$field] ? 'v' : '&nbsp;';
                         };
-                    @endphp
+                    ?>
 
                     <table class="table table-bordered border-secondary align-middle mb-4">
                         <thead>
@@ -174,54 +185,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($berkas_list as $idx => $label)
+                            <?php $__currentLoopData = $berkas_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td class="text-center fw-bold">{{ $idx }}.</td>
-                                <td class="fw-medium">{{ $label }}</td>
-                                @if($idx != 5)
-                                    <td class="text-center"><span class="checklist-square">{!! $get_check($d, $idx, 'obh') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $get_check($d, $idx, 'kanwil') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $get_check($d, $idx, 'bphn') !!}</span></td>
-                                @else
-                                    <td></td><td></td><td></td>
-                                @endif
+                                <td class="text-center fw-bold"><?php echo e($idx); ?>.</td>
+                                <td class="fw-medium"><?php echo e($label); ?></td>
+                                <td class="text-center"><span class="checklist-square"><?php echo $get_check($idx, 'obh'); ?></span></td>
+                                <td class="text-center"><span class="checklist-square"><?php echo $get_check($idx, 'kanwil'); ?></span></td>
+                                <td class="text-center"><span class="checklist-square"><?php echo $get_check($idx, 'bphn'); ?></span></td>
                             </tr>
-                            @if($idx == 5)
-                            <tr>
-                                <td></td>
-                                <td class="ps-4 text-muted">- Biaya Drafter (diberi stempel OBH)</td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_1', 'obh') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_1', 'kanwil') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_1', 'bphn') !!}</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td class="ps-4 text-muted">- Biaya penggandaan dan penjilidan laporan akhir</td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_2', 'obh') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_2', 'kanwil') !!}</span></td>
-                                <td class="text-center"><span class="checklist-square">{!! $get_check($d, '5_2', 'bphn') !!}</span></td>
-                            </tr>
-                            @endif
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
 
                     <div class="small lh-sm">
                         <strong>KETERANGAN :</strong><br>
                         - Jika <strong>ada</strong> beri tanda (&check;), <strong>tidak ada</strong> biarkan kosong.<br>
-                        - Form ini harus dilampirkan diatas dokumen.<br>
+                        - Form ini harus dilampirkan di atas dokumen.<br>
                         - Berkas harus disusun berdasarkan urutan nomor.<br>
-                        - Drafting Dokumen Hukum diajukan per-paket 1 kasus.<br>
-                        - Berkas harus ASLI dan di fotocopy.<br>
-                        - Pemegang Kartu BPJS tidak diperkenankan.<br>
-                        - Form Pelaksanaan bisa dilihat di Buku Panduan.<br>
-                        - Kuitansi biaya penggandaan harus dibubuhi stempel usaha fotokopi ybs. dan melampirkan bon berkop dari usaha ybs.
+                        - Kuitansi biaya mediator harus diberi stempel OBH.<br>
+                        - Berkas harus ASLI dan difotokopi.<br>
+                        - Semua dokumen pendukung wajib dilengkapi sebelum diserahkan.
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-end gap-2 mb-4">
-                <a href="{{ route('drafting-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="<?php echo e(route('mediasi-reports.index')); ?>" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
                 </button>
@@ -229,80 +218,81 @@
         </div>
     </div>
 
-    {{-- ================================================================ --}}
-    {{-- PRINT VIEW                                                         --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="print-view">
 
         <div class="pv-title">Check List Berkas Reimbursement Non Litigasi</div>
 
-        {{-- Grup 1 --}}
+        
         <div class="pv-group pv-g1">
             <div class="pv-row">
                 <span class="pv-label">OBH</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->obh }}</span>
+                <span class="pv-val"><?php echo e($mediasiReport->obh); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">ALAMAT</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->alamat }}</span>
+                <span class="pv-val"><?php echo e($mediasiReport->alamat); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">PROVINSI</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->provinsi }}</span>
+                <span class="pv-val"><?php echo e($mediasiReport->provinsi); ?></span>
             </div>
         </div>
 
         <div class="pv-gap"></div>
 
-        {{-- Grup 2 --}}
+        
         <div class="pv-group pv-g2">
             <div class="pv-row">
                 <span class="pv-label">KEGIATAN</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val-fixed">DRAFTING DOKUMEN HUKUM</span>
+                <span class="pv-val-fixed">MEDIASI</span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">TGL PELAKSANAAN KEGIATAN</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->tgl_pelaksanaan->format('d M Y') }}</span>
+                <span class="pv-val"><?php echo e($mediasiReport->tgl_pelaksanaan->format('d M Y')); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">KASUS</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->kasus }}</span>
+                <span class="pv-val"><?php echo e($mediasiReport->kasus); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">PENERIMA BANTUAN HUKUM</span>
                 <span class="pv-sep">:</span>
                 <span class="pv-val" style="display:flex;justify-content:space-between;">
-                    <span>{{ $draftingReport->penerima_bantuan }}</span>
-                    <strong>L/P : {{ $draftingReport->jk_penerima }}</strong>
+                    <span><?php echo e($mediasiReport->penerima_bantuan); ?></span>
+                    <strong>L/P : <?php echo e($mediasiReport->jk_penerima); ?></strong>
                 </span>
             </div>
             <div class="pv-row">
-                <span class="pv-label">NAMA DRAFTER</span>
+                <span class="pv-label">NAMA MEDIATOR</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $draftingReport->nama_drafter }}</span>
+                <span class="pv-val"><?php echo e($mediasiReport->nama_mediator); ?></span>
             </div>
         </div>
 
-        {{-- Tabel Checklist --}}
-        @php
-            $pv_d = $draftingReport->checklist_data ?? [];
+        
+        <?php
             $pv_berkas = [
                 '1' => 'Formulir permohonan bantuan hukum',
                 '2' => 'SKTM Asli/ Legalisir Kartu JAMKESMAS/Kartu GAKIN/BLSM, dll.',
-                '3' => 'Dokumen hasil drafting (ditandatangani para pihak)',
-                '4' => 'Laporan pelaksanaan drafting dokumen hukum',
-                '5' => 'Kuitansi:',
+                '3' => 'Berita acara mediasi (ditandatangani para pihak)',
+                '4' => 'Laporan mediasi',
+                '5' => 'Kuitansi: Biaya Mediator (diberi stempel OBH)',
+                '6' => 'Kuitansi: Biaya penggandaan dan penjilidan laporan akhir',
             ];
-            $pv_chk = function($arr, $idx, $col) {
-                return isset($arr[$idx][$col]) && $arr[$idx][$col] == '1' ? 'v' : '';
+            $pv_cl = $mediasiReport->checklist_data ?? [];
+            $pv_chk = function($idx, $col) use ($pv_cl) {
+                return isset($pv_cl[$idx][$col]) && $pv_cl[$idx][$col] ? 'v' : '';
             };
-        @endphp
+        ?>
 
         <table class="pv-table">
             <thead>
@@ -315,51 +305,39 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($pv_berkas as $idx => $label)
+                <?php $__currentLoopData = $pv_berkas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td class="no-col">{{ $idx }}.</td>
-                    <td>{{ $label }}</td>
-                    @if($idx != 5)
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, $idx, 'obh') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, $idx, 'kanwil') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, $idx, 'bphn') }}</span></td>
-                    @else
-                        <td></td><td></td><td></td>
-                    @endif
+                    <td class="no-col"><?php echo e($idx); ?>.</td>
+                    <td><?php echo e($label); ?></td>
+                    <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($idx, 'obh')); ?></span></td>
+                    <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($idx, 'kanwil')); ?></span></td>
+                    <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($idx, 'bphn')); ?></span></td>
                 </tr>
-                @if($idx == 5)
-                <tr>
-                    <td></td>
-                    <td style="padding-left:20px;">- Biaya Drafter (diberi stempel OBH)</td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_1', 'obh') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_1', 'kanwil') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_1', 'bphn') }}</span></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td style="padding-left:20px;">- Biaya penggandaan dan penjilidan laporan akhir</td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_2', 'obh') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_2', 'kanwil') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($pv_d, '5_2', 'bphn') }}</span></td>
-                </tr>
-                @endif
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
         </table>
 
-        {{-- KETERANGAN --}}
+        
         <div class="pv-keterangan">
             <div class="pv-ket-title">KETERANGAN :</div>
             - Jika <strong>ada</strong> beri tanda (&#10003;), <strong>tidak ada</strong> biarkan kosong.<br>
-            - Form ini harus dilampirkan diatas dokumen.<br>
+            - Form ini harus dilampirkan di atas dokumen.<br>
             - Berkas harus disusun berdasarkan urutan nomor.<br>
-            - Drafting Dokumen Hukum diajukan per-paket 1 kasus.<br>
-            - Berkas harus ASLI dan di fotocopy.<br>
-            - Pemegang Kartu BPJS tidak diperkenankan.<br>
-            - Form Pelaksanaan bisa dilihat di Buku Panduan.<br>
-            - Kuitansi biaya penggandaan harus dibubuhi stempel usaha fotokopi ybs. dan melampirkan bon berkop dari usaha ybs.
+            - Kuitansi biaya mediator harus diberi stempel OBH.<br>
+            - Berkas harus ASLI dan difotokopi.<br>
+            - Semua dokumen pendukung wajib dilengkapi sebelum diserahkan.
         </div>
 
     </div>
 
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/mediasi_reports/show.blade.php ENDPATH**/ ?>

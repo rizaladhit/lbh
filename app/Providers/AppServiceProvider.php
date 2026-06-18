@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\AppSetting;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Carbon::setLocale('id');
+
         // Share app settings with all views
         View::composer('*', function ($view) {
             try {

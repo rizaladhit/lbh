@@ -312,15 +312,15 @@
         {{-- Laporan BPHN & Drafting Dokumen Hukum - Admin Only --}}
         @if(auth()->check() && auth()->user()->role == 'admin')
         <div class="nav-item-custom">
-            <button class="nav-link-custom {{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'active' : '' }}"
+            <button class="nav-link-custom {{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('pemberdayaan-masyarakat.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') || request()->routeIs('pendampingan-reports.*') || request()->routeIs('penelitian-hukum-reports.*') || request()->routeIs('penyuluhan-hukum-reports.*') || request()->routeIs('perdata-reports.*') || request()->routeIs('pidana-reports.*') || request()->routeIs('tun-reports.*') || request()->routeIs('konsultasi-hukum-reports.*') || request()->routeIs('investigasi-kasus-reports.*') ? 'active' : '' }}"
                     onclick="toggleSubmenu('bphnMenu', this)">
-                <div class="nav-icon" style="background:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)' }};">
-                    <i class="fa-solid fa-book-bookmark" style="color:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'var(--brand-1)' : '#64748b' }};"></i>
+                <div class="nav-icon" style="background:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('pemberdayaan-masyarakat.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') || request()->routeIs('pendampingan-reports.*') || request()->routeIs('penelitian-hukum-reports.*') || request()->routeIs('penyuluhan-hukum-reports.*') || request()->routeIs('perdata-reports.*') || request()->routeIs('pidana-reports.*') || request()->routeIs('tun-reports.*') || request()->routeIs('konsultasi-hukum-reports.*') || request()->routeIs('investigasi-kasus-reports.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)' }};">
+                    <i class="fa-solid fa-book-bookmark" style="color:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('pemberdayaan-masyarakat.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') || request()->routeIs('pendampingan-reports.*') || request()->routeIs('penelitian-hukum-reports.*') || request()->routeIs('penyuluhan-hukum-reports.*') || request()->routeIs('perdata-reports.*') || request()->routeIs('pidana-reports.*') || request()->routeIs('tun-reports.*') || request()->routeIs('konsultasi-hukum-reports.*') || request()->routeIs('investigasi-kasus-reports.*') ? 'var(--brand-1)' : '#64748b' }};"></i>
                 </div>
                 Laporan BPHN/KANWIL
                 <i class="fa-solid fa-chevron-right ms-auto" style="font-size:.6rem;transition:var(--trans);" id="bphnMenuArrow"></i>
             </button>
-            <div class="submenu-wrap" id="bphnMenu" style="display:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'block' : 'none' }};">
+            <div class="submenu-wrap" id="bphnMenu" style="display:{{ request()->routeIs('drafting-reports.*') || request()->routeIs('mediasi-reports.*') || request()->routeIs('negosiasi-reports.*') || request()->routeIs('pemberdayaan-masyarakat.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') || request()->routeIs('pendampingan-reports.*') || request()->routeIs('penelitian-hukum-reports.*') || request()->routeIs('penyuluhan-hukum-reports.*') || request()->routeIs('perdata-reports.*') || request()->routeIs('pidana-reports.*') || request()->routeIs('tun-reports.*') || request()->routeIs('konsultasi-hukum-reports.*') || request()->routeIs('investigasi-kasus-reports.*') ? 'block' : 'none' }};">
                 <div class="submenu-inner">
                     <div class="nav-item-custom" style="margin:0;">
                         <a href="{{ route('drafting-reports.index') }}"
@@ -337,8 +337,8 @@
                         </a>
                     </div>
                     <div class="nav-item-custom" style="margin:0;">
-                        <a href="{{ route('reimbursement-reports.create-pemberdayaan') }}"
-                           class="nav-link-custom {{ request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'active' : '' }}">
+                        <a href="{{ route('pemberdayaan-masyarakat.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('pemberdayaan-masyarakat.*') || request()->routeIs('reimbursement-reports.create-pemberdayaan') ? 'active' : '' }}">
                             <i class="fa-solid fa-person-chalkboard me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
                             Pemberdayaan Masyarakat
                         </a>
@@ -348,6 +348,62 @@
                            class="nav-link-custom {{ request()->routeIs('negosiasi-reports.*') ? 'active' : '' }}">
                             <i class="fa-solid fa-file-signature me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
                             Laporan Negosiasi
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('pendampingan-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('pendampingan-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-scale-balanced me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Pendampingan Diluar Pengadilan
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('penelitian-hukum-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('penelitian-hukum-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-microscope me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Penelitian Hukum
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('penyuluhan-hukum-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('penyuluhan-hukum-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-chalkboard-user me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Penyuluhan Hukum
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('perdata-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('perdata-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gavel me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Perdata
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('pidana-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('pidana-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-handcuffs me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Pidana
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('tun-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('tun-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-landmark me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            TUN
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('konsultasi-hukum-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('konsultasi-hukum-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-comments me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Konsultasi Hukum
+                        </a>
+                    </div>
+                    <div class="nav-item-custom" style="margin:0;">
+                        <a href="{{ route('investigasi-kasus-reports.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('investigasi-kasus-reports.*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-magnifying-glass me-2" style="width:14px;color:#6366f1;font-size:.75rem;"></i>
+                            Investigasi Kasus
                         </a>
                     </div>
                 </div>
