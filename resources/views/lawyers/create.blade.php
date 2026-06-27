@@ -23,11 +23,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="no_identitas" class="form-label fw-bold small text-muted">Nomor Identitas (SIU/No. Advokat)</label>
+                            <label for="no_identitas" class="form-label fw-bold small text-muted">No. KTA Advokat / No. BAS</label>
                             <input id="no_identitas" type="text" class="form-control @error('no_identitas') is-invalid @enderror" 
                                 name="no_identitas" value="{{ old('no_identitas') }}" placeholder="Contoh: SIU/001/2024" required>
                             @error('no_identitas')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-                            <div class="text-muted small mt-1">Nomor SIU atau Nomor Advokat yang unik.</div>
+                            <div class="text-muted small mt-1">No. KTA LBH Unsub / No. SK Advokat LBH Unsub.</div>
                         </div>
 
                         <div class="row g-3 mb-3">

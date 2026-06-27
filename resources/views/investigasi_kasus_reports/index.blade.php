@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">Laporan Investigasi Kasus</x-slot>
 
     <style>
@@ -30,7 +30,7 @@
                     <i class="fa-solid fa-magnifying-glass" style="color:#d97706;"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 fw-bold text-body">Daftar Laporan Investigasi Kasus</h6>
+                    <h6 style="font-size:.85rem;font-weight:600;" class="mb-0 fw-bold text-body">Daftar Laporan Investigasi Kasus</h6>
                     <div style="font-size:.72rem;color:#94a3b8;">Total {{ $reports->total() }} laporan terdata</div>
                 </div>
             </div>
@@ -60,13 +60,13 @@
                             <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;">{{ $report->alamat }}</div>
                         </td>
                         <td>
-                            <div style="font-size:.82rem;font-weight:500;" class="text-body">{{ $report->provinsi }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->provinsi }}</div>
                         </td>
                         <td>
                             <div class="badge-keg">{{ $report->kegiatan }}</div>
                         </td>
                         <td>
-                            <div style="font-size:.82rem;" class="text-body">{{ Str::limit($secs[0]['jenis_investigasi'] ?? '-', 30) }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ Str::limit($secs[0]['jenis_investigasi'] ?? '-', 30) }}</div>
                         </td>
                         <td>
                             <span class="{{ $report->getStatusBadge() }}">{{ $report->getStatusLabel() }}</span>
@@ -75,6 +75,9 @@
                             <div class="d-flex justify-content-end gap-1">
                                 <a href="{{ route('investigasi-kasus-reports.show', $report) }}" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
                                     <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a href="{{ route('investigasi-kasus-reports.edit', $report) }}" class="action-btn" style="color:#f59e0b;" title="Edit Laporan">
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                 <button onclick="confirmDelete('{{ route('investigasi-kasus-reports.destroy', $report) }}')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
                                     <i class="fa-solid fa-trash-can"></i>
@@ -87,7 +90,7 @@
                         <td colspan="6">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                                <h6 class="fw-bold text-body mb-1">Belum Ada Laporan Investigasi Kasus</h6>
+                                <h6 style="font-size:.85rem;font-weight:600;" class="fw-bold text-body mb-1">Belum Ada Laporan Investigasi Kasus</h6>
                                 <p class="text-muted mb-4" style="font-size:.85rem;">Mulai dengan membuat laporan Investigasi Kasus yang pertama.</p>
                                 <a href="{{ route('investigasi-kasus-reports.create') }}" class="btn-cta" style="margin:auto;width:fit-content;">
                                     <i class="fa-solid fa-plus"></i> Buat Laporan

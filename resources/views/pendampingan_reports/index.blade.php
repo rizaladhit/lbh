@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">Laporan Pendampingan Diluar Pengadilan</x-slot>
 
     <style>
@@ -30,7 +30,7 @@
                     <i class="fa-solid fa-scale-balanced text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 fw-bold text-body">Daftar Laporan Pendampingan Diluar Pengadilan</h6>
+                    <h6 style="font-size:.85rem;font-weight:600;" class="mb-0 fw-bold text-body">Daftar Laporan Pendampingan Diluar Pengadilan</h6>
                     <div style="font-size:.72rem;color:#94a3b8;">Total {{ $reports->total() }} laporan terdata</div>
                 </div>
             </div>
@@ -55,11 +55,11 @@
                     @forelse($reports as $report)
                     <tr>
                         <td style="padding-left:24px;">
-                            <div style="font-size:.8rem;font-weight:700;font-family:monospace;" class="text-body">{{ Str::limit($report->kasus, 28) }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ Str::limit($report->kasus, 28) }}</div>
                             <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;">{{ $report->provinsi }}</div>
                         </td>
                         <td>
-                            <div style="font-weight:600;font-size:.85rem;" class="text-body">{{ $report->obh }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->obh }}</div>
                             <div class="badge-kegiatan mt-1">{{ $report->kegiatan }}</div>
                         </td>
                         <td>
@@ -67,13 +67,13 @@
                                 <div style="width:28px;height:28px;border-radius:50%;background:{{ $report->jk_penerima === 'L' ? 'rgba(59,130,246,.15)' : 'rgba(236,72,153,.15)' }};display:flex;align-items:center;justify-content:center;color:{{ $report->jk_penerima === 'L' ? '#3b82f6' : '#ec4899' }};font-size:.7rem;font-weight:bold;">
                                     {{ $report->jk_penerima }}
                                 </div>
-                                <span style="font-size:.82rem;font-weight:500;" class="text-body">{{ $report->penerima_bantuan }}</span>
+                                <span style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->penerima_bantuan }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-calendar-check" style="color:#10b981;font-size:.8rem;"></i>
-                                <span style="font-size:.82rem;font-weight:500;" class="text-body">
+                                <span style="font-size:.85rem;font-weight:600;" class="text-body">
                                     {{ $report->tgl_pendampingan_1?->format('d M Y') ?? '-' }}
                                 </span>
                             </div>
@@ -86,6 +86,9 @@
                                 <a href="{{ route('pendampingan-reports.show', $report) }}" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
+                                <a href="{{ route('pendampingan-reports.edit', $report) }}" class="action-btn" style="color:#f59e0b;" title="Edit Laporan">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
                                 <button onclick="confirmDelete('{{ route('pendampingan-reports.destroy', $report) }}')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
@@ -97,7 +100,7 @@
                         <td colspan="6">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-                                <h6 class="fw-bold text-body mb-1">Belum Ada Laporan Pendampingan</h6>
+                                <h6 style="font-size:.85rem;font-weight:600;" class="fw-bold text-body mb-1">Belum Ada Laporan Pendampingan</h6>
                                 <p class="text-muted mb-4" style="font-size:.85rem;">Mulai dengan membuat laporan Pendampingan Diluar Pengadilan yang pertama.</p>
                                 <a href="{{ route('pendampingan-reports.create') }}" class="btn-cta" style="margin:auto;width:fit-content;">
                                     <i class="fa-solid fa-plus"></i> Buat Laporan

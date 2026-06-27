@@ -54,6 +54,25 @@ class KonsultasiHukumReportController extends Controller
         return view('konsultasi_hukum_reports.show', compact('konsultasiHukumReport'));
     }
 
+    public function edit(KonsultasiHukumReport $konsultasiHukumReport)
+    {
+        return view('konsultasi_hukum_reports.edit', compact('konsultasiHukumReport'));
+    }
+
+    public function update(Request $request, KonsultasiHukumReport $konsultasiHukumReport)
+    {
+        $validated = $request->validate([
+            'obh'      => 'required|string|max:255',
+            'alamat'   => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'sections' => 'nullable|array',
+        ]);
+        $validated['kegiatan'] = 'KONSULTASI HUKUM';
+        $validated['sections'] = $request->input('sections', []);
+        $konsultasiHukumReport->update($validated);
+        return redirect()->route('konsultasi-hukum-reports.show', $konsultasiHukumReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(KonsultasiHukumReport $konsultasiHukumReport)
     {
         $konsultasiHukumReport->delete();

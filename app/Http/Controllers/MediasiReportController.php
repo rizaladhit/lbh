@@ -57,6 +57,35 @@ class MediasiReportController extends Controller
         return view('mediasi_reports.show', compact('mediasiReport'));
     }
 
+    public function edit(MediasiReport $mediasiReport)
+    {
+        if (auth()->user()->role !== 'admin' && $mediasiReport->user_id !== auth()->id()) {
+            abort(403);
+        }
+        return view('mediasi_reports.edit', compact('mediasiReport'));
+    }
+
+    public function update(Request $request, MediasiReport $mediasiReport)
+    {
+        if (auth()->user()->role !== 'admin' && $mediasiReport->user_id !== auth()->id()) {
+            abort(403);
+        }
+        $validated = $request->validate([
+            'obh' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'tgl_pelaksanaan' => 'required|date',
+            'kasus' => 'required|string',
+            'penerima_bantuan' => 'required|string|max:255',
+            'jk_penerima' => 'required|in:L,P',
+            'nama_mediator' => 'required|string|max:255',
+            'checklist_data' => 'nullable|array'
+        ]);
+        $validated['kegiatan'] = 'MEDIASI';
+        $mediasiReport->update($validated);
+        return redirect()->route('mediasi-reports.show', $mediasiReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(MediasiReport $mediasiReport)
     {
         if (auth()->user()->role !== 'admin' && $mediasiReport->user_id !== auth()->id()) {

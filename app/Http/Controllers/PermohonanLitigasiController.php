@@ -87,14 +87,18 @@ class PermohonanLitigasiController extends Controller
         ]);
 
         if ($request->hasFile('file_ktp_kk')) {
-            Storage::disk('public')->delete($permohonanLitigasi->file_ktp_kk);
+            if ($permohonanLitigasi->file_ktp_kk) {
+                Storage::disk('public')->delete($permohonanLitigasi->file_ktp_kk);
+            }
             $validated['file_ktp_kk'] = $request->file('file_ktp_kk')->store('permohonan/ktp_kk', 'public');
         } else {
             unset($validated['file_ktp_kk']);
         }
 
         if ($request->hasFile('file_sktm')) {
-            Storage::disk('public')->delete($permohonanLitigasi->file_sktm);
+            if ($permohonanLitigasi->file_sktm) {
+                Storage::disk('public')->delete($permohonanLitigasi->file_sktm);
+            }
             $validated['file_sktm'] = $request->file('file_sktm')->store('permohonan/sktm', 'public');
         } else {
             unset($validated['file_sktm']);
@@ -102,7 +106,9 @@ class PermohonanLitigasiController extends Controller
 
         $ttdData = $request->input('file_ttd');
         if ($ttdData && str_starts_with($ttdData, 'data:image')) {
-            Storage::disk('public')->delete($permohonanLitigasi->file_ttd);
+            if ($permohonanLitigasi->file_ttd) {
+                Storage::disk('public')->delete($permohonanLitigasi->file_ttd);
+            }
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $ttdData));
             $filename = 'permohonan/ttd/ttd_' . time() . '.png';
             Storage::disk('public')->put($filename, $imageData);
@@ -197,7 +203,7 @@ class PermohonanLitigasiController extends Controller
         if (auth()->user()->role !== 'admin' && $permohonanLitigasi->user_id != auth()->id()) {
             abort(403);
         }
-        Storage::disk('public')->delete([$permohonanLitigasi->file_ktp_kk, $permohonanLitigasi->file_sktm, $permohonanLitigasi->file_ttd]);
+        Storage::disk('public')->delete(array_filter([$permohonanLitigasi->file_ktp_kk, $permohonanLitigasi->file_sktm, $permohonanLitigasi->file_ttd]));
         $permohonanLitigasi->delete();
         return redirect()->route('permohonan-litigasi.index')->with('success', 'Data permohonan berhasil dihapus.');
     }

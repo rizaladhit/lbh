@@ -1,10 +1,10 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         Isi Laporan Drafting Dokumen Hukum Form
     </x-slot>
 
     <div class="row justify-content-center">
-        <div class="col-xl-9">
+        <div class="col-xl-10">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 fw-bold text-primary text-center fs-5 text-uppercase">Check List Berkas Reimbursement Non Litigasi</h6>
@@ -76,7 +76,7 @@
                         <div class="table-responsive mb-4">
                             <table class="table table-bordered align-middle">
                                 <thead>
-                                    <tr class="text-center align-middle" style="background-color: var(--bs-secondary-bg) !important;">
+                                    <tr class="text-center align-middle" style="background-color: var(--bs-tertiary-bg) !important;">
                                         <th style="width: 50px;">NO</th>
                                         <th>BERKAS</th>
                                         <th style="width: 80px;">OBH</th>
@@ -109,14 +109,14 @@
                                     @if($idx == 5)
                                     <tr>
                                         <td></td>
-                                        <td class="ps-4 text-muted border-0">- Biaya Drafter (diberi stempel OBH)</td>
-                                        <td class="text-center border-0"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_1][obh]" value="1"></td>
-                                        <td class="text-center border-0"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_1][kanwil]" value="1"></td>
-                                        <td class="text-center border-0"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_1][bphn]" value="1"></td>
+                                        <td class="ps-4 text-muted fw-medium">- Biaya Drafter (diberi stempel OBH)</td>
+                                        <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_1][obh]" value="1"></td>
+                                        <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_1][kanwil]" value="1"></td>
+                                        <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_1][bphn]" value="1"></td>
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td class="ps-4 text-muted">- Biaya penggandaan dan penjilidan laporan akhir</td>
+                                        <td class="ps-4 text-muted fw-medium">- Biaya penggandaan dan penjilidan laporan akhir</td>
                                         <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_2][obh]" value="1"></td>
                                         <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_2][kanwil]" value="1"></td>
                                         <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[5_2][bphn]" value="1"></td>

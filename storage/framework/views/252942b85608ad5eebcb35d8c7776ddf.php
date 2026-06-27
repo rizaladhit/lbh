@@ -85,6 +85,9 @@
                                 <a href="<?php echo e(route('konsultasi-hukum-reports.show', $report)); ?>" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
+                                <a href="<?php echo e(route('konsultasi-hukum-reports.edit', $report)); ?>" class="action-btn" style="color:#f59e0b;" title="Edit Laporan">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
                                 <button onclick="confirmDelete('<?php echo e(route('konsultasi-hukum-reports.destroy', $report)); ?>')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>

@@ -1,11 +1,11 @@
-<x-app-layout>
-    <x-slot name="header">Buat Laporan Reimbursement - Pemberdayaan Masyarakat</x-slot>
+﻿<x-app-layout>
+    <x-slot name="header">Buat Laporan Pemberdayaan Masyarakat</x-slot>
 
     <div class="row justify-content-center">
         <div class="col-xl-10">
             <div class="card shadow-sm border-0 mb-4">
-                <div class="card-header py-3 bg-primary">
-                    <h6 class="m-0 fw-bold text-white text-uppercase">Check List Berkas Reimbursement Non Litigasi</h6>
+                <div class="card-header py-3">
+                    <h6 class="m-0 fw-bold text-primary text-center fs-5 text-uppercase">Check List Berkas Reimbursement Non Litigasi</h6>
                 </div>
                 <div class="card-body p-4 p-md-5">
                     <form method="POST" action="{{ route('reimbursement-reports.store') }}">
@@ -88,7 +88,7 @@
                         <div class="table-responsive mb-4">
                             <table class="table table-bordered align-middle">
                                 <thead>
-                                    <tr class="text-center align-middle" style="background-color: var(--bs-secondary-bg) !important;">
+                                    <tr class="text-center align-middle" style="background-color: var(--bs-tertiary-bg) !important;">
                                         <th style="width: 50px;">NO</th>
                                         <th>BERKAS</th>
                                         <th style="width: 80px;">OBH</th>
@@ -135,7 +135,7 @@
                                             @foreach($subitems as $subkey => $sublabel)
                                                 <tr>
                                                     <td></td>
-                                                    <td class="ps-4 text-muted">- {{ $sublabel }}<input type="hidden" name="checklist_data[{{ $subkey }}][label]" value="{{ $sublabel }}"></td>
+                                                    <td class="ps-4 text-muted fw-medium">- {{ $sublabel }}<input type="hidden" name="checklist_data[{{ $subkey }}][label]" value="{{ $sublabel }}"></td>
                                                     <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[{{ $subkey }}][obh]" value="1" {{ old('checklist_data.'.$subkey.'.obh') ? 'checked' : '' }}></td>
                                                     <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[{{ $subkey }}][kanwil]" value="1" {{ old('checklist_data.'.$subkey.'.kanwil') ? 'checked' : '' }}></td>
                                                     <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[{{ $subkey }}][bphn]" value="1" {{ old('checklist_data.'.$subkey.'.bphn') ? 'checked' : '' }}></td>
@@ -158,7 +158,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center pt-3 border-top">
-                            <a href="{{ route('reimbursement-reports.index') }}" class="btn btn-light border me-2 fw-medium">Batal</a>
+                            <a href="{{ route('pemberdayaan-masyarakat.index') }}" class="btn btn-light border me-2 fw-medium">Batal</a>
                             <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm"><i class="fa-solid fa-save me-1"></i> Simpan Laporan</button>
                         </div>
                     </form>

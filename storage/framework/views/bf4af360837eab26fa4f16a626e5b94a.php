@@ -8,13 +8,13 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Buat Laporan Reimbursement - Pemberdayaan Masyarakat <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> Buat Laporan Pemberdayaan Masyarakat <?php $__env->endSlot(); ?>
 
     <div class="row justify-content-center">
-        <div class="col-xl-10">
+        <div class="col-xl-9">
             <div class="card shadow-sm border-0 mb-4">
-                <div class="card-header py-3 bg-primary">
-                    <h6 class="m-0 fw-bold text-white text-uppercase">Check List Berkas Reimbursement Non Litigasi</h6>
+                <div class="card-header py-3">
+                    <h6 class="m-0 fw-bold text-primary text-center fs-5 text-uppercase">Check List Berkas Reimbursement Non Litigasi</h6>
                 </div>
                 <div class="card-body p-4 p-md-5">
                     <form method="POST" action="<?php echo e(route('reimbursement-reports.store')); ?>">
@@ -223,7 +223,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="d-flex justify-content-end align-items-center pt-3 border-top">
-                            <a href="<?php echo e(route('reimbursement-reports.index')); ?>" class="btn btn-light border me-2 fw-medium">Batal</a>
+                            <a href="<?php echo e(route('pemberdayaan-masyarakat.index')); ?>" class="btn btn-light border me-2 fw-medium">Batal</a>
                             <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm"><i class="fa-solid fa-save me-1"></i> Simpan Laporan</button>
                         </div>
                     </form>

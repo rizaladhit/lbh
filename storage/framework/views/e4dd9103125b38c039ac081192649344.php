@@ -46,7 +46,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="mb-3">
-                            <label for="no_identitas" class="form-label fw-bold small text-muted">Nomor Identitas Paralegal</label>
+                            <label for="no_identitas" class="form-label fw-bold small text-muted">No. KTA Paralegal/ No. Sertifikat Paralegal</label>
                             <input id="no_identitas" type="text" class="form-control <?php $__errorArgs = ['no_identitas'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -64,6 +64,7 @@ $message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small mt-1"
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                            <div class="text-muted small mt-1">No KTA LBH Unsub / No SK Paralegal LBH Unsub.</div>
                         </div>
 
                         <div class="row g-3 mb-3">

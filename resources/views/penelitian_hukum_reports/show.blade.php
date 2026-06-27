@@ -219,6 +219,9 @@
 
             <div class="d-flex justify-content-end gap-2 mb-4">
                 <a href="{{ route('penelitian-hukum-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="{{ route('penelitian-hukum-reports.edit', $penelitianHukumReport) }}" class="btn btn-warning px-4 fw-bold shadow-sm">
+                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                </a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
                 </button>

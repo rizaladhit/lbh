@@ -60,6 +60,31 @@ class PendampinganReportController extends Controller
         return view('pendampingan_reports.show', compact('pendampinganReport'));
     }
 
+    public function edit(PendampinganReport $pendampinganReport)
+    {
+        return view('pendampingan_reports.edit', compact('pendampinganReport'));
+    }
+
+    public function update(Request $request, PendampinganReport $pendampinganReport)
+    {
+        $validated = $request->validate([
+            'obh'                 => 'required|string|max:255',
+            'alamat'              => 'required|string|max:255',
+            'provinsi'            => 'required|string|max:255',
+            'kasus'               => 'required|string|max:255',
+            'tgl_pendampingan_1'  => 'nullable|date',
+            'tgl_pendampingan_2'  => 'nullable|date',
+            'tgl_pendampingan_3'  => 'nullable|date',
+            'tgl_pendampingan_4'  => 'nullable|date',
+            'penerima_bantuan'    => 'required|string|max:255',
+            'jk_penerima'         => 'required|in:L,P',
+            'checklist_data'      => 'nullable|array',
+        ]);
+        $validated['kegiatan'] = 'Pendampingan Diluar Pengadilan';
+        $pendampinganReport->update($validated);
+        return redirect()->route('pendampingan-reports.show', $pendampinganReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(PendampinganReport $pendampinganReport)
     {
         $pendampinganReport->delete();

@@ -57,6 +57,28 @@ class PerdataReportController extends Controller
         return view('perdata_reports.show', compact('perdataReport'));
     }
 
+    public function edit(PerdataReport $perdataReport)
+    {
+        return view('perdata_reports.edit', compact('perdataReport'));
+    }
+
+    public function update(Request $request, PerdataReport $perdataReport)
+    {
+        $validated = $request->validate([
+            'obh'              => 'required|string|max:255',
+            'alamat'           => 'required|string|max:255',
+            'provinsi'         => 'required|string|max:255',
+            'kasus'            => 'nullable|string|max:255',
+            'nomor_perkara'    => 'nullable|string|max:255',
+            'penerima_bantuan' => 'nullable|string|max:255',
+            'jk_penerima'      => 'nullable|in:L,P',
+            'checklist_data'   => 'nullable|array',
+        ]);
+        $validated['perkara'] = 'Perdata';
+        $perdataReport->update($validated);
+        return redirect()->route('perdata-reports.show', $perdataReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(PerdataReport $perdataReport)
     {
         $perdataReport->delete();

@@ -48,7 +48,7 @@
 
             .pv-gap { height: 10px; }
 
-            .pv-table { width: 100%; border-collapse: collapse; margin: 18px 0 14px 0; font-size: 9.5pt; }
+            .pv-table { width: 100%; border-collapse: collapse; margin: 18px 0 14px 0; font-size: 9pt; }
             .pv-table th, .pv-table td { border: 1px solid #000 !important; padding: 4px 8px; }
             .pv-table thead th {
                 background: #d0d0d0 !important;
@@ -156,7 +156,7 @@
                         $chk = function($k, $f) use ($cl) { return !empty($cl[$k][$f]) ? 'v' : '&nbsp;'; };
                     @endphp
 
-                    <table class="table table-bordered border-secondary align-middle mb-4">
+                    <table class="table table-bordered border-secondary align-middle mb-4" style="font-size:.88rem;">
                         <thead>
                             <tr class="text-center align-middle" style="background-color: var(--bs-tertiary-bg) !important;">
                                 <th style="width:50px;">NO</th>
@@ -183,7 +183,7 @@
                                 @foreach($item8_sub as $sk => $sl)
                                 <tr>
                                     <td></td>
-                                    <td class="ps-4 text-muted">{{ $letters[$sk] }}. &nbsp; {{ $sl }}</td>
+                                    <td class="ps-4 text-muted fw-medium">{{ $letters[$sk] }}. &nbsp; {{ $sl }}</td>
                                     <td class="text-center"><span class="checklist-square">{!! $chk($sk,'obh') !!}</span></td>
                                     <td class="text-center"><span class="checklist-square">{!! $chk($sk,'kanwil') !!}</span></td>
                                     <td class="text-center"><span class="checklist-square">{!! $chk($sk,'bphn') !!}</span></td>
@@ -209,6 +209,9 @@
 
             <div class="d-flex justify-content-end gap-2 mb-4">
                 <a href="{{ route('penyuluhan-hukum-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="{{ route('penyuluhan-hukum-reports.edit', $penyuluhanHukumReport) }}" class="btn btn-warning px-4 fw-bold shadow-sm">
+                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                </a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
                 </button>
