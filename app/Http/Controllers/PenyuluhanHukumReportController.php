@@ -58,6 +58,29 @@ class PenyuluhanHukumReportController extends Controller
         return view('penyuluhan_hukum_reports.show', compact('penyuluhanHukumReport'));
     }
 
+    public function edit(PenyuluhanHukumReport $penyuluhanHukumReport)
+    {
+        return view('penyuluhan_hukum_reports.edit', compact('penyuluhanHukumReport'));
+    }
+
+    public function update(Request $request, PenyuluhanHukumReport $penyuluhanHukumReport)
+    {
+        $validated = $request->validate([
+            'obh'               => 'required|string|max:255',
+            'alamat'            => 'required|string|max:255',
+            'provinsi'          => 'required|string|max:255',
+            'tgl_pelaksanaan'   => 'nullable|date',
+            'penerima_bantuan'  => 'nullable|string|max:255',
+            'tempat_pelaksanaan'=> 'nullable|string|max:255',
+            'materi'            => 'nullable|string|max:500',
+            'narasumber'        => 'nullable|string|max:255',
+            'checklist_data'    => 'nullable|array',
+        ]);
+        $validated['kegiatan'] = 'Penyuluhan Hukum';
+        $penyuluhanHukumReport->update($validated);
+        return redirect()->route('penyuluhan-hukum-reports.show', $penyuluhanHukumReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(PenyuluhanHukumReport $penyuluhanHukumReport)
     {
         $penyuluhanHukumReport->delete();

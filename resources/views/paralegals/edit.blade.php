@@ -24,10 +24,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="no_identitas" class="form-label fw-bold small text-muted">Nomor Identitas Paralegal</label>
+                            <label for="no_identitas" class="form-label fw-bold small text-muted">No. KTA Paralegal/ No. Sertifikat Paralegal</label>
                             <input id="no_identitas" type="text" class="form-control @error('no_identitas') is-invalid @enderror"
                                 name="no_identitas" value="{{ old('no_identitas', $paralegal->no_identitas) }}" required>
                             @error('no_identitas')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                            <div class="text-muted small mt-1">No KTA LBH Unsub / No SK Paralegal LBH Unsub.</div>
                         </div>
 
                         <div class="row g-3 mb-3">

@@ -53,6 +53,29 @@ class DraftingDokumenHukumReportController extends Controller
         return view('bphn_reports.show', compact('draftingReport'));
     }
 
+    public function edit(DraftingDokumenHukumReport $draftingReport)
+    {
+        return view('bphn_reports.edit', compact('draftingReport'));
+    }
+
+    public function update(Request $request, DraftingDokumenHukumReport $draftingReport)
+    {
+        $validated = $request->validate([
+            'obh' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'kegiatan' => 'required|string|max:255',
+            'tgl_pelaksanaan' => 'required|date',
+            'kasus' => 'required|string',
+            'penerima_bantuan' => 'required|string|max:255',
+            'jk_penerima' => 'required|in:L,P',
+            'nama_drafter' => 'required|string|max:255',
+            'checklist_data' => 'nullable|array'
+        ]);
+        $draftingReport->update($validated);
+        return redirect()->route('drafting-reports.show', $draftingReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(DraftingDokumenHukumReport $draftingReport)
     {
         $draftingReport->delete();

@@ -76,7 +76,7 @@
                 width: 100%;
                 border-collapse: collapse;
                 margin: 18px 0 14px 0;
-                font-size: 9.5pt;
+                font-size: 9pt;
             }
             .pv-table th, .pv-table td { border: 1px solid #000 !important; padding: 4px 8px; }
             .pv-table thead th {
@@ -183,7 +183,7 @@
                         };
                     @endphp
 
-                    <table class="table table-bordered border-secondary align-middle mb-4">
+                    <table class="table table-bordered border-secondary align-middle mb-4" style="font-size:.88rem;">
                         <thead>
                             <tr class="text-center align-middle" style="background-color: var(--bs-tertiary-bg) !important;">
                                 <th style="width:50px;">NO</th>
@@ -220,6 +220,9 @@
 
             <div class="d-flex justify-content-end gap-2 mb-4">
                 <a href="{{ route('negosiasi-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="{{ route('negosiasi-reports.edit', $negosiasiReport) }}" class="btn btn-warning px-4 fw-bold shadow-sm">
+                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                </a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
                 </button>

@@ -1,4 +1,4 @@
-<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+﻿<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
 <?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('app-layout'); ?>
@@ -39,7 +39,7 @@
                     <i class="fa-solid fa-chalkboard-user text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 fw-bold text-body">Daftar Laporan Penyuluhan Hukum</h6>
+                    <h6 style="font-size:.85rem;font-weight:600;" class="mb-0 fw-bold text-body">Daftar Laporan Penyuluhan Hukum</h6>
                     <div style="font-size:.72rem;color:#94a3b8;">Total <?php echo e($reports->total()); ?> laporan terdata</div>
                 </div>
             </div>
@@ -68,16 +68,16 @@
                             <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;"><?php echo e($report->provinsi); ?></div>
                         </td>
                         <td>
-                            <div style="font-weight:600;font-size:.85rem;" class="text-body"><?php echo e($report->obh); ?></div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body"><?php echo e($report->obh); ?></div>
                             <div class="badge-kegiatan mt-1"><?php echo e($report->kegiatan); ?></div>
                         </td>
                         <td>
-                            <div style="font-size:.82rem;" class="text-body"><?php echo e($report->narasumber ?? '-'); ?></div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body"><?php echo e($report->narasumber ?? '-'); ?></div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-calendar-check" style="color:#10b981;font-size:.8rem;"></i>
-                                <span style="font-size:.82rem;font-weight:500;" class="text-body">
+                                <span style="font-size:.85rem;font-weight:600;" class="text-body">
                                     <?php echo e($report->tgl_pelaksanaan?->format('d M Y') ?? '-'); ?>
 
                                 </span>
@@ -91,6 +91,9 @@
                                 <a href="<?php echo e(route('penyuluhan-hukum-reports.show', $report)); ?>" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
+                                <a href="<?php echo e(route('penyuluhan-hukum-reports.edit', $report)); ?>" class="action-btn" style="color:#f59e0b;" title="Edit Laporan">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
                                 <button onclick="confirmDelete('<?php echo e(route('penyuluhan-hukum-reports.destroy', $report)); ?>')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
@@ -102,7 +105,7 @@
                         <td colspan="6">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                                <h6 class="fw-bold text-body mb-1">Belum Ada Laporan Penyuluhan Hukum</h6>
+                                <h6 style="font-size:.85rem;font-weight:600;" class="fw-bold text-body mb-1">Belum Ada Laporan Penyuluhan Hukum</h6>
                                 <p class="text-muted mb-4" style="font-size:.85rem;">Mulai dengan membuat laporan Penyuluhan Hukum yang pertama.</p>
                                 <a href="<?php echo e(route('penyuluhan-hukum-reports.create')); ?>" class="btn-cta" style="margin:auto;width:fit-content;">
                                     <i class="fa-solid fa-plus"></i> Buat Laporan

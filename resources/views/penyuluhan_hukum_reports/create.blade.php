@@ -1,8 +1,8 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">Buat Laporan Penyuluhan Hukum</x-slot>
 
     <div class="row justify-content-center">
-        <div class="col-xl-9">
+        <div class="col-xl-10">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 fw-bold text-primary text-center fs-5 text-uppercase">Check List Berkas Reimbursement Non Litigasi</h6>
@@ -85,7 +85,7 @@
                         <div class="table-responsive mb-4">
                             <table class="table table-bordered align-middle">
                                 <thead>
-                                    <tr class="text-center align-middle" style="background-color: var(--bs-secondary-bg) !important;">
+                                    <tr class="text-center align-middle" style="background-color: var(--bs-tertiary-bg) !important;">
                                         <th style="width:50px;">NO</th>
                                         <th>BERKAS</th>
                                         <th style="width:80px;">OBH</th>
@@ -133,7 +133,7 @@
                                         @foreach($item8_sub as $subkey => $sublabel)
                                         <tr>
                                             <td></td>
-                                            <td class="ps-4 text-muted">{{ $letters[$subkey] }}. &nbsp; {{ $sublabel }}
+                                            <td class="ps-4 text-muted fw-medium">{{ $letters[$subkey] }}. &nbsp; {{ $sublabel }}
                                                 <input type="hidden" name="checklist_data[{{ $subkey }}][label]" value="{{ $sublabel }}">
                                             </td>
                                             <td class="text-center"><input class="form-check-input border-secondary shadow-none fs-4" type="checkbox" name="checklist_data[{{ $subkey }}][obh]" value="1" {{ old('checklist_data.'.$subkey.'.obh') ? 'checked' : '' }}></td>

@@ -68,6 +68,43 @@ class NegosiasiReportController extends Controller
         return view('negosiasi_reports.show', compact('negosiasiReport'));
     }
 
+    public function edit(NegosiasiReport $negosiasiReport)
+    {
+        return view('negosiasi_reports.edit', compact('negosiasiReport'));
+    }
+
+    public function update(Request $request, NegosiasiReport $negosiasiReport)
+    {
+        $validated = $request->validate([
+            'obh' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'tgl_pelaksanaan' => 'required|date',
+            'kasus' => 'required|string|max:255',
+            'penerima_bantuan' => 'required|string|max:255',
+            'jk_penerima' => 'required|in:L,P',
+            'nama_negosiator' => 'required|string|max:255',
+            'checklist' => 'nullable|array',
+        ]);
+
+        $checklist = [];
+        foreach ($request->input('checklist', []) as $item) {
+            $checklist[] = [
+                'label' => $item['label'] ?? null,
+                'obh' => isset($item['obh']),
+                'kanwil' => isset($item['kanwil']),
+                'bphn' => isset($item['bphn']),
+            ];
+        }
+
+        $validated['checklist_data'] = $checklist;
+        $validated['kegiatan'] = 'NEGOSIASI';
+
+        $negosiasiReport->update($validated);
+
+        return redirect()->route('negosiasi-reports.show', $negosiasiReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(NegosiasiReport $negosiasiReport)
     {
         $negosiasiReport->delete();

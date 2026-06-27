@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">Laporan Mediasi</x-slot>
 
     <style>
@@ -63,7 +63,7 @@
                     <i class="fa-solid fa-handshake text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 fw-bold text-body">Daftar Laporan Mediasi</h6>
+                    <h6 style="font-size:.85rem;font-weight:600;" class="mb-0 fw-bold text-body">Daftar Laporan Mediasi</h6>
                     <div style="font-size:.72rem;color:#94a3b8;">Total {{ $reports->total() }} laporan terdata</div>
                 </div>
             </div>
@@ -88,11 +88,11 @@
                     @forelse($reports as $report)
                     <tr>
                         <td style="padding-left:24px;">
-                            <div style="font-size:.8rem;font-weight:700;font-family:monospace;" class="text-body">{{ Str::limit($report->kasus, 20) }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ Str::limit($report->kasus, 20) }}</div>
                             <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;">{{ $report->provinsi }}</div>
                         </td>
                         <td>
-                            <div style="font-weight:600;font-size:.85rem;" class="text-body">{{ $report->obh }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->obh }}</div>
                             <div class="badge-kegiatan mt-1">{{ $report->kegiatan }}</div>
                         </td>
                         <td>
@@ -100,22 +100,25 @@
                                 <div style="width:28px;height:28px;border-radius:50%;background:{{ $report->jk_penerima === 'L' ? 'rgba(59,130,246,.15)' : 'rgba(236,72,153,.15)' }};display:flex;align-items:center;justify-content:center;color:{{ $report->jk_penerima === 'L' ? '#3b82f6' : '#ec4899' }};font-size:.7rem;font-weight:bold;">
                                     {{ $report->jk_penerima }}
                                 </div>
-                                <span style="font-size:.82rem;font-weight:500;" class="text-body">{{ $report->penerima_bantuan }}</span>
+                                <span style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->penerima_bantuan }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-calendar-check" style="color:#10b981;font-size:.8rem;"></i>
-                                <span style="font-size:.82rem;font-weight:500;" class="text-body">{{ $report->tgl_pelaksanaan->format('d M Y') }}</span>
+                                <span style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->tgl_pelaksanaan->format('d M Y') }}</span>
                             </div>
                         </td>
                         <td>
-                            <div style="font-size:.82rem;" class="text-body">{{ $report->nama_mediator }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->nama_mediator }}</div>
                         </td>
                         <td style="padding-right:24px;text-align:right;">
                             <div class="d-flex justify-content-end gap-1">
                                 <a href="{{ route('mediasi-reports.show', $report) }}" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
                                     <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a href="{{ route('mediasi-reports.edit', $report) }}" class="action-btn" style="color:#f59e0b;" title="Edit Laporan">
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                 @if(auth()->user()->role === 'admin' || auth()->id() === $report->user_id)
                                 <button onclick="confirmDelete('{{ route('mediasi-reports.destroy', $report) }}')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
@@ -130,7 +133,7 @@
                         <td colspan="6">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-handshake"></i></div>
-                                <h6 class="fw-bold text-body mb-1">Belum Ada Laporan Mediasi</h6>
+                                <h6 style="font-size:.85rem;font-weight:600;" class="fw-bold text-body mb-1">Belum Ada Laporan Mediasi</h6>
                                 <p class="text-muted mb-4" style="font-size:.85rem;">Mulai dengan membuat laporan Mediasi yang pertama.</p>
                                 <a href="{{ route('mediasi-reports.create') }}" class="btn-cta" style="margin:auto;width:fit-content;">
                                     <i class="fa-solid fa-plus"></i> Buat Laporan

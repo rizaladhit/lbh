@@ -54,6 +54,25 @@ class InvestigasiKasusReportController extends Controller
         return view('investigasi_kasus_reports.show', compact('investigasiKasusReport'));
     }
 
+    public function edit(InvestigasiKasusReport $investigasiKasusReport)
+    {
+        return view('investigasi_kasus_reports.edit', compact('investigasiKasusReport'));
+    }
+
+    public function update(Request $request, InvestigasiKasusReport $investigasiKasusReport)
+    {
+        $validated = $request->validate([
+            'obh'      => 'required|string|max:255',
+            'alamat'   => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'sections' => 'nullable|array',
+        ]);
+        $validated['kegiatan'] = 'INVESTIGASI KASUS';
+        $validated['sections'] = $request->input('sections', []);
+        $investigasiKasusReport->update($validated);
+        return redirect()->route('investigasi-kasus-reports.show', $investigasiKasusReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(InvestigasiKasusReport $investigasiKasusReport)
     {
         $investigasiKasusReport->delete();

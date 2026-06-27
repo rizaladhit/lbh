@@ -76,7 +76,7 @@
                 width: 100%;
                 border-collapse: collapse;
                 margin: 18px 0 14px 0;
-                font-size: 9.5pt;
+                font-size: 9pt;
             }
             .pv-table th, .pv-table td { border: 1px solid #000 !important; padding: 4px 8px; }
             .pv-table thead th {
@@ -183,7 +183,7 @@
                         };
                     @endphp
 
-                    <table class="table table-bordered border-secondary align-middle mb-4">
+                    <table class="table table-bordered border-secondary align-middle mb-4" style="font-size:.88rem;">
                         <thead>
                             <tr class="text-center align-middle" style="background-color: var(--bs-tertiary-bg) !important;">
                                 <th style="width:50px;">NO</th>
@@ -210,7 +210,7 @@
                                 @foreach($subitems as $subkey => $sublabel)
                                 <tr>
                                     <td></td>
-                                    <td class="ps-4 text-muted">- {{ $sublabel }}</td>
+                                    <td class="ps-4 text-muted fw-medium">- {{ $sublabel }}</td>
                                     <td class="text-center"><span class="checklist-square">{!! $chk($subkey, 'obh') !!}</span></td>
                                     <td class="text-center"><span class="checklist-square">{!! $chk($subkey, 'kanwil') !!}</span></td>
                                     <td class="text-center"><span class="checklist-square">{!! $chk($subkey, 'bphn') !!}</span></td>

@@ -97,29 +97,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemberdayaan-masyarakat', [ReimbursementReportController::class, 'indexPemberdayaan'])->name('pemberdayaan-masyarakat.index');
     Route::get('pemberdayaan-masyarakat/create', [ReimbursementReportController::class, 'createPemberdayaan'])->name('reimbursement-reports.create-pemberdayaan');
     Route::get('pemberdayaan-masyarakat/{reimbursementReport}', [ReimbursementReportController::class, 'showPemberdayaan'])->name('pemberdayaan-masyarakat.show');
-    Route::resource('negosiasi-reports', NegosiasiReportController::class)->only(['index', 'create', 'store', 'show', 'destroy']);
-    Route::resource('pendampingan-reports', \App\Http\Controllers\PendampinganReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('negosiasi-reports', NegosiasiReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update']);
+    Route::resource('pendampingan-reports', \App\Http\Controllers\PendampinganReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'pendampingan-reports' => 'pendampinganReport'
     ]);
-    Route::resource('penelitian-hukum-reports', \App\Http\Controllers\PenelitianHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('penelitian-hukum-reports', \App\Http\Controllers\PenelitianHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'penelitian-hukum-reports' => 'penelitianHukumReport'
     ]);
-    Route::resource('penyuluhan-hukum-reports', \App\Http\Controllers\PenyuluhanHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('penyuluhan-hukum-reports', \App\Http\Controllers\PenyuluhanHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'penyuluhan-hukum-reports' => 'penyuluhanHukumReport'
     ]);
-    Route::resource('perdata-reports', \App\Http\Controllers\PerdataReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('perdata-reports', \App\Http\Controllers\PerdataReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'perdata-reports' => 'perdataReport'
     ]);
-    Route::resource('pidana-reports', \App\Http\Controllers\PidanaReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('pidana-reports', \App\Http\Controllers\PidanaReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'pidana-reports' => 'pidanaReport'
     ]);
-    Route::resource('tun-reports', \App\Http\Controllers\TunReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('tun-reports', \App\Http\Controllers\TunReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'tun-reports' => 'tunReport'
     ]);
-    Route::resource('konsultasi-hukum-reports', \App\Http\Controllers\KonsultasiHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('konsultasi-hukum-reports', \App\Http\Controllers\KonsultasiHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'konsultasi-hukum-reports' => 'konsultasiHukumReport'
     ]);
-    Route::resource('investigasi-kasus-reports', \App\Http\Controllers\InvestigasiKasusReportController::class)->only(['index', 'create', 'store', 'show', 'destroy'])->parameters([
+    Route::resource('investigasi-kasus-reports', \App\Http\Controllers\InvestigasiKasusReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'investigasi-kasus-reports' => 'investigasiKasusReport'
     ]);
 });

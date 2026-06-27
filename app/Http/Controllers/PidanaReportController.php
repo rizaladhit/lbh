@@ -57,6 +57,28 @@ class PidanaReportController extends Controller
         return view('pidana_reports.show', compact('pidanaReport'));
     }
 
+    public function edit(PidanaReport $pidanaReport)
+    {
+        return view('pidana_reports.edit', compact('pidanaReport'));
+    }
+
+    public function update(Request $request, PidanaReport $pidanaReport)
+    {
+        $validated = $request->validate([
+            'obh'              => 'required|string|max:255',
+            'alamat'           => 'required|string|max:255',
+            'provinsi'         => 'required|string|max:255',
+            'kasus'            => 'nullable|string|max:255',
+            'nomor_perkara'    => 'nullable|string|max:255',
+            'penerima_bantuan' => 'nullable|string|max:255',
+            'jk_penerima'      => 'nullable|in:L,P',
+            'checklist_data'   => 'nullable|array',
+        ]);
+        $validated['perkara'] = 'Pidana';
+        $pidanaReport->update($validated);
+        return redirect()->route('pidana-reports.show', $pidanaReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(PidanaReport $pidanaReport)
     {
         $pidanaReport->delete();

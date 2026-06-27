@@ -57,6 +57,28 @@ class TunReportController extends Controller
         return view('tun_reports.show', compact('tunReport'));
     }
 
+    public function edit(TunReport $tunReport)
+    {
+        return view('tun_reports.edit', compact('tunReport'));
+    }
+
+    public function update(Request $request, TunReport $tunReport)
+    {
+        $validated = $request->validate([
+            'obh'              => 'required|string|max:255',
+            'alamat'           => 'required|string|max:255',
+            'provinsi'         => 'required|string|max:255',
+            'kasus'            => 'nullable|string|max:255',
+            'nomor_perkara'    => 'nullable|string|max:255',
+            'penerima_bantuan' => 'nullable|string|max:255',
+            'jk_penerima'      => 'nullable|in:L,P',
+            'checklist_data'   => 'nullable|array',
+        ]);
+        $validated['perkara'] = 'TUN';
+        $tunReport->update($validated);
+        return redirect()->route('tun-reports.show', $tunReport)->with('success', 'Laporan berhasil diperbarui.');
+    }
+
     public function destroy(TunReport $tunReport)
     {
         $tunReport->delete();
