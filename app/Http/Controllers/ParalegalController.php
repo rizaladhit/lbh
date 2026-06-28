@@ -16,7 +16,8 @@ class ParalegalController extends Controller
 
     public function create()
     {
-        $users = User::where('role', 'paralegal')->get();
+        $usedUserIds = Paralegal::pluck('user_id');
+        $users = User::where('role', 'paralegal')->whereNotIn('id', $usedUserIds)->get();
         return view('paralegals.create', compact('users'));
     }
 
@@ -27,6 +28,7 @@ class ParalegalController extends Controller
             'email' => 'required|email|unique:paralegals,email',
             'phone' => 'required|string|max:20',
             'no_identitas' => 'required|string|unique:paralegals,no_identitas|max:50',
+            'no_kta_lbh' => 'nullable|string|max:100',
             'specialization' => 'required|string|max:255',
             'address' => 'nullable|string',
             'status' => 'required|in:active,inactive',
@@ -66,6 +68,7 @@ class ParalegalController extends Controller
             'email' => 'required|email|unique:paralegals,email,' . $paralegal->id,
             'phone' => 'required|string|max:20',
             'no_identitas' => 'required|string|unique:paralegals,no_identitas,' . $paralegal->id . '|max:50',
+            'no_kta_lbh' => 'nullable|string|max:100',
             'specialization' => 'required|string|max:255',
             'address' => 'nullable|string',
             'status' => 'required|in:active,inactive',

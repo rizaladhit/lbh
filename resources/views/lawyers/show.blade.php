@@ -13,7 +13,8 @@
                 <div class="card-body p-4" style="font-size: 0.95rem;">
                     @php $fields = [
                         'Nama Lengkap' => $lawyer->name,
-                        'No. Identitas (SIU)' => $lawyer->no_identitas,
+                        'No. KTA Advokat / No. BAS' => $lawyer->no_identitas,
+                        'No. KTA LBH Unsub / No. SK Advokat LBH Unsub' => $lawyer->no_kta_lbh ?? '-',
                         'Email' => $lawyer->email,
                         'Telepon' => $lawyer->phone,
                         'Keahlian' => $lawyer->specialization,
@@ -24,7 +25,7 @@
                     ]; @endphp
                     @foreach($fields as $label => $value)
                     <div class="d-flex border-bottom py-3">
-                        <div class="fw-semibold" style="min-width: 180px;">{{ $label }}</div>
+                        <div class="fw-semibold" style="min-width: 380px;">{{ $label }}</div>
                         <div class="text-muted" style="word-break: break-word;">: {{ $value }}</div>
                     </div>
                     @endforeach

@@ -14,6 +14,7 @@ class Lawyer extends Model
         'email',
         'phone',
         'no_identitas',
+        'no_kta_lbh',
         'specialization',
         'address',
         'status',

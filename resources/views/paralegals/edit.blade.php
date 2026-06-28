@@ -28,7 +28,13 @@
                             <input id="no_identitas" type="text" class="form-control @error('no_identitas') is-invalid @enderror"
                                 name="no_identitas" value="{{ old('no_identitas', $paralegal->no_identitas) }}" required>
                             @error('no_identitas')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-                            <div class="text-muted small mt-1">No KTA LBH Unsub / No SK Paralegal LBH Unsub.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="no_kta_lbh" class="form-label fw-bold small text-muted">No. KTA LBH Unsub / No. SK Paralegal LBH Unsub.</label>
+                            <input id="no_kta_lbh" type="text" class="form-control @error('no_kta_lbh') is-invalid @enderror"
+                                name="no_kta_lbh" value="{{ old('no_kta_lbh', $paralegal->no_kta_lbh) }}" placeholder="Contoh: KTA/LBH/PRL/001/2024">
+                            @error('no_kta_lbh')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="row g-3 mb-3">
