@@ -64,7 +64,27 @@ $message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small mt-1"
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                            <div class="text-muted small mt-1">No KTA LBH Unsub / No SK Paralegal LBH Unsub.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="no_kta_lbh" class="form-label fw-bold small text-muted">No. KTA LBH Unsub / No. SK Paralegal LBH Unsub.</label>
+                            <input id="no_kta_lbh" type="text" class="form-control <?php $__errorArgs = ['no_kta_lbh'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                                name="no_kta_lbh" value="<?php echo e(old('no_kta_lbh')); ?>" placeholder="Contoh: KTA/LBH/PRL/001/2024">
+                            <?php $__errorArgs = ['no_kta_lbh'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><div class="text-danger small mt-1"><?php echo e($message); ?></div><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="row g-3 mb-3">
