@@ -49,6 +49,8 @@
                         <th>Tgl. Register</th>
                         <th>Klasifikasi</th>
                         <th>Terdakwa</th>
+                        <th>Penuntut Umum</th>
+                        <th>Advokat Pendamping</th>
                         <th>Status</th>
                         <th>Lama Proses</th>
                         <th style="padding-right:24px;text-align:right;">Aksi</th>
@@ -75,6 +77,12 @@
                         </td>
                         <td>
                             <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $simbakum->terdakwa }}</div>
+                        </td>
+                        <td>
+                            <div style="font-size:.85rem;" class="text-body">{{ $simbakum->penuntut_umum }}</div>
+                        </td>
+                        <td>
+                            <div style="font-size:.85rem;" class="text-body">{{ $simbakum->advokat_pendamping }}</div>
                         </td>
                         <td>
                             <span class="{{ $simbakum->getStatusBadgeClass() }}">{{ $simbakum->getStatusLabel() }}</span>
@@ -118,7 +126,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8">
+                        <td colspan="10">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-scale-balanced"></i></div>
                                 <h6 style="font-size:.85rem;font-weight:600;" class="fw-bold text-body mb-1">Belum Ada Data SIMBAKUM</h6>
