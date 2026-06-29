@@ -1,5 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">Pemberdayaan Masyarakat</x-slot>
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Pemberdayaan Masyarakat <?php $__env->endSlot(); ?>
 
     <style>
         /* ── Screen only: hide print-view ─────────────────────────── */
@@ -113,9 +122,9 @@
         .form-preview-label { width: 220px; flex-shrink: 0; }
     </style>
 
-    {{-- ================================================================ --}}
-    {{-- SCREEN VIEW — style sama dengan /mediasi-reports                  --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="d-print-none row justify-content-center">
         <div class="col-lg-10">
             <div class="card shadow-md border-0 mb-4 p-4 p-md-5">
@@ -129,43 +138,43 @@
                 <div class="card-body p-0" style="font-size: 0.95rem;">
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">OBH</div>
-                        <div>: {{ $reimbursementReport->obh }}</div>
+                        <div>: <?php echo e($reimbursementReport->obh); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">ALAMAT</div>
-                        <div>: {{ $reimbursementReport->alamat }}</div>
+                        <div>: <?php echo e($reimbursementReport->alamat); ?></div>
                     </div>
                     <div class="d-flex mb-4">
                         <div class="fw-bold form-preview-label">PROVINSI</div>
-                        <div>: {{ $reimbursementReport->provinsi }}</div>
+                        <div>: <?php echo e($reimbursementReport->provinsi); ?></div>
                     </div>
 
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">KEGIATAN</div>
-                        <div class="text-uppercase">: {{ $reimbursementReport->kegiatan }}</div>
+                        <div class="text-uppercase">: <?php echo e($reimbursementReport->kegiatan); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">TGL PELAKSANAAN KEGIATAN</div>
-                        <div>: {{ $reimbursementReport->tgl_pelaksanaan->format('d M Y') }}</div>
+                        <div>: <?php echo e($reimbursementReport->tgl_pelaksanaan->format('d M Y')); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">PENERIMA BANTUAN HUKUM</div>
-                        <div>: {{ $reimbursementReport->penerima_bantuan ?? '-' }}</div>
+                        <div>: <?php echo e($reimbursementReport->penerima_bantuan ?? '-'); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">TEMPAT PELAKSANAAN KEG.</div>
-                        <div>: {{ $reimbursementReport->tempat_pelaksanaan ?? '-' }}</div>
+                        <div>: <?php echo e($reimbursementReport->tempat_pelaksanaan ?? '-'); ?></div>
                     </div>
                     <div class="d-flex mb-1">
                         <div class="fw-bold form-preview-label">MATERI</div>
-                        <div>: {{ $reimbursementReport->materi ?? '-' }}</div>
+                        <div>: <?php echo e($reimbursementReport->materi ?? '-'); ?></div>
                     </div>
                     <div class="d-flex mb-4">
                         <div class="fw-bold form-preview-label">NARASUMBER</div>
-                        <div>: {{ $reimbursementReport->narasumber ?? '-' }}</div>
+                        <div>: <?php echo e($reimbursementReport->narasumber ?? '-'); ?></div>
                     </div>
 
-                    @php
+                    <?php
                         $items = [
                             'item1' => 'Formulir permohonan bantuan hukum',
                             'item2' => 'SK Panitia',
@@ -187,7 +196,7 @@
                         $chk = function($key, $field) use ($checklist) {
                             return !empty($checklist[$key][$field]) ? 'v' : '&nbsp;';
                         };
-                    @endphp
+                    ?>
 
                     <table class="table table-bordered border-secondary align-middle mb-4" style="font-size:.88rem;">
                         <thead>
@@ -200,30 +209,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($items as $key => $label)
+                            <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td class="text-center fw-bold">{{ substr($key, 4) }}.</td>
-                                <td class="fw-medium">{{ $label }}</td>
-                                @if($key !== 'item8')
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($key, 'obh') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($key, 'kanwil') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($key, 'bphn') !!}</span></td>
-                                @else
+                                <td class="text-center fw-bold"><?php echo e(substr($key, 4)); ?>.</td>
+                                <td class="fw-medium"><?php echo e($label); ?></td>
+                                <?php if($key !== 'item8'): ?>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($key, 'obh'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($key, 'kanwil'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($key, 'bphn'); ?></span></td>
+                                <?php else: ?>
                                     <td></td><td></td><td></td>
-                                @endif
+                                <?php endif; ?>
                             </tr>
-                            @if($key === 'item8')
-                                @foreach($subitems as $subkey => $sublabel)
+                            <?php if($key === 'item8'): ?>
+                                <?php $__currentLoopData = $subitems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subkey => $sublabel): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                     <td></td>
-                                    <td class="ps-4 text-muted fw-medium">- {{ $sublabel }}</td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($subkey, 'obh') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($subkey, 'kanwil') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($subkey, 'bphn') !!}</span></td>
+                                    <td class="ps-4 text-muted fw-medium">- <?php echo e($sublabel); ?></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($subkey, 'obh'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($subkey, 'kanwil'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($subkey, 'bphn'); ?></span></td>
                                 </tr>
-                                @endforeach
-                            @endif
-                            @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
 
@@ -240,7 +249,7 @@
             </div>
 
             <div class="d-flex justify-content-end gap-2 mb-4 d-print-none">
-                <a href="{{ route('pemberdayaan-masyarakat.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="<?php echo e(route('pemberdayaan-masyarakat.index')); ?>" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
                 </button>
@@ -248,35 +257,35 @@
         </div>
     </div>
 
-    {{-- ================================================================ --}}
-    {{-- PRINT VIEW — tampilan dokumen persis seperti gambar               --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="print-view">
 
         <div class="pv-title">Check List Berkas Reimbursement Non Litigasi</div>
 
-        {{-- Grup 1: OBH, ALAMAT, PROVINSI --}}
+        
         <div class="pv-group pv-g1">
             <div class="pv-row">
                 <span class="pv-label">OBH</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->obh }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->obh); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">ALAMAT</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->alamat }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->alamat); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">PROVINSI</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->provinsi }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->provinsi); ?></span>
             </div>
         </div>
 
         <div class="pv-gap"></div>
 
-        {{-- Grup 2: KEGIATAN, TGL, PENERIMA, TEMPAT, MATERI, NARASUMBER --}}
+        
         <div class="pv-group pv-g2">
             <div class="pv-row">
                 <span class="pv-label">KEGIATAN</span>
@@ -286,32 +295,32 @@
             <div class="pv-row">
                 <span class="pv-label">TGL PELAKSANAAN KEGIATAN</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->tgl_pelaksanaan->format('d M Y') }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->tgl_pelaksanaan->format('d M Y')); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">PENERIMA BANTUAN HUKUM</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->penerima_bantuan }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->penerima_bantuan); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">TEMPAT PELAKSANAAN KEG.</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->tempat_pelaksanaan }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->tempat_pelaksanaan); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">MATERI</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->materi }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->materi); ?></span>
             </div>
             <div class="pv-row">
                 <span class="pv-label">NARASUMBER</span>
                 <span class="pv-sep">:</span>
-                <span class="pv-val">{{ $reimbursementReport->narasumber }}</span>
+                <span class="pv-val"><?php echo e($reimbursementReport->narasumber); ?></span>
             </div>
         </div>
 
-        {{-- Tabel Checklist --}}
-        @php
+        
+        <?php
             $pv_items = [
                 'item1' => 'Formulir permohonan bantuan hukum',
                 'item2' => 'SK Panitia',
@@ -333,7 +342,7 @@
             $pv_chk = function($key, $field) use ($pv_checklist) {
                 return !empty($pv_checklist[$key][$field]) ? 'v' : '';
             };
-        @endphp
+        ?>
 
         <table class="pv-table">
             <thead>
@@ -346,34 +355,34 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($pv_items as $key => $label)
+                <?php $__currentLoopData = $pv_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td class="no-col">{{ substr($key, 4) }}.</td>
-                    <td>{{ $label }}</td>
-                    @if($key !== 'item8')
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key, 'obh') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key, 'kanwil') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key, 'bphn') }}</span></td>
-                    @else
+                    <td class="no-col"><?php echo e(substr($key, 4)); ?>.</td>
+                    <td><?php echo e($label); ?></td>
+                    <?php if($key !== 'item8'): ?>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($key, 'obh')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($key, 'kanwil')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($key, 'bphn')); ?></span></td>
+                    <?php else: ?>
                         <td></td><td></td><td></td>
-                    @endif
+                    <?php endif; ?>
                 </tr>
-                @if($key === 'item8')
-                    @foreach($pv_subitems as $subkey => $sublabel)
+                <?php if($key === 'item8'): ?>
+                    <?php $__currentLoopData = $pv_subitems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subkey => $sublabel): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td></td>
-                        <td style="padding-left:20px;">- {{ $sublabel }}</td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($subkey, 'obh') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($subkey, 'kanwil') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($subkey, 'bphn') }}</span></td>
+                        <td style="padding-left:20px;">- <?php echo e($sublabel); ?></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($subkey, 'obh')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($subkey, 'kanwil')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($subkey, 'bphn')); ?></span></td>
                     </tr>
-                    @endforeach
-                @endif
-                @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
         </table>
 
-        {{-- KETERANGAN --}}
+        
         <div class="pv-keterangan">
             <div class="pv-ket-title">KETERANGAN :</div>
             - Jika <strong>ada</strong> beri tanda (&#10003;), <strong>tidak ada</strong> biarkan kosong.<br>
@@ -387,4 +396,14 @@
 
     </div>
 
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/reimbursement_reports/show_pemberdayaan.blade.php ENDPATH**/ ?>
