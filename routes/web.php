@@ -45,6 +45,7 @@ use App\Http\Controllers\JenisPelayananController;
 use App\Http\Controllers\LawyerController;
 use App\Http\Controllers\LaporanPHController;
 use App\Http\Controllers\ParalegalController;
+use App\Http\Controllers\StatusPerkaraController;
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
@@ -54,6 +55,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('settings', [AppSettingController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [AppSettingController::class, 'update'])->name('settings.update');
     Route::resource('jenis-pelayanan', JenisPelayananController::class)->only(['store', 'destroy']);
+    Route::resource('status-perkara', StatusPerkaraController::class)->except(['show']);
 
     // Laporan Penasehat Hukum (PH) - Admin only
     Route::get('laporan-ph/pengadilan', [LaporanPHController::class, 'indexPengadilan'])->name('laporan-ph.pengadilan.index');
@@ -127,6 +129,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\PermohonanLitigasiController;
 use App\Http\Controllers\PermohonanNonLitigasiController;
+use App\Http\Controllers\SimbakumController;
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
@@ -195,6 +198,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('permohonan-non-litigasi.completeForm');
     Route::post('permohonan-non-litigasi/{permohonanNonLitigasi}/complete', [PermohonanNonLitigasiController::class, 'storeComplete'])
         ->name('permohonan-non-litigasi.storeComplete');
+});
+
+// SIMBAKUM — accessible to admin, pengacara, paralegal (access enforced in controller)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('simbakum', SimbakumController::class);
+    Route::post('simbakum/{simbakum}/dokumen', [SimbakumController::class, 'uploadDokumen'])->name('simbakum.dokumen.upload');
+    Route::delete('simbakum-dokumen/{dokumen}', [SimbakumController::class, 'destroyDokumen'])->name('simbakum.dokumen.destroy');
 });
 
 require __DIR__.'/auth.php';

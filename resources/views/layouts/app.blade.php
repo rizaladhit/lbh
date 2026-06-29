@@ -275,6 +275,19 @@
             </a>
         </div>
 
+        {{-- SIMBAKUM - visible to admin, pengacara, paralegal --}}
+        @if(auth()->check() && in_array(auth()->user()->role, ['admin', 'pengacara', 'paralegal']))
+        <div class="nav-item-custom">
+            <a href="{{ route('simbakum.index') }}"
+               class="nav-link-custom {{ request()->routeIs('simbakum.*') ? 'active' : '' }}">
+                <div class="nav-icon" style="background:{{ request()->routeIs('simbakum.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)' }};">
+                    <i class="fa-solid fa-scale-balanced" style="color:{{ request()->routeIs('simbakum.*') ? 'var(--brand-1)' : '#64748b' }};"></i>
+                </div>
+                SIMBAKUM
+            </a>
+        </div>
+        @endif
+
         {{-- Case Reports (Laporan BPHN) - removed per request --}}
 
         <div class="sidebar-section" style="margin-top:4px;">Form Permohonan</div>
@@ -485,6 +498,16 @@
                     <i class="fa-solid fa-user-shield" style="color:{{ request()->routeIs('paralegals.*') ? '#10b981' : '#64748b' }};"></i>
                 </div>
                 Paralegal
+            </a>
+        </div>
+
+        <div class="nav-item-custom">
+            <a href="{{ route('status-perkara.index') }}"
+               class="nav-link-custom {{ request()->routeIs('status-perkara.*') ? 'active' : '' }}">
+                <div class="nav-icon" style="background:rgba(100,116,139,.08);">
+                    <i class="fa-solid fa-list-check" style="color:#64748b;"></i>
+                </div>
+                Status Perkara
             </a>
         </div>
 

@@ -276,6 +276,19 @@
         </div>
 
         
+        <?php if(auth()->check() && in_array(auth()->user()->role, ['admin', 'pengacara', 'paralegal'])): ?>
+        <div class="nav-item-custom">
+            <a href="<?php echo e(route('simbakum.index')); ?>"
+               class="nav-link-custom <?php echo e(request()->routeIs('simbakum.*') ? 'active' : ''); ?>">
+                <div class="nav-icon" style="background:<?php echo e(request()->routeIs('simbakum.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)'); ?>;">
+                    <i class="fa-solid fa-scale-balanced" style="color:<?php echo e(request()->routeIs('simbakum.*') ? 'var(--brand-1)' : '#64748b'); ?>;"></i>
+                </div>
+                SIMBAKUM
+            </a>
+        </div>
+        <?php endif; ?>
+
+        
 
         <div class="sidebar-section" style="margin-top:4px;">Form Permohonan</div>
 
@@ -475,6 +488,16 @@
                     <i class="fa-solid fa-user-shield" style="color:<?php echo e(request()->routeIs('paralegals.*') ? '#10b981' : '#64748b'); ?>;"></i>
                 </div>
                 Paralegal
+            </a>
+        </div>
+
+        <div class="nav-item-custom">
+            <a href="<?php echo e(route('status-perkara.index')); ?>"
+               class="nav-link-custom <?php echo e(request()->routeIs('status-perkara.*') ? 'active' : ''); ?>">
+                <div class="nav-icon" style="background:rgba(100,116,139,.08);">
+                    <i class="fa-solid fa-list-check" style="color:#64748b;"></i>
+                </div>
+                Status Perkara
             </a>
         </div>
 
