@@ -113,7 +113,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex gap-1">
-                                        <a href="{{ $dokumen->url }}" target="_blank" class="btn btn-sm btn-outline-primary" style="font-size:.73rem;border-radius:7px;">
+                                        <a href="{{ route('simbakum.dokumen.download', $dokumen) }}" target="_blank" class="btn btn-sm btn-outline-primary" style="font-size:.73rem;border-radius:7px;">
                                             <i class="fa-solid fa-download me-1"></i>Unduh
                                         </a>
                                         <button type="button"

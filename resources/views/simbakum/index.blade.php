@@ -100,7 +100,7 @@
                                     data-bs-toggle="modal"
                                     data-bs-target="#dokumenModal"
                                     data-no-perkara="{{ $simbakum->no_perkara }}"
-                                    data-dokumens="{{ $simbakum->dokumens->map(fn($d) => ['nama' => $d->nama_dokumen, 'url' => $d->url])->toJson() }}">
+                                    data-dokumens="{{ $simbakum->dokumens->map(fn($d) => ['nama' => $d->nama_dokumen, 'url' => route('simbakum.dokumen.download', $d)])->toJson() }}">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </button>
 
