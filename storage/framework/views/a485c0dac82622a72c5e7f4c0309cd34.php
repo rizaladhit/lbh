@@ -62,6 +62,7 @@
                         <th>Advokat Pendamping</th>
                         <th>Status</th>
                         <th>Lama Proses</th>
+                        <th>Link</th>
                         <th style="padding-right:24px;text-align:right;">Aksi</th>
                     </tr>
                 </thead>
@@ -101,20 +102,20 @@
                         <td>
                             <div style="font-size:.8rem;" class="text-body"><?php echo e($simbakum->getLamaProses()); ?></div>
                         </td>
+                        <td>
+                            <button type="button"
+                                class="action-btn btn-lihat-dokumen"
+                                style="color:#6366f1;"
+                                title="Lihat Dokumen"
+                                data-bs-toggle="modal"
+                                data-bs-target="#dokumenModal"
+                                data-no-perkara="<?php echo e($simbakum->no_perkara); ?>"
+                                data-dokumens="<?php echo e($simbakum->dokumens->map(fn($d) => ['nama' => $d->nama_dokumen, 'url' => route('simbakum.dokumen.download', $d)])->toJson()); ?>">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </button>
+                        </td>
                         <td style="padding-right:24px;text-align:right;">
                             <div class="d-flex justify-content-end gap-1">
-                                
-                                <button type="button"
-                                    class="action-btn btn-lihat-dokumen"
-                                    style="color:#6366f1;"
-                                    title="Lihat Dokumen"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#dokumenModal"
-                                    data-no-perkara="<?php echo e($simbakum->no_perkara); ?>"
-                                    data-dokumens="<?php echo e($simbakum->dokumens->map(fn($d) => ['nama' => $d->nama_dokumen, 'url' => $d->url])->toJson()); ?>">
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                </button>
-
                                 
                                 <a href="<?php echo e(route('simbakum.show', $simbakum)); ?>" class="action-btn" style="color:#0ea5e9;" title="Detail">
                                     <i class="fa-solid fa-eye"></i>
@@ -137,7 +138,7 @@
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
-                        <td colspan="10">
+                        <td colspan="11">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-scale-balanced"></i></div>
                                 <h6 style="font-size:.85rem;font-weight:600;" class="fw-bold text-body mb-1">Belum Ada Data SIMBAKUM</h6>
