@@ -205,6 +205,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('simbakum', SimbakumController::class);
     Route::post('simbakum/{simbakum}/dokumen', [SimbakumController::class, 'uploadDokumen'])->name('simbakum.dokumen.upload');
     Route::delete('simbakum-dokumen/{dokumen}', [SimbakumController::class, 'destroyDokumen'])->name('simbakum.dokumen.destroy');
+    Route::get('simbakum-dokumen/{dokumen}/download', [SimbakumController::class, 'downloadDokumen'])->name('simbakum.dokumen.download');
 });
 
 require __DIR__.'/auth.php';

@@ -260,6 +260,22 @@ class SimbakumController extends Controller
     }
 
     /**
+     * Serve a document file directly (bypasses storage symlink).
+     */
+    public function downloadDokumen(SimbakumDokumen $dokumen)
+    {
+        $this->authorizeView();
+
+        $path = storage_path('app/public/' . $dokumen->file_path);
+
+        if (!file_exists($path)) {
+            abort(404, 'File tidak ditemukan.');
+        }
+
+        return response()->file($path, ['Content-Type' => 'application/pdf']);
+    }
+
+    /**
      * Delete a single document (AJAX).
      */
     public function destroyDokumen(SimbakumDokumen $dokumen)
