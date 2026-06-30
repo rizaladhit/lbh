@@ -47,11 +47,11 @@
                         <th style="padding-left:24px;width:50px;">No.</th>
                         <th>No. Perkara</th>
                         <th>Tgl. Register</th>
-                        <th>Klasifikasi</th>
+                        <th>Klasifikasi Perkara</th>
                         <th>Terdakwa</th>
                         <th>Penuntut Umum</th>
                         <th>Advokat Pendamping</th>
-                        <th>Status</th>
+                        <th>Status Perkara</th>
                         <th>Lama Proses</th>
                         <th>Link</th>
                         <th style="padding-right:24px;text-align:right;">Aksi</th>
