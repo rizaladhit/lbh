@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\AppSetting;
-use App\Models\JenisPelayanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,8 +11,7 @@ class AppSettingController extends Controller
     public function edit()
     {
         $setting = AppSetting::getSettings();
-        $jenisPelayanans = JenisPelayanan::orderBy('nama')->get();
-        return view('settings.edit', compact('setting', 'jenisPelayanans'));
+        return view('settings.edit', compact('setting'));
     }
 
     public function update(Request $request)

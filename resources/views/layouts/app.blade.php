@@ -512,6 +512,16 @@
         </div>
 
         <div class="nav-item-custom">
+            <a href="{{ route('jenis-pelayanan.index') }}"
+               class="nav-link-custom {{ request()->routeIs('jenis-pelayanan.*') ? 'active' : '' }}">
+                <div class="nav-icon" style="background:{{ request()->routeIs('jenis-pelayanan.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)' }};">
+                    <i class="fa-solid fa-handshake" style="color:{{ request()->routeIs('jenis-pelayanan.*') ? '#6366f1' : '#64748b' }};"></i>
+                </div>
+                Jenis Pelayanan
+            </a>
+        </div>
+
+        <div class="nav-item-custom">
             <a href="{{ route('settings.edit') }}"
                class="nav-link-custom {{ request()->routeIs('settings.*') ? 'active' : '' }}">
                 <div class="nav-icon" style="background:rgba(100,116,139,.08);">

@@ -502,6 +502,16 @@
         </div>
 
         <div class="nav-item-custom">
+            <a href="<?php echo e(route('jenis-pelayanan.index')); ?>"
+               class="nav-link-custom <?php echo e(request()->routeIs('jenis-pelayanan.*') ? 'active' : ''); ?>">
+                <div class="nav-icon" style="background:<?php echo e(request()->routeIs('jenis-pelayanan.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)'); ?>;">
+                    <i class="fa-solid fa-handshake" style="color:<?php echo e(request()->routeIs('jenis-pelayanan.*') ? '#6366f1' : '#64748b'); ?>;"></i>
+                </div>
+                Jenis Pelayanan
+            </a>
+        </div>
+
+        <div class="nav-item-custom">
             <a href="<?php echo e(route('settings.edit')); ?>"
                class="nav-link-custom <?php echo e(request()->routeIs('settings.*') ? 'active' : ''); ?>">
                 <div class="nav-icon" style="background:rgba(100,116,139,.08);">
