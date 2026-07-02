@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PermohonanNonLitigasiAssignedMail;
+use App\Mail\PermohonanNonLitigasiStatusMail;
+use App\Mail\PermohonanNonLitigasiSubmittedMail;
 use App\Models\JenisPelayanan;
 use App\Models\Lawyer;
 use App\Models\Paralegal;
 use App\Models\PermohonanNonLitigasi;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -155,7 +158,9 @@ class PermohonanNonLitigasiController extends Controller
             unset($validated['file_ttd']);
         }
 
-        auth()->user()->permohonanNonLitigasi()->create($validated);
+        $permohonan = auth()->user()->permohonanNonLitigasi()->create($validated);
+
+        $this->notifyAdmins($permohonan->fresh());
 
         return redirect()->route('permohonan-non-litigasi.index')->with('success', 'Form Permohonan Non-Litigasi berhasil dikirim.');
     }
@@ -233,6 +238,15 @@ class PermohonanNonLitigasiController extends Controller
 
         $permohonanNonLitigasi->approve($validated['verification_notes'] ?? null);
 
+        $this->notifyUser(
+            $permohonanNonLitigasi->fresh('user'),
+            'Disetujui',
+            'Permohonan non-litigasi Anda telah disetujui oleh tim kami dan akan segera diverifikasi lebih lanjut.',
+            '#0ea5e9',
+            'Catatan',
+            $validated['verification_notes'] ?? null
+        );
+
         return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
             ->with('success', 'Permohonan berhasil disetujui dan siap diverifikasi.');
     }
@@ -263,6 +277,15 @@ class PermohonanNonLitigasiController extends Controller
         ]);
 
         $permohonanNonLitigasi->reject($validated['verification_notes'] ?? null);
+
+        $this->notifyUser(
+            $permohonanNonLitigasi->fresh('user'),
+            'Ditolak',
+            'Permohonan non-litigasi Anda tidak dapat kami proses lebih lanjut. Silakan lihat catatan dari tim kami pada detail permohonan.',
+            '#ef4444',
+            'Catatan',
+            $validated['verification_notes'] ?? null
+        );
 
         return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
             ->with('success', 'Permohonan berhasil ditolak dan tidak dapat dilanjutkan.');
@@ -295,6 +318,15 @@ class PermohonanNonLitigasiController extends Controller
         ]);
 
         $permohonanNonLitigasi->verify($validated['verification_notes']);
+
+        $this->notifyUser(
+            $permohonanNonLitigasi->fresh('user'),
+            'Terverifikasi',
+            'Permohonan non-litigasi Anda telah diverifikasi oleh tim kami dan akan segera ditugaskan ke tim hukum yang menangani.',
+            '#10b981',
+            'Catatan',
+            $validated['verification_notes']
+        );
 
         return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
             ->with('success', 'Permohonan berhasil diverifikasi.');
@@ -342,8 +374,15 @@ class PermohonanNonLitigasiController extends Controller
             $validated['assigned_paralegal_id']
         );
 
-        $emailNotice = $this->sendAssignmentEmails(
-            $permohonanNonLitigasi->fresh(['assignedLawyer', 'assignedParalegal'])
+        $fresh = $permohonanNonLitigasi->fresh(['user', 'assignedLawyer', 'assignedParalegal']);
+
+        $emailNotice = $this->sendAssignmentEmails($fresh);
+
+        $this->notifyUser(
+            $fresh,
+            'Ditugaskan',
+            'Permohonan non-litigasi Anda telah ditugaskan ke tim hukum kami. Tim akan segera menghubungi Anda untuk tindak lanjut.',
+            '#f59e0b'
         );
 
         return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
@@ -392,6 +431,31 @@ class PermohonanNonLitigasiController extends Controller
         return ' Email notifikasi telah dikirim ke penerima yang dipilih.';
     }
 
+    private function notifyAdmins(PermohonanNonLitigasi $permohonanNonLitigasi): void
+    {
+        $admins = User::where('role', 'admin')
+            ->whereNotNull('email')
+            ->where('email', '!=', '')
+            ->get()
+            ->filter(fn ($u) => filter_var($u->email, FILTER_VALIDATE_EMAIL));
+
+        if ($admins->isEmpty()) {
+            return;
+        }
+
+        foreach ($admins as $admin) {
+            try {
+                Mail::to($admin->email)->send(new PermohonanNonLitigasiSubmittedMail($permohonanNonLitigasi));
+            } catch (\Throwable $exception) {
+                Log::warning('Gagal mengirim email notifikasi permohonan non-litigasi baru.', [
+                    'permohonan_non_litigasi_id' => $permohonanNonLitigasi->id,
+                    'recipient' => $admin->email,
+                    'error' => $exception->getMessage(),
+                ]);
+            }
+        }
+    }
+
     /**
      * Complete permohonan and mark as DONE
      */
@@ -423,7 +487,42 @@ class PermohonanNonLitigasiController extends Controller
 
         $permohonanNonLitigasi->complete($validated['activity_notes']);
 
+        $this->notifyUser(
+            $permohonanNonLitigasi->fresh('user'),
+            'Selesai',
+            'Permohonan non-litigasi Anda telah selesai diproses oleh tim kami. Terima kasih telah mempercayakan permohonan Anda kepada kami.',
+            '#6366f1',
+            'Catatan Aktivitas',
+            $validated['activity_notes']
+        );
+
         return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
             ->with('success', 'Permohonan berhasil diselesaikan dan ditandai sebagai DONE.');
+    }
+
+    private function notifyUser(PermohonanNonLitigasi $permohonanNonLitigasi, string $statusLabel, string $pesan, string $headerColor = '#6366f1', string $catatanLabel = 'Catatan', ?string $catatanNilai = null): void
+    {
+        $email = $permohonanNonLitigasi->user?->email;
+
+        if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return;
+        }
+
+        try {
+            Mail::to($email)->send(new PermohonanNonLitigasiStatusMail(
+                $permohonanNonLitigasi,
+                $statusLabel,
+                $pesan,
+                $headerColor,
+                $catatanLabel,
+                $catatanNilai
+            ));
+        } catch (\Throwable $exception) {
+            Log::warning('Gagal mengirim email status permohonan non-litigasi ke user.', [
+                'permohonan_non_litigasi_id' => $permohonanNonLitigasi->id,
+                'recipient' => $email,
+                'error' => $exception->getMessage(),
+            ]);
+        }
     }
 }
