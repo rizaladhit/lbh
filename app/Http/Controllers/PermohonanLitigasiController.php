@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PermohonanLitigasiAssignedMail;
+use App\Mail\PermohonanLitigasiStatusMail;
+use App\Mail\PermohonanLitigasiSubmittedMail;
 use App\Models\Lawyer;
 use App\Models\Paralegal;
 use App\Models\PermohonanLitigasi;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -165,7 +168,9 @@ class PermohonanLitigasiController extends Controller
         // No nomor perkara is generated at creation; admin will fill it later.
         $validated['no_perkara'] = '';
 
-        auth()->user()->permohonanLitigasi()->create($validated);
+        $permohonan = auth()->user()->permohonanLitigasi()->create($validated);
+
+        $this->notifyAdmins($permohonan->fresh());
 
         return redirect()->route('permohonan-litigasi.index')->with('success', 'Form Permohonan Litigasi berhasil dikirim.');
     }
@@ -243,6 +248,15 @@ class PermohonanLitigasiController extends Controller
 
         $permohonanLitigasi->approve($validated['verification_notes'] ?? null);
 
+        $this->notifyUser(
+            $permohonanLitigasi->fresh('user'),
+            'Disetujui',
+            'Permohonan litigasi Anda telah disetujui oleh tim kami dan akan segera diverifikasi lebih lanjut.',
+            '#0ea5e9',
+            'Catatan',
+            $validated['verification_notes'] ?? null
+        );
+
         return redirect()->route('permohonan-litigasi.show', $permohonanLitigasi)
             ->with('success', 'Permohonan berhasil disetujui dan siap diverifikasi.');
     }
@@ -273,6 +287,15 @@ class PermohonanLitigasiController extends Controller
         ]);
 
         $permohonanLitigasi->reject($validated['verification_notes'] ?? null);
+
+        $this->notifyUser(
+            $permohonanLitigasi->fresh('user'),
+            'Ditolak',
+            'Permohonan litigasi Anda tidak dapat kami proses lebih lanjut. Silakan lihat catatan dari tim kami pada detail permohonan.',
+            '#ef4444',
+            'Catatan',
+            $validated['verification_notes'] ?? null
+        );
 
         return redirect()->route('permohonan-litigasi.show', $permohonanLitigasi)
             ->with('success', 'Permohonan berhasil ditolak dan tidak dapat dilanjutkan.');
@@ -305,6 +328,15 @@ class PermohonanLitigasiController extends Controller
         ]);
 
         $permohonanLitigasi->verify($validated['verification_notes']);
+
+        $this->notifyUser(
+            $permohonanLitigasi->fresh('user'),
+            'Terverifikasi',
+            'Permohonan litigasi Anda telah diverifikasi oleh tim kami dan akan segera ditugaskan ke tim hukum yang menangani.',
+            '#10b981',
+            'Catatan',
+            $validated['verification_notes']
+        );
 
         return redirect()->route('permohonan-litigasi.show', $permohonanLitigasi)
             ->with('success', 'Permohonan berhasil diverifikasi.');
@@ -356,12 +388,45 @@ class PermohonanLitigasiController extends Controller
             return redirect()->back()->with('error', 'Permohonan tidak dapat ditugaskan pada status saat ini.');
         }
 
-        $emailNotice = $this->sendAssignmentEmails(
-            $permohonanLitigasi->fresh(['assignedLawyer', 'assignedParalegal'])
+        $fresh = $permohonanLitigasi->fresh(['user', 'assignedLawyer', 'assignedParalegal']);
+
+        $emailNotice = $this->sendAssignmentEmails($fresh);
+
+        $this->notifyUser(
+            $fresh,
+            'Ditugaskan',
+            'Permohonan litigasi Anda telah ditugaskan ke tim hukum kami. Tim akan segera menghubungi Anda untuk tindak lanjut.',
+            '#f59e0b'
         );
 
         return redirect()->route('permohonan-litigasi.show', $permohonanLitigasi)
             ->with('success', 'Permohonan berhasil ditugaskan.' . $emailNotice);
+    }
+
+    private function notifyUser(PermohonanLitigasi $permohonanLitigasi, string $statusLabel, string $pesan, string $headerColor = '#6366f1', string $catatanLabel = 'Catatan', ?string $catatanNilai = null): void
+    {
+        $email = $permohonanLitigasi->user?->email;
+
+        if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return;
+        }
+
+        try {
+            Mail::to($email)->send(new PermohonanLitigasiStatusMail(
+                $permohonanLitigasi,
+                $statusLabel,
+                $pesan,
+                $headerColor,
+                $catatanLabel,
+                $catatanNilai
+            ));
+        } catch (\Throwable $exception) {
+            Log::warning('Gagal mengirim email status permohonan litigasi ke user.', [
+                'permohonan_litigasi_id' => $permohonanLitigasi->id,
+                'recipient' => $email,
+                'error' => $exception->getMessage(),
+            ]);
+        }
     }
 
     private function sendAssignmentEmails(PermohonanLitigasi $permohonanLitigasi): string
@@ -406,6 +471,31 @@ class PermohonanLitigasiController extends Controller
         return ' Email notifikasi telah dikirim ke penerima yang dipilih.';
     }
 
+    private function notifyAdmins(PermohonanLitigasi $permohonanLitigasi): void
+    {
+        $admins = User::where('role', 'admin')
+            ->whereNotNull('email')
+            ->where('email', '!=', '')
+            ->get()
+            ->filter(fn ($u) => filter_var($u->email, FILTER_VALIDATE_EMAIL));
+
+        if ($admins->isEmpty()) {
+            return;
+        }
+
+        foreach ($admins as $admin) {
+            try {
+                Mail::to($admin->email)->send(new PermohonanLitigasiSubmittedMail($permohonanLitigasi));
+            } catch (\Throwable $exception) {
+                Log::warning('Gagal mengirim email notifikasi permohonan litigasi baru.', [
+                    'permohonan_litigasi_id' => $permohonanLitigasi->id,
+                    'recipient' => $admin->email,
+                    'error' => $exception->getMessage(),
+                ]);
+            }
+        }
+    }
+
     /**
      * Complete permohonan and mark as DONE
      */
@@ -436,6 +526,15 @@ class PermohonanLitigasiController extends Controller
         ]);
 
         $permohonanLitigasi->complete($validated['activity_notes']);
+
+        $this->notifyUser(
+            $permohonanLitigasi->fresh('user'),
+            'Selesai',
+            'Permohonan litigasi Anda telah selesai diproses oleh tim kami. Terima kasih telah mempercayakan permohonan Anda kepada kami.',
+            '#6366f1',
+            'Catatan Aktivitas',
+            $validated['activity_notes']
+        );
 
         return redirect()->route('permohonan-litigasi.show', $permohonanLitigasi)
             ->with('success', 'Permohonan berhasil diselesaikan dan ditandai sebagai DONE.');
