@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PermohonanNonLitigasiAssignedMail;
 use App\Models\JenisPelayanan;
+use App\Models\Lawyer;
+use App\Models\Paralegal;
 use App\Models\PermohonanNonLitigasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PermohonanNonLitigasiController extends Controller
@@ -308,8 +313,8 @@ class PermohonanNonLitigasiController extends Controller
             return redirect()->back()->with('error', 'Permohonan harus dalam status VERIFIED untuk ditugaskan.');
         }
 
-        $lawyers = \App\Models\Lawyer::active()->latest('name')->get();
-        $paralegals = \App\Models\Paralegal::active()->latest('name')->get();
+        $lawyers = Lawyer::active()->latest('name')->get();
+        $paralegals = Paralegal::active()->latest('name')->get();
         
         return view('permohonan.non_litigasi.assign', compact('permohonanNonLitigasi', 'lawyers', 'paralegals'));
     }
@@ -337,8 +342,54 @@ class PermohonanNonLitigasiController extends Controller
             $validated['assigned_paralegal_id']
         );
 
+        $emailNotice = $this->sendAssignmentEmails(
+            $permohonanNonLitigasi->fresh(['assignedLawyer', 'assignedParalegal'])
+        );
+
         return redirect()->route('permohonan-non-litigasi.show', $permohonanNonLitigasi)
-            ->with('success', 'Permohonan berhasil ditugaskan.');
+            ->with('success', 'Permohonan berhasil ditugaskan.' . $emailNotice);
+    }
+
+    private function sendAssignmentEmails(PermohonanNonLitigasi $permohonanNonLitigasi): string
+    {
+        $recipients = collect([
+            [
+                'role' => 'Advocate',
+                'person' => $permohonanNonLitigasi->assignedLawyer,
+            ],
+            [
+                'role' => 'Paralegal',
+                'person' => $permohonanNonLitigasi->assignedParalegal,
+            ],
+        ])
+            ->filter(fn ($recipient) => $recipient['person'] && filter_var($recipient['person']->email, FILTER_VALIDATE_EMAIL))
+            ->unique(fn ($recipient) => strtolower($recipient['person']->email))
+            ->values();
+
+        if ($recipients->isEmpty()) {
+            return ' Email notifikasi tidak dikirim karena penerima yang dipilih belum memiliki email valid.';
+        }
+
+        try {
+            foreach ($recipients as $recipient) {
+                Mail::to($recipient['person']->email)->send(
+                    new PermohonanNonLitigasiAssignedMail(
+                        $permohonanNonLitigasi,
+                        $recipient['person']->name,
+                        $recipient['role']
+                    )
+                );
+            }
+        } catch (\Throwable $exception) {
+            Log::warning('Gagal mengirim email penugasan permohonan non-litigasi.', [
+                'permohonan_non_litigasi_id' => $permohonanNonLitigasi->id,
+                'error' => $exception->getMessage(),
+            ]);
+
+            return ' Namun email notifikasi gagal dikirim. Silakan periksa konfigurasi email.';
+        }
+
+        return ' Email notifikasi telah dikirim ke penerima yang dipilih.';
     }
 
     /**

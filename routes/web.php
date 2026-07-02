@@ -54,7 +54,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('paralegals', ParalegalController::class);
     Route::get('settings', [AppSettingController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [AppSettingController::class, 'update'])->name('settings.update');
-    Route::resource('jenis-pelayanan', JenisPelayananController::class)->only(['store', 'destroy']);
+    Route::resource('jenis-pelayanan', JenisPelayananController::class)->except(['show']);
     Route::resource('status-perkara', StatusPerkaraController::class)->except(['show']);
 
     // Laporan Penasehat Hukum (PH) - Admin only
