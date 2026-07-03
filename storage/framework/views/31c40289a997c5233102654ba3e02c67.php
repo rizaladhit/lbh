@@ -8,21 +8,22 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Tambah Data Paralegal Baru <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> Edit Data Paralegal <?php $__env->endSlot(); ?>
 
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="m-0 fw-bold text-success"><i class="fa-solid fa-user-shield me-2"></i>Form Tambah Paralegal</h6>
-                        <div class="text-muted small">Tambahkan paralegal untuk penugasan permohonan.</div>
+                        <h6 class="m-0 fw-bold text-success"><i class="fa-solid fa-edit me-2"></i>Form Edit Paralegal</h6>
+                        <div class="text-muted small">Perbarui data paralegal.</div>
                     </div>
-                    <span class="badge bg-success text-white">Baru</span>
+                    <span class="badge bg-warning text-dark">Edit</span>
                 </div>
                 <div class="card-body p-4">
-                    <form method="POST" action="<?php echo e(route('paralegals.store')); ?>">
+                    <form method="POST" action="<?php echo e(route('paralegals.update', $paralegal)); ?>">
                         <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
 
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold small text-muted">Nama Lengkap</label>
@@ -34,7 +35,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                name="name" value="<?php echo e(old('name')); ?>" placeholder="Pilih akun Paralegal terlebih dahulu" required autofocus>
+                                name="name" value="<?php echo e(old('name', $paralegal->name)); ?>" required autofocus>
                             <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -55,7 +56,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                name="no_identitas" value="<?php echo e(old('no_identitas')); ?>" placeholder="Contoh: PRL/001/2026" required>
+                                name="no_identitas" value="<?php echo e(old('no_identitas', $paralegal->no_identitas)); ?>" required>
                             <?php $__errorArgs = ['no_identitas'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -76,7 +77,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                name="no_kta_lbh" value="<?php echo e(old('no_kta_lbh')); ?>" placeholder="Contoh: KTA/LBH/PRL/001/2024">
+                                name="no_kta_lbh" value="<?php echo e(old('no_kta_lbh', $paralegal->no_kta_lbh)); ?>" placeholder="Contoh: KTA/LBH/PRL/001/2024">
                             <?php $__errorArgs = ['no_kta_lbh'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -103,13 +104,13 @@ unset($__errorArgs, $__bag); ?>" name="user_id" required>
                                         <option value="<?php echo e($user->id); ?>"
                                                 data-name="<?php echo e($user->name); ?>"
                                                 data-email="<?php echo e($user->email); ?>"
-                                                <?php echo e(old('user_id') == $user->id ? 'selected' : ''); ?>>
+                                                <?php echo e(old('user_id', $paralegal->user_id) == $user->id ? 'selected' : ''); ?>>
                                             <?php echo e($user->email); ?>
 
                                         </option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
-                                <input type="hidden" name="email" id="email" value="<?php echo e(old('email')); ?>">
+                                <input type="hidden" name="email" id="email" value="<?php echo e(old('email', $paralegal->email)); ?>">
                                 <?php $__errorArgs = ['user_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -129,7 +130,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                    name="phone" value="<?php echo e(old('phone')); ?>" placeholder="Contoh: 08xxxxxxxxxx" required>
+                                    name="phone" value="<?php echo e(old('phone', $paralegal->phone)); ?>" required>
                                 <?php $__errorArgs = ['phone'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -154,7 +155,7 @@ unset($__errorArgs, $__bag); ?>"
                                 name="specialization" required>
                                 <option value="">-- Pilih Keahlian --</option>
                                 <?php $__currentLoopData = $keahlians; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $keahlian): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($keahlian->nama); ?>" <?php echo e(old('specialization') === $keahlian->nama ? 'selected' : ''); ?>>
+                                    <option value="<?php echo e($keahlian->nama); ?>" <?php echo e(old('specialization', $paralegal->specialization) === $keahlian->nama ? 'selected' : ''); ?>>
                                         <?php echo e($keahlian->nama); ?>
 
                                     </option>
@@ -180,7 +181,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                name="address" rows="3" placeholder="Masukkan alamat"><?php echo e(old('address')); ?></textarea>
+                                name="address" rows="3"><?php echo e(old('address', $paralegal->address)); ?></textarea>
                             <?php $__errorArgs = ['address'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -201,8 +202,8 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" name="status" required>
-                                <option value="active" <?php echo e(old('status', 'active') === 'active' ? 'selected' : ''); ?>>Aktif</option>
-                                <option value="inactive" <?php echo e(old('status') === 'inactive' ? 'selected' : ''); ?>>Tidak Aktif</option>
+                                <option value="active" <?php echo e(old('status', $paralegal->status) === 'active' ? 'selected' : ''); ?>>Aktif</option>
+                                <option value="inactive" <?php echo e(old('status', $paralegal->status) === 'inactive' ? 'selected' : ''); ?>>Tidak Aktif</option>
                             </select>
                             <?php $__errorArgs = ['status'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -224,7 +225,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                name="notes" rows="2" placeholder="Catatan tambahan"><?php echo e(old('notes')); ?></textarea>
+                                name="notes" rows="2"><?php echo e(old('notes', $paralegal->notes)); ?></textarea>
                             <?php $__errorArgs = ['notes'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -236,8 +237,8 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 pt-3 border-top">
-                            <a href="<?php echo e(route('paralegals.index')); ?>" class="btn btn-light fw-medium">Batalkan</a>
-                            <button type="submit" class="btn btn-success fw-bold shadow-sm"><i class="fa-solid fa-save me-1"></i> Simpan Data Paralegal</button>
+                            <a href="<?php echo e(route('paralegals.show', $paralegal)); ?>" class="btn btn-light fw-medium">Batalkan</a>
+                            <button type="submit" class="btn btn-success fw-bold shadow-sm"><i class="fa-solid fa-save me-1"></i> Simpan Perubahan</button>
                         </div>
                     </form>
                 </div>
@@ -256,4 +257,4 @@ unset($__errorArgs, $__bag); ?>
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
 <?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\lbh\resources\views/paralegals/create.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/paralegals/edit.blade.php ENDPATH**/ ?>

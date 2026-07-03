@@ -63,8 +63,15 @@
 
                         <div class="mb-3">
                             <label for="specialization" class="form-label fw-bold small text-muted">Keahlian/Spesialisasi</label>
-                            <input id="specialization" type="text" class="form-control @error('specialization') is-invalid @enderror"
-                                name="specialization" value="{{ old('specialization') }}" placeholder="Contoh: Pendampingan masyarakat / Administrasi perkara" required>
+                            <select id="specialization" class="form-select @error('specialization') is-invalid @enderror"
+                                name="specialization" required>
+                                <option value="">-- Pilih Keahlian --</option>
+                                @foreach($keahlians as $keahlian)
+                                    <option value="{{ $keahlian->nama }}" {{ old('specialization') === $keahlian->nama ? 'selected' : '' }}>
+                                        {{ $keahlian->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @error('specialization')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                         </div>
 

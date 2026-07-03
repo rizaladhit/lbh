@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paralegal;
+use App\Models\KeahlianSpesialisasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class ParalegalController extends Controller
     {
         $usedUserIds = Paralegal::pluck('user_id');
         $users = User::where('role', 'paralegal')->whereNotIn('id', $usedUserIds)->get();
-        return view('paralegals.create', compact('users'));
+        $keahlians = KeahlianSpesialisasi::orderBy('nama')->get();
+        return view('paralegals.create', compact('users', 'keahlians'));
     }
 
     public function store(Request $request)
@@ -58,7 +60,8 @@ class ParalegalController extends Controller
     public function edit(Paralegal $paralegal)
     {
         $users = User::where('role', 'paralegal')->get();
-        return view('paralegals.edit', compact('paralegal', 'users'));
+        $keahlians = KeahlianSpesialisasi::orderBy('nama')->get();
+        return view('paralegals.edit', compact('paralegal', 'users', 'keahlians'));
     }
 
     public function update(Request $request, Paralegal $paralegal)

@@ -63,16 +63,14 @@
 
                         <div class="mb-3">
                             <label for="specialization" class="form-label fw-bold small text-muted">Keahlian/Spesialisasi</label>
-                            <select id="specialization" class="form-select @error('specialization') is-invalid @enderror" 
+                            <select id="specialization" class="form-select @error('specialization') is-invalid @enderror"
                                 name="specialization" required>
                                 <option value="">-- Pilih Keahlian --</option>
-                                <option value="Hukum Pidana" {{ old('specialization') === 'Hukum Pidana' ? 'selected' : '' }}>Hukum Pidana</option>
-                                <option value="Hukum Perdata" {{ old('specialization') === 'Hukum Perdata' ? 'selected' : '' }}>Hukum Perdata</option>
-                                <option value="Hukum Keluarga" {{ old('specialization') === 'Hukum Keluarga' ? 'selected' : '' }}>Hukum Keluarga</option>
-                                <option value="Hukum Kerja" {{ old('specialization') === 'Hukum Kerja' ? 'selected' : '' }}>Hukum Kerja</option>
-                                <option value="Hukum Tata Negara" {{ old('specialization') === 'Hukum Tata Negara' ? 'selected' : '' }}>Hukum Tata Negara</option>
-                                <option value="Hukum Administrasi" {{ old('specialization') === 'Hukum Administrasi' ? 'selected' : '' }}>Hukum Administrasi</option>
-                                <option value="Lainnya" {{ old('specialization') === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                @foreach($keahlians as $keahlian)
+                                    <option value="{{ $keahlian->nama }}" {{ old('specialization') === $keahlian->nama ? 'selected' : '' }}>
+                                        {{ $keahlian->nama }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('specialization')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                         </div>

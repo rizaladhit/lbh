@@ -42,6 +42,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AppSettingController;
 use App\Http\Controllers\JenisPelayananController;
+use App\Http\Controllers\KeahlianSpesialisasiController;
 use App\Http\Controllers\LawyerController;
 use App\Http\Controllers\LaporanPHController;
 use App\Http\Controllers\ParalegalController;
@@ -55,6 +56,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('settings', [AppSettingController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [AppSettingController::class, 'update'])->name('settings.update');
     Route::resource('jenis-pelayanan', JenisPelayananController::class)->except(['show']);
+    Route::resource('keahlian-spesialisasi', KeahlianSpesialisasiController::class)->except(['show']);
     Route::resource('status-perkara', StatusPerkaraController::class)->except(['show']);
 
     // Laporan Penasehat Hukum (PH) - Admin only
