@@ -522,6 +522,16 @@
         </div>
 
         <div class="nav-item-custom">
+            <a href="{{ route('keahlian-spesialisasi.index') }}"
+               class="nav-link-custom {{ request()->routeIs('keahlian-spesialisasi.*') ? 'active' : '' }}">
+                <div class="nav-icon" style="background:{{ request()->routeIs('keahlian-spesialisasi.*') ? 'rgba(99,102,241,.15)' : 'rgba(100,116,139,.08)' }};">
+                    <i class="fa-solid fa-scale-balanced" style="color:{{ request()->routeIs('keahlian-spesialisasi.*') ? '#6366f1' : '#64748b' }};"></i>
+                </div>
+                Keahlian/Spesialisasi
+            </a>
+        </div>
+
+        <div class="nav-item-custom">
             <a href="{{ route('settings.edit') }}"
                class="nav-link-custom {{ request()->routeIs('settings.*') ? 'active' : '' }}">
                 <div class="nav-icon" style="background:rgba(100,116,139,.08);">

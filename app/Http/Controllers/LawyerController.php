@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lawyer;
+use App\Models\KeahlianSpesialisasi;
 use Illuminate\Http\Request;
 
 class LawyerController extends Controller
@@ -22,7 +23,8 @@ class LawyerController extends Controller
     public function create()
     {
         $users = \App\Models\User::where('role', 'pengacara')->get();
-        return view('lawyers.create', compact('users'));
+        $keahlians = KeahlianSpesialisasi::orderBy('nama')->get();
+        return view('lawyers.create', compact('users', 'keahlians'));
     }
 
     /**
@@ -71,7 +73,8 @@ class LawyerController extends Controller
     public function edit(Lawyer $lawyer)
     {
         $users = \App\Models\User::where('role', 'pengacara')->get();
-        return view('lawyers.edit', compact('lawyer', 'users'));
+        $keahlians = KeahlianSpesialisasi::orderBy('nama')->get();
+        return view('lawyers.edit', compact('lawyer', 'users', 'keahlians'));
     }
 
     /**
