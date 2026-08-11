@@ -354,6 +354,8 @@
             - Kuitansi konsumsi, penggandaan, dokumentasi, dan pembuatan spanduk harus melampirkan bon berkop dari usaha ybs.
         </div>
 
+        @include('partials.ketua-lbh-signature', ['space' => '42px', 'fixedBottom' => true])
+
     </div>
 
 </x-app-layout>

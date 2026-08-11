@@ -22,6 +22,7 @@ class AppSettingController extends Controller
             'logo' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048',
             'address' => 'nullable|string|max:500',
             'phone' => 'nullable|string|max:50',
+            'ketua_lbh' => 'nullable|string|max:100',
         ]);
 
         $setting = AppSetting::getSettings();
@@ -29,6 +30,7 @@ class AppSettingController extends Controller
         $setting->description = $request->description;
         $setting->address = $request->address;
         $setting->phone = $request->phone;
+        $setting->ketua_lbh = $request->ketua_lbh;
 
         if ($request->hasFile('logo')) {
             // Delete old logo

@@ -411,6 +411,8 @@
             - Kuitansi biaya penggandaan harus dibubuhi stempel usaha fotokopi ybs. dan melampirkan bon berkop dari usaha ybs.
         </div>
 
+        @include('partials.ketua-lbh-signature', ['space' => '42px', 'fixedBottom' => true])
+
     </div>
 
 </x-app-layout>

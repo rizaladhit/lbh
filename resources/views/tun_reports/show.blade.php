@@ -273,6 +273,8 @@
             - Dokumen yang wajib dilampirkan adalah yang terdapat dalam aplikasi.
         </div>
 
+        @include('partials.ketua-lbh-signature', ['space' => '42px', 'fixedBottom' => true])
+
     </div>
 
 </x-app-layout>
