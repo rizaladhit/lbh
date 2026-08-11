@@ -4,12 +4,16 @@
     $signatureSpace = $space ?? '72px';
     $isFixedBottom = $fixedBottom ?? false;
     $signatureWrapperStyle = $isFixedBottom
-        ? 'position: fixed; right: 18mm; bottom: 18mm; z-index: 2147483647; display: flex; justify-content: flex-end; page-break-inside: avoid; break-inside: avoid; background: #fff; color: #000;'
+        ? 'position: fixed; right: 18mm; bottom: 24mm; z-index: 2147483647; display: flex; justify-content: flex-end; page-break-inside: avoid; break-inside: avoid; background: #fff; color: #000;'
         : "margin-top: {$signatureMarginTop}; display: flex; justify-content: flex-end; page-break-inside: avoid; break-inside: avoid;";
 @endphp
 
 <style>
     @media print {
+        @page {
+            margin-bottom: 22mm;
+        }
+
         .ketua-lbh-signature,
         .ketua-lbh-signature * {
             display: flex !important;
@@ -26,7 +30,7 @@
         .ketua-lbh-signature-fixed {
             position: fixed !important;
             right: 18mm !important;
-            bottom: 18mm !important;
+            bottom: 24mm !important;
             z-index: 2147483647 !important;
             background: #fff !important;
         }
