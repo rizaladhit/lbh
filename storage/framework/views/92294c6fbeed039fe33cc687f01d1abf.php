@@ -261,6 +261,39 @@
         </div>
     </a>
 
+    <!-- Footer -->
+    <div class="sidebar-footer">
+        <!-- User -->
+        <div class="dropdown">
+            <div class="user-card dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode(auth()->user()->name ?? 'U')); ?>&background=6366f1&color=fff&size=68"
+                     class="user-avatar" alt="">
+                <div style="flex:1;overflow:hidden;">
+                    <div class="user-name text-truncate"><?php echo e(auth()->user()->name ?? 'User'); ?></div>
+                    <?php
+                        $roleLabel = match(auth()->user()->role ?? 'user') {
+                            'admin' => 'Admin',
+                            'pengacara' => 'Advocate',
+                            'paralegal' => 'Paralegal',
+                            default => ucfirst(auth()->user()->role ?? 'user')
+                        };
+                    ?>
+                    <span class="user-role"><?php echo e($roleLabel); ?></span>
+                </div>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="border-radius:var(--radius-sm);min-width:180px;">
+                <li><a class="dropdown-item" href="<?php echo e(route('profile.edit')); ?>"><i class="fa-regular fa-id-badge me-2 text-muted"></i>Profil Saya</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form method="POST" action="<?php echo e(route('logout')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <button type="submit" class="dropdown-item text-danger"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Keluar</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Nav -->
     <div style="flex:1;padding-top:8px;">
         <div class="sidebar-section">Menu Utama</div>
@@ -533,38 +566,7 @@
         <?php endif; ?>
     </div>
 
-    <!-- Footer -->
-    <div class="sidebar-footer">
-        <!-- User -->
-        <div class="dropdown">
-            <div class="user-card dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode(auth()->user()->name ?? 'U')); ?>&background=6366f1&color=fff&size=68"
-                     class="user-avatar" alt="">
-                <div style="flex:1;overflow:hidden;">
-                    <div class="user-name text-truncate"><?php echo e(auth()->user()->name ?? 'User'); ?></div>
-                    <?php
-                        $roleLabel = match(auth()->user()->role ?? 'user') {
-                            'admin' => 'Admin',
-                            'pengacara' => 'Advocate',
-                            'paralegal' => 'Paralegal',
-                            default => ucfirst(auth()->user()->role ?? 'user')
-                        };
-                    ?>
-                    <span class="user-role"><?php echo e($roleLabel); ?></span>
-                </div>
-            </div>
-            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="border-radius:var(--radius-sm);min-width:180px;">
-                <li><a class="dropdown-item" href="<?php echo e(route('profile.edit')); ?>"><i class="fa-regular fa-id-badge me-2 text-muted"></i>Profil Saya</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                    <form method="POST" action="<?php echo e(route('logout')); ?>">
-                        <?php echo csrf_field(); ?>
-                        <button type="submit" class="dropdown-item text-danger"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Keluar</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </div>
+    
 </aside>
 
 <!-- ── MAIN ── -->
