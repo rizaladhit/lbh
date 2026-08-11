@@ -1,5 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">Detail Laporan Pidana</x-slot>
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Detail Laporan Pidana <?php $__env->endSlot(); ?>
 
     <style>
         @media screen { .print-view { display: none; } }
@@ -67,9 +76,9 @@
         .form-preview-label { width: 220px; flex-shrink: 0; }
     </style>
 
-    {{-- ================================================================ --}}
-    {{-- SCREEN VIEW                                                        --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="d-print-none row justify-content-center">
         <div class="col-lg-10">
             <div class="card shadow-md border-0 mb-4 p-4 p-md-5">
@@ -81,21 +90,22 @@
                 </div>
 
                 <div class="card-body p-0" style="font-size:0.95rem;">
-                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">OBH</div><div>: {{ $pidanaReport->obh }}</div></div>
-                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">ALAMAT</div><div>: {{ $pidanaReport->alamat }}</div></div>
-                    <div class="d-flex mb-4"><div class="fw-bold form-preview-label">PROVINSI</div><div>: {{ $pidanaReport->provinsi }}</div></div>
+                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">OBH</div><div>: <?php echo e($pidanaReport->obh); ?></div></div>
+                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">ALAMAT</div><div>: <?php echo e($pidanaReport->alamat); ?></div></div>
+                    <div class="d-flex mb-4"><div class="fw-bold form-preview-label">PROVINSI</div><div>: <?php echo e($pidanaReport->provinsi); ?></div></div>
 
-                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">PERKARA</div><div class="text-uppercase fw-semibold">: {{ $pidanaReport->perkara }}</div></div>
-                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">KASUS</div><div>: {{ $pidanaReport->kasus ?? '-' }}</div></div>
-                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">NOMOR PERKARA</div><div>: {{ $pidanaReport->nomor_perkara ?? '-' }}</div></div>
+                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">PERKARA</div><div class="text-uppercase fw-semibold">: <?php echo e($pidanaReport->perkara); ?></div></div>
+                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">KASUS</div><div>: <?php echo e($pidanaReport->kasus ?? '-'); ?></div></div>
+                    <div class="d-flex mb-1"><div class="fw-bold form-preview-label">NOMOR PERKARA</div><div>: <?php echo e($pidanaReport->nomor_perkara ?? '-'); ?></div></div>
                     <div class="d-flex mb-4">
                         <div class="fw-bold form-preview-label">PENERIMA BANTUAN HUKUM</div>
-                        <div class="w-100">: {{ $pidanaReport->penerima_bantuan ?? '-' }}
-                            <span class="float-end pe-5"><strong>L/P:</strong> {{ $pidanaReport->jk_penerima ?? '-' }}</span>
+                        <div class="w-100">: <?php echo e($pidanaReport->penerima_bantuan ?? '-'); ?>
+
+                            <span class="float-end pe-5"><strong>L/P:</strong> <?php echo e($pidanaReport->jk_penerima ?? '-'); ?></span>
                         </div>
                     </div>
 
-                    @php
+                    <?php
                         $items = [
                             'item1'  => 'Surat Permohonan Bantuan Hukum/ Surat Penunjukan dari Hakim untuk kasus limpahan dari Pengadilan disertai tandatangan Hakim dan stempel pengadilan',
                             'item2'  => 'Surat Kuasa',
@@ -118,7 +128,7 @@
                         $item16_sub = ['item16_a' => 'a', 'item16_b' => 'b', 'item16_c' => 'c'];
                         $cl = $pidanaReport->checklist_data ?? [];
                         $chk = function($k, $f) use ($cl) { return !empty($cl[$k][$f]) ? 'v' : '&nbsp;'; };
-                    @endphp
+                    ?>
 
                     <table class="table table-bordered border-secondary align-middle mb-4">
                         <thead>
@@ -131,30 +141,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($items as $key => $label)
+                            <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td class="text-center fw-bold">{{ substr($key,4) }}.</td>
-                                <td class="fw-medium">{{ $label }}</td>
-                                @if($key !== 'item16')
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($key,'obh') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($key,'kanwil') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($key,'bphn') !!}</span></td>
-                                @else
+                                <td class="text-center fw-bold"><?php echo e(substr($key,4)); ?>.</td>
+                                <td class="fw-medium"><?php echo e($label); ?></td>
+                                <?php if($key !== 'item16'): ?>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($key,'obh'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($key,'kanwil'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($key,'bphn'); ?></span></td>
+                                <?php else: ?>
                                     <td></td><td></td><td></td>
-                                @endif
+                                <?php endif; ?>
                             </tr>
-                            @if($key === 'item16')
-                                @foreach($item16_sub as $sk => $letter)
+                            <?php if($key === 'item16'): ?>
+                                <?php $__currentLoopData = $item16_sub; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sk => $letter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                     <td></td>
-                                    <td class="ps-3 text-muted">{{ $letter }}. &nbsp; {{ $cl[$sk]['text'] ?? '' }}</td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($sk,'obh') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($sk,'kanwil') !!}</span></td>
-                                    <td class="text-center"><span class="checklist-square">{!! $chk($sk,'bphn') !!}</span></td>
+                                    <td class="ps-3 text-muted"><?php echo e($letter); ?>. &nbsp; <?php echo e($cl[$sk]['text'] ?? ''); ?></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($sk,'obh'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($sk,'kanwil'); ?></span></td>
+                                    <td class="text-center"><span class="checklist-square"><?php echo $chk($sk,'bphn'); ?></span></td>
                                 </tr>
-                                @endforeach
-                            @endif
-                            @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
 
@@ -170,8 +180,8 @@
             </div>
 
             <div class="d-flex justify-content-end gap-2 mb-4">
-                <a href="{{ route('pidana-reports.index') }}" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
-                <a href="{{ route('pidana-reports.edit', $pidanaReport) }}" class="btn btn-warning px-4 fw-bold shadow-sm">
+                <a href="<?php echo e(route('pidana-reports.index')); ?>" class="btn btn-secondary px-4 fw-bold shadow-sm">Kembali</a>
+                <a href="<?php echo e(route('pidana-reports.edit', $pidanaReport)); ?>" class="btn btn-warning px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-pen-to-square me-1"></i> Edit
                 </a>
                 <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
@@ -181,36 +191,36 @@
         </div>
     </div>
 
-    {{-- ================================================================ --}}
-    {{-- PRINT VIEW                                                         --}}
-    {{-- ================================================================ --}}
+    
+    
+    
     <div class="print-view">
 
         <div class="pv-title">Check List Berkas Reimbursement Litigasi</div>
 
         <div class="pv-group pv-g1">
-            <div class="pv-row"><span class="pv-label">OBH</span><span class="pv-sep">:</span><span class="pv-val">{{ $pidanaReport->obh }}</span></div>
-            <div class="pv-row"><span class="pv-label">ALAMAT</span><span class="pv-sep">:</span><span class="pv-val">{{ $pidanaReport->alamat }}</span></div>
-            <div class="pv-row"><span class="pv-label">PROVINSI</span><span class="pv-sep">:</span><span class="pv-val">{{ $pidanaReport->provinsi }}</span></div>
+            <div class="pv-row"><span class="pv-label">OBH</span><span class="pv-sep">:</span><span class="pv-val"><?php echo e($pidanaReport->obh); ?></span></div>
+            <div class="pv-row"><span class="pv-label">ALAMAT</span><span class="pv-sep">:</span><span class="pv-val"><?php echo e($pidanaReport->alamat); ?></span></div>
+            <div class="pv-row"><span class="pv-label">PROVINSI</span><span class="pv-sep">:</span><span class="pv-val"><?php echo e($pidanaReport->provinsi); ?></span></div>
         </div>
 
         <div class="pv-gap"></div>
 
         <div class="pv-group pv-g2">
             <div class="pv-row"><span class="pv-label">PERKARA</span><span class="pv-sep">:</span><span class="pv-val-fixed">PIDANA</span></div>
-            <div class="pv-row"><span class="pv-label">KASUS</span><span class="pv-sep">:</span><span class="pv-val">{{ $pidanaReport->kasus }}</span></div>
-            <div class="pv-row"><span class="pv-label">NOMOR PERKARA</span><span class="pv-sep">:</span><span class="pv-val">{{ $pidanaReport->nomor_perkara }}</span></div>
+            <div class="pv-row"><span class="pv-label">KASUS</span><span class="pv-sep">:</span><span class="pv-val"><?php echo e($pidanaReport->kasus); ?></span></div>
+            <div class="pv-row"><span class="pv-label">NOMOR PERKARA</span><span class="pv-sep">:</span><span class="pv-val"><?php echo e($pidanaReport->nomor_perkara); ?></span></div>
             <div class="pv-row">
                 <span class="pv-label">PENERIMA BANTUAN HUKUM</span>
                 <span class="pv-sep">:</span>
                 <span class="pv-val" style="display:flex;justify-content:space-between;">
-                    <span>{{ $pidanaReport->penerima_bantuan }}</span>
-                    <strong>L/P : {{ $pidanaReport->jk_penerima }}</strong>
+                    <span><?php echo e($pidanaReport->penerima_bantuan); ?></span>
+                    <strong>L/P : <?php echo e($pidanaReport->jk_penerima); ?></strong>
                 </span>
             </div>
         </div>
 
-        @php
+        <?php
             $pv_items = [
                 'item1'  => 'Surat Permohonan Bantuan Hukum/ Surat Penunjukan dari Hakim untuk kasus limpahan dari Pengadilan disertai tandatangan Hakim dan stempel pengadilan',
                 'item2'  => 'Surat Kuasa',
@@ -233,7 +243,7 @@
             $pv_item16_sub = ['item16_a' => 'a', 'item16_b' => 'b', 'item16_c' => 'c'];
             $pv_cl = $pidanaReport->checklist_data ?? [];
             $pv_chk = function($k, $f) use ($pv_cl) { return !empty($pv_cl[$k][$f]) ? 'v' : ''; };
-        @endphp
+        ?>
 
         <table class="pv-table">
             <thead>
@@ -246,35 +256,35 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($pv_items as $key => $label)
+                <?php $__currentLoopData = $pv_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td class="no-col">{{ substr($key,4) }}.</td>
-                    <td>{{ $label }}</td>
-                    @if($key !== 'item16')
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'obh') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'kanwil') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'bphn') }}</span></td>
-                    @else
+                    <td class="no-col"><?php echo e(substr($key,4)); ?>.</td>
+                    <td><?php echo e($label); ?></td>
+                    <?php if($key !== 'item16'): ?>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($key,'obh')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($key,'kanwil')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($key,'bphn')); ?></span></td>
+                    <?php else: ?>
                         <td></td><td></td><td></td>
-                    @endif
+                    <?php endif; ?>
                 </tr>
-                @if($key === 'item16')
-                    @foreach($pv_item16_sub as $sk => $letter)
+                <?php if($key === 'item16'): ?>
+                    <?php $__currentLoopData = $pv_item16_sub; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sk => $letter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td></td>
                         <td>
                             <div style="display:flex;align-items:flex-end;gap:4px;">
-                                <span style="flex-shrink:0;">{{ $letter }}.</span>
-                                <span class="pv-sub-val">{{ $pv_cl[$sk]['text'] ?? '' }}</span>
+                                <span style="flex-shrink:0;"><?php echo e($letter); ?>.</span>
+                                <span class="pv-sub-val"><?php echo e($pv_cl[$sk]['text'] ?? ''); ?></span>
                             </div>
                         </td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($sk,'obh') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($sk,'kanwil') }}</span></td>
-                        <td class="chk-col"><span class="pv-chk">{{ $pv_chk($sk,'bphn') }}</span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($sk,'obh')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($sk,'kanwil')); ?></span></td>
+                        <td class="chk-col"><span class="pv-chk"><?php echo e($pv_chk($sk,'bphn')); ?></span></td>
                     </tr>
-                    @endforeach
-                @endif
-                @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
         </table>
 
@@ -287,8 +297,18 @@
             - Dokumen yang wajib dilampirkan adalah yang terdapat dalam aplikasi.
         </div>
 
-        @include('partials.ketua-lbh-signature', ['marginTop' => '18px', 'space' => '42px'])
+        <?php echo $__env->make('partials.ketua-lbh-signature', ['marginTop' => '18px', 'space' => '42px'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     </div>
 
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/pidana_reports/show.blade.php ENDPATH**/ ?>

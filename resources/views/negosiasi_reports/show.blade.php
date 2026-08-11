@@ -339,6 +339,8 @@
             - Semua dokumen pendukung wajib dilengkapi sebelum diserahkan.
         </div>
 
+        @include('partials.ketua-lbh-signature', ['space' => '42px', 'fixedBottom' => true])
+
     </div>
 
 </x-app-layout>

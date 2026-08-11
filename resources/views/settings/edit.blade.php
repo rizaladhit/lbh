@@ -67,6 +67,15 @@
                             @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
+                        {{-- Ketua LBH --}}
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Ketua LBH</label>
+                            <input type="text" name="ketua_lbh" class="form-control @error('ketua_lbh') is-invalid @enderror"
+                                   value="{{ old('ketua_lbh', $setting->ketua_lbh) }}"
+                                   placeholder="Nama Ketua LBH">
+                            @error('ketua_lbh') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
                         <div class="d-flex justify-content-end pt-3 border-top">
                             <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm">
                                 <i class="fa-solid fa-floppy-disk me-1"></i> Simpan Pengaturan

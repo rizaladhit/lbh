@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AppSetting extends Model
 {
-    protected $fillable = ['app_name', 'logo_path', 'address', 'phone', 'description'];
+    protected $fillable = ['app_name', 'logo_path', 'address', 'phone', 'description', 'ketua_lbh'];
 
     /**
      * Get the single settings row (always ID 1).
