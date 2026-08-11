@@ -35,9 +35,9 @@
 
 <div class="ketua-lbh-signature {{ $isFixedBottom ? 'ketua-lbh-signature-fixed' : '' }}" style="{{ $signatureWrapperStyle }}">
     <div class="ketua-lbh-signature-inner" style="text-align: center; min-width: 260px;">
-        <div style="font-size: 12pt; margin-bottom: {{ $signatureSpace }};">Ketua LBH,</div>
+        <div style="font-size: 12pt; margin-bottom: {{ $signatureSpace }};">Ketua LBH UNSUB,</div>
         <div style="border-top: 1px solid #333; padding-top: 6px; font-weight: bold; font-size: 12pt;">
-            {{ $ketuaLbhName !== '' ? $ketuaLbhName : 'Ketua LBH' }}
+            {{ $ketuaLbhName !== '' ? $ketuaLbhName : 'Ketua LBH UNSUB' }}
         </div>
     </div>
 </div>
