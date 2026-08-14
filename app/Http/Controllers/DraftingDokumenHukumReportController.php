@@ -53,6 +53,11 @@ class DraftingDokumenHukumReportController extends Controller
         return view('bphn_reports.show', compact('draftingReport'));
     }
 
+    public function print(DraftingDokumenHukumReport $draftingReport)
+    {
+        return view('bphn_reports.print', compact('draftingReport'));
+    }
+
     public function edit(DraftingDokumenHukumReport $draftingReport)
     {
         return view('bphn_reports.edit', compact('draftingReport'));

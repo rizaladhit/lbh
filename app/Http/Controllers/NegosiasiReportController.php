@@ -105,7 +105,13 @@ class NegosiasiReportController extends Controller
         return redirect()->route('negosiasi-reports.show', $negosiasiReport)->with('success', 'Laporan berhasil diperbarui.');
     }
 
+    public function print(NegosiasiReport $negosiasiReport)
+    {
+        return view('negosiasi_reports.print', compact('negosiasiReport'));
+    }
+
     public function destroy(NegosiasiReport $negosiasiReport)
+
     {
         $negosiasiReport->delete();
         return redirect()->route('negosiasi-reports.index')->with('success', 'Laporan Negosiasi berhasil dihapus.');

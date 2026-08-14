@@ -62,6 +62,11 @@ class TunReportController extends Controller
         return view('tun_reports.edit', compact('tunReport'));
     }
 
+    public function print(TunReport $tunReport)
+    {
+        return view('tun_reports.print', compact('tunReport'));
+    }
+
     public function update(Request $request, TunReport $tunReport)
     {
         $validated = $request->validate([

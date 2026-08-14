@@ -45,6 +45,11 @@ class ReimbursementReportController extends Controller
         return view('reimbursement_reports.show_pemberdayaan', compact('reimbursementReport'));
     }
 
+    public function printPemberdayaan(ReimbursementReport $reimbursementReport)
+    {
+        return view('reimbursement_reports.print_pemberdayaan', compact('reimbursementReport'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
