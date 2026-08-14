@@ -63,6 +63,11 @@ class PenyuluhanHukumReportController extends Controller
         return view('penyuluhan_hukum_reports.edit', compact('penyuluhanHukumReport'));
     }
 
+    public function print(PenyuluhanHukumReport $penyuluhanHukumReport)
+    {
+        return view('penyuluhan_hukum_reports.print', compact('penyuluhanHukumReport'));
+    }
+
     public function update(Request $request, PenyuluhanHukumReport $penyuluhanHukumReport)
     {
         $validated = $request->validate([

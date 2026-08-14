@@ -89,9 +89,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('reports/export/excel', [ReportController::class, 'exportExcel'])->name('reports.export.excel');
     Route::get('reports/export/pdf', [ReportController::class, 'exportPdf'])->name('reports.export.pdf');
     Route::resource('reports', ReportController::class);
+    Route::get('drafting-reports/{draftingReport}/print', [DraftingDokumenHukumReportController::class, 'print'])->name('drafting-reports.print');
     Route::resource('drafting-reports', DraftingDokumenHukumReportController::class)->parameters([
         'drafting-reports' => 'draftingReport'
     ]);
+    Route::get('mediasi-reports/{mediasiReport}/print', [MediasiReportController::class, 'print'])->name('mediasi-reports.print');
     Route::resource('mediasi-reports', MediasiReportController::class)->parameters([
         'mediasi-reports' => 'mediasiReport'
     ]);
@@ -101,25 +103,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemberdayaan-masyarakat', [ReimbursementReportController::class, 'indexPemberdayaan'])->name('pemberdayaan-masyarakat.index');
     Route::get('pemberdayaan-masyarakat/create', [ReimbursementReportController::class, 'createPemberdayaan'])->name('reimbursement-reports.create-pemberdayaan');
     Route::get('pemberdayaan-masyarakat/{reimbursementReport}', [ReimbursementReportController::class, 'showPemberdayaan'])->name('pemberdayaan-masyarakat.show');
+    Route::get('pemberdayaan-masyarakat/{reimbursementReport}/print', [ReimbursementReportController::class, 'printPemberdayaan'])->name('pemberdayaan-masyarakat.print');
     Route::resource('negosiasi-reports', NegosiasiReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update']);
+    Route::get('negosiasi-reports/{negosiasiReport}/print', [NegosiasiReportController::class, 'print'])->name('negosiasi-reports.print');
+
     Route::resource('pendampingan-reports', \App\Http\Controllers\PendampinganReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'pendampingan-reports' => 'pendampinganReport'
     ]);
+    Route::get('pendampingan-reports/{pendampinganReport}/print', [\App\Http\Controllers\PendampinganReportController::class, 'print'])->name('pendampingan-reports.print');
     Route::resource('penelitian-hukum-reports', \App\Http\Controllers\PenelitianHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'penelitian-hukum-reports' => 'penelitianHukumReport'
     ]);
+    Route::get('penelitian-hukum-reports/{penelitianHukumReport}/print', [\App\Http\Controllers\PenelitianHukumReportController::class, 'print'])->name('penelitian-hukum-reports.print');
     Route::resource('penyuluhan-hukum-reports', \App\Http\Controllers\PenyuluhanHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'penyuluhan-hukum-reports' => 'penyuluhanHukumReport'
     ]);
+    Route::get('penyuluhan-hukum-reports/{penyuluhanHukumReport}/print', [\App\Http\Controllers\PenyuluhanHukumReportController::class, 'print'])->name('penyuluhan-hukum-reports.print');
     Route::resource('perdata-reports', \App\Http\Controllers\PerdataReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'perdata-reports' => 'perdataReport'
     ]);
+    Route::get('perdata-reports/{perdataReport}/print', [\App\Http\Controllers\PerdataReportController::class, 'print'])->name('perdata-reports.print');
     Route::resource('pidana-reports', \App\Http\Controllers\PidanaReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'pidana-reports' => 'pidanaReport'
     ]);
+    Route::get('pidana-reports/{pidanaReport}/print', [\App\Http\Controllers\PidanaReportController::class, 'print'])->name('pidana-reports.print');
     Route::resource('tun-reports', \App\Http\Controllers\TunReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'tun-reports' => 'tunReport'
     ]);
+    Route::get('tun-reports/{tunReport}/print', [\App\Http\Controllers\TunReportController::class, 'print'])->name('tun-reports.print');
     Route::resource('konsultasi-hukum-reports', \App\Http\Controllers\KonsultasiHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'konsultasi-hukum-reports' => 'konsultasiHukumReport'
     ]);

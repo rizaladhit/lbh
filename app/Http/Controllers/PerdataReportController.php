@@ -62,6 +62,11 @@ class PerdataReportController extends Controller
         return view('perdata_reports.edit', compact('perdataReport'));
     }
 
+    public function print(PerdataReport $perdataReport)
+    {
+        return view('perdata_reports.print', compact('perdataReport'));
+    }
+
     public function update(Request $request, PerdataReport $perdataReport)
     {
         $validated = $request->validate([

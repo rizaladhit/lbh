@@ -62,6 +62,11 @@ class PidanaReportController extends Controller
         return view('pidana_reports.edit', compact('pidanaReport'));
     }
 
+    public function print(PidanaReport $pidanaReport)
+    {
+        return view('pidana_reports.print', compact('pidanaReport'));
+    }
+
     public function update(Request $request, PidanaReport $pidanaReport)
     {
         $validated = $request->validate([

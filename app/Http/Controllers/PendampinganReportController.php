@@ -85,7 +85,13 @@ class PendampinganReportController extends Controller
         return redirect()->route('pendampingan-reports.show', $pendampinganReport)->with('success', 'Laporan berhasil diperbarui.');
     }
 
+    public function print(PendampinganReport $pendampinganReport)
+    {
+        return view('pendampingan_reports.print', compact('pendampinganReport'));
+    }
+
     public function destroy(PendampinganReport $pendampinganReport)
+
     {
         $pendampinganReport->delete();
         return redirect()->route('pendampingan-reports.index')

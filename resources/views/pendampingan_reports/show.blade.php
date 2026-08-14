@@ -250,9 +250,9 @@
                 <a href="{{ route('pendampingan-reports.edit', $pendampinganReport) }}" class="btn btn-warning px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-pen-to-square me-1"></i> Edit
                 </a>
-                <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
+                <a href="{{ route('pendampingan-reports.print', $pendampinganReport) }}" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
-                </button>
+                </a>
             </div>
         </div>
     </div>

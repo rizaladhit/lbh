@@ -75,7 +75,13 @@ class PenelitianHukumReportController extends Controller
         return redirect()->route('penelitian-hukum-reports.show', $penelitianHukumReport)->with('success', 'Laporan berhasil diperbarui.');
     }
 
+    public function print(PenelitianHukumReport $penelitianHukumReport)
+    {
+        return view('penelitian_hukum_reports.print', compact('penelitianHukumReport'));
+    }
+
     public function destroy(PenelitianHukumReport $penelitianHukumReport)
+
     {
         $penelitianHukumReport->delete();
         return redirect()->route('penelitian-hukum-reports.index')

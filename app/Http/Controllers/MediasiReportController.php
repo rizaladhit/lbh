@@ -57,6 +57,14 @@ class MediasiReportController extends Controller
         return view('mediasi_reports.show', compact('mediasiReport'));
     }
 
+    public function print(MediasiReport $mediasiReport)
+    {
+        if (auth()->user()->role !== 'admin' && $mediasiReport->user_id !== auth()->id()) {
+            abort(403);
+        }
+        return view('mediasi_reports.print', compact('mediasiReport'));
+    }
+
     public function edit(MediasiReport $mediasiReport)
     {
         if (auth()->user()->role !== 'admin' && $mediasiReport->user_id !== auth()->id()) {
