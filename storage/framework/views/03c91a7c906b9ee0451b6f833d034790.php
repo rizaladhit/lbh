@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>" data-bs-theme="light">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'LBH') }} — Welcome</title>
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <title><?php echo e(config('app.name', 'LBH')); ?> — Welcome</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -161,22 +161,23 @@
     <div class="auth-container">
         <div class="text-center mb-4">
             <div class="auth-logo-icon">
-                @if(isset($appSetting) && $appSetting->logo_path)
-                    <img src="{{ Storage::url($appSetting->logo_path) }}" alt="Logo" style="height:32px;width:32px;object-fit:contain;">
-                @else
+                <?php if(isset($appSetting) && $appSetting->logo_path): ?>
+                    <img src="<?php echo e(Storage::url($appSetting->logo_path)); ?>" alt="Logo" style="height:32px;width:32px;object-fit:contain;">
+                <?php else: ?>
                     <i class="fa-solid fa-scale-balanced"></i>
-                @endif
+                <?php endif; ?>
             </div>
-            <h3 class="fw-bold text-body" style="letter-spacing:-0.5px;">{{ isset($appSetting) ? $appSetting->app_name : 'LBH Panel' }}</h3>
-            <p style="color:#64748b;font-size:.9rem;">{{ (isset($appSetting) && $appSetting->description) ? $appSetting->description : 'Sistem Manajemen Bantuan Hukum' }}</p>
+            <h3 class="fw-bold text-body" style="letter-spacing:-0.5px;"><?php echo e(isset($appSetting) ? $appSetting->app_name : 'LBH Panel'); ?></h3>
+            <p style="color:#64748b;font-size:.9rem;"><?php echo e((isset($appSetting) && $appSetting->description) ? $appSetting->description : 'Sistem Manajemen Bantuan Hukum'); ?></p>
         </div>
 
         <div class="auth-card">
-            {{ $slot }}
+            <?php echo e($slot); ?>
+
         </div>
 
         <div style="margin-top:40px;color:#94a3b8;font-size:.75rem;font-weight:500;">
-            &copy; {{ date('Y') }} Hak Cipta Dilindungi
+            &copy; <?php echo e(date('Y')); ?> Hak Cipta Dilindungi
         </div>
     </div>
 
@@ -193,3 +194,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/layouts/guest.blade.php ENDPATH**/ ?>

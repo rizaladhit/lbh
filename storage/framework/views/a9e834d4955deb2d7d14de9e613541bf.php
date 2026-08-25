@@ -1,7 +1,16 @@
-<x-app-layout>
-    <x-slot name="header">Permohonan Non-Litigasi</x-slot>
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Permohonan Non-Litigasi <?php $__env->endSlot(); ?>
 
-    @php
+    <?php
         $activeFilter = request('status', 'ALL');
         $stats = [
             'ALL'        => ['label' => 'Total Semua',     'icon' => 'fa-solid fa-layer-group',      'grad' => 'linear-gradient(135deg,#10b981,#059669)', 'count' => $totalAll],
@@ -12,7 +21,7 @@
             'DONE'       => ['label' => 'Selesai',         'icon' => 'fa-solid fa-flag-checkered',   'grad' => 'linear-gradient(135deg,#a18cd1,#fbc2eb)', 'count' => $statusCounts['DONE']       ?? 0],
             'REJECTED'   => ['label' => 'Ditolak',         'icon' => 'fa-solid fa-ban',             'grad' => 'linear-gradient(135deg,#d63031,#ff6b6b)', 'count' => $statusCounts['REJECTED']   ?? 0],
         ];
-    @endphp
+    ?>
 
     <style>
         /* ── Page Variables ── */
@@ -180,37 +189,37 @@
         [data-bs-theme="dark"] .search-input { border-color: rgba(255,255,255,.1); color: #f1f1f1; }
     </style>
 
-    {{-- ── STAT CARDS ── --}}
+    
     <div class="row g-3 mb-4">
-        @foreach($stats as $key => $s)
-        @php $isActive = $activeFilter === $key; @endphp
+        <?php $__currentLoopData = $stats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $isActive = $activeFilter === $key; ?>
         <div class="col-6 col-sm-4 col-xl">
-            <a href="{{ $key === 'ALL' ? route('permohonan-non-litigasi.index') : route('permohonan-non-litigasi.index', ['status' => $key]) }}"
-               class="stat-card {{ $isActive ? 'active-card' : '' }}"
-               style="background: {{ $s['grad'] }};">
-                @if($isActive)<div class="active-indicator"></div>@endif
+            <a href="<?php echo e($key === 'ALL' ? route('permohonan-non-litigasi.index') : route('permohonan-non-litigasi.index', ['status' => $key])); ?>"
+               class="stat-card <?php echo e($isActive ? 'active-card' : ''); ?>"
+               style="background: <?php echo e($s['grad']); ?>;">
+                <?php if($isActive): ?><div class="active-indicator"></div><?php endif; ?>
                 <div class="p-3 d-flex flex-column gap-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="stat-icon-wrap">
-                            <i class="{{ $s['icon'] }} text-white" style="font-size:1.1rem;"></i>
+                            <i class="<?php echo e($s['icon']); ?> text-white" style="font-size:1.1rem;"></i>
                         </div>
-                        @if($isActive)
+                        <?php if($isActive): ?>
                         <span style="background:rgba(255,255,255,.2);color:#fff;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.5px;">
                             AKTIF
                         </span>
-                        @endif
+                        <?php endif; ?>
                     </div>
                     <div>
-                        <div class="stat-count">{{ $s['count'] }}</div>
-                        <div class="stat-label">{{ $s['label'] }}</div>
+                        <div class="stat-count"><?php echo e($s['count']); ?></div>
+                        <div class="stat-label"><?php echo e($s['label']); ?></div>
                     </div>
                 </div>
             </a>
         </div>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
-    {{-- ── MAIN PANEL ── --}}
+    
     <div class="panel-card" style="background: var(--bs-card-bg, #fff);">
         <div class="panel-header flex-wrap gap-3">
             <div class="d-flex align-items-center gap-3">
@@ -221,31 +230,31 @@
                 <div>
                     <h6 class="mb-0 fw-bold text-body" style="font-size:.95rem;">Daftar Permohonan Non-Litigasi</h6>
                     <p class="mb-0 text-muted" style="font-size:.75rem;">
-                        @if($activeFilter !== 'ALL')
-                            Menampilkan filter: <strong>{{ $stats[$activeFilter]['label'] }}</strong> &bull;
-                        @endif
-                        {{ $permohonan->total() }} permohonan ditemukan
+                        <?php if($activeFilter !== 'ALL'): ?>
+                            Menampilkan filter: <strong><?php echo e($stats[$activeFilter]['label']); ?></strong> &bull;
+                        <?php endif; ?>
+                        <?php echo e($permohonan->total()); ?> permohonan ditemukan
                     </p>
                 </div>
             </div>
             
             <div class="d-flex align-items-center gap-2 ms-auto">
-                {{-- Search form --}}
-                <form method="GET" action="{{ route('permohonan-non-litigasi.index') }}" class="d-none d-md-block">
-                    @if($activeFilter !== 'ALL')
-                        <input type="hidden" name="status" value="{{ $activeFilter }}">
-                    @endif
+                
+                <form method="GET" action="<?php echo e(route('permohonan-non-litigasi.index')); ?>" class="d-none d-md-block">
+                    <?php if($activeFilter !== 'ALL'): ?>
+                        <input type="hidden" name="status" value="<?php echo e($activeFilter); ?>">
+                    <?php endif; ?>
                     <div class="search-wrap">
                         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" name="search" value="{{ request('search') }}"
+                        <input type="text" name="search" value="<?php echo e(request('search')); ?>"
                                class="form-control search-input" placeholder="Cari nama / perkara…">
                     </div>
                 </form>
-                @if(!in_array(auth()->user()->role, ['pengacara', 'paralegal']))
-                <a href="{{ route('permohonan-non-litigasi.create') }}" class="btn-cta">
+                <?php if(!in_array(auth()->user()->role, ['pengacara', 'paralegal'])): ?>
+                <a href="<?php echo e(route('permohonan-non-litigasi.create')); ?>" class="btn-cta">
                     <i class="fa-solid fa-plus"></i><span class="d-none d-sm-inline">Ajukan Permohonan</span>
                 </a>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
 
@@ -258,15 +267,15 @@
                         <th>Jenis Perkara</th>
                         <th>Status & Alur</th>
                         <th>Tgl Kunjungan</th>
-                        @if(auth()->user()->role === 'admin')
+                        <?php if(auth()->user()->role === 'admin'): ?>
                         <th>Diajukan Oleh</th>
-                        @endif
+                        <?php endif; ?>
                         <th style="padding-right:24px;text-align:right;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($permohonan as $item)
-                    @php
+                    <?php $__empty_1 = true; $__currentLoopData = $permohonan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <?php
                         $statusConfig = [
                             'REGISTERED' => ['badge' => '#4facfe', 'bg'  => 'rgba(79,172,254,.12)', 'label' => 'Terdaftar',     'icon' => 'fa-solid fa-file-circle-plus'],
                             'APPROVED'   => ['badge' => '#2d98da', 'bg'  => 'rgba(45,152,218,.12)', 'label' => 'Disetujui',     'icon' => 'fa-solid fa-thumbs-up'],
@@ -280,10 +289,10 @@
                         $idx  = array_search($item->status, $steps);
                         $idx  = $idx === false ? -1 : $idx;
                         $stepColors = ['#4facfe','#2d98da','#43e97b','#fa8231','#a18cd1'];
-                    @endphp
+                    ?>
                     <tr>
                         <td style="padding-left:24px;">
-                            <span class="reg-chip">{{ $item->no_registrasi ?? '—' }}</span>
+                            <span class="reg-chip"><?php echo e($item->no_registrasi ?? '—'); ?></span>
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
@@ -291,30 +300,32 @@
                                     <i class="fa-solid fa-user" style="color:#10b981;font-size:.75rem;"></i>
                                 </div>
                                 <div>
-                                    <div class="fw-semibold text-body" style="font-size:.87rem;">{{ $item->nama_pemohon }}</div>
-                                    <div class="text-muted" style="font-size:.72rem;">NIK: {{ substr($item->nik_pemohon, 0, 6) }}••••••</div>
+                                    <div class="fw-semibold text-body" style="font-size:.87rem;"><?php echo e($item->nama_pemohon); ?></div>
+                                    <div class="text-muted" style="font-size:.72rem;">NIK: <?php echo e(substr($item->nik_pemohon, 0, 6)); ?>••••••</div>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="text-body fw-medium" style="font-size:.83rem;">{{ $item->jenis_perkara }}</span>
+                            <span class="text-body fw-medium" style="font-size:.83rem;"><?php echo e($item->jenis_perkara); ?></span>
                             <div class="text-muted" style="font-size:.72rem;margin-top:2px;max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                                {{ $item->uraian_singkat }}
+                                <?php echo e($item->uraian_singkat); ?>
+
                             </div>
                         </td>
                         <td>
                             <span class="status-pill"
-                                  style="background:{{ $sc['bg'] }};color:{{ $sc['badge'] }};border:1px solid {{ $sc['badge'] }}22;">
-                                <span class="status-dot" style="background:{{ $sc['badge'] }};box-shadow:0 0 0 2px {{ $sc['badge'] }}33;"></span>
-                                <i class="{{ $item->getStatusIcon() }}" style="font-size:.7rem;"></i>
-                                {{ $sc['label'] }}
+                                  style="background:<?php echo e($sc['bg']); ?>;color:<?php echo e($sc['badge']); ?>;border:1px solid <?php echo e($sc['badge']); ?>22;">
+                                <span class="status-dot" style="background:<?php echo e($sc['badge']); ?>;box-shadow:0 0 0 2px <?php echo e($sc['badge']); ?>33;"></span>
+                                <i class="<?php echo e($item->getStatusIcon()); ?>" style="font-size:.7rem;"></i>
+                                <?php echo e($sc['label']); ?>
+
                             </span>
-                            {{-- Workflow stepper --}}
-                            <div class="wf-stepper" title="Progress alur: {{ implode(' → ', array_map(fn($s) => $statusConfig[$s]['label'], $steps)) }}">
-                                @foreach($steps as $i => $step)
-                                    <div class="wf-step {{ $i <= $idx ? 'done' : '' }}"
-                                         style="{{ $i <= $idx ? 'background:'.$stepColors[$i].';' : '' }}"></div>
-                                @endforeach
+                            
+                            <div class="wf-stepper" title="Progress alur: <?php echo e(implode(' → ', array_map(fn($s) => $statusConfig[$s]['label'], $steps))); ?>">
+                                <?php $__currentLoopData = $steps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $step): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="wf-step <?php echo e($i <= $idx ? 'done' : ''); ?>"
+                                         style="<?php echo e($i <= $idx ? 'background:'.$stepColors[$i].';' : ''); ?>"></div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </td>
                         <td>
@@ -323,66 +334,67 @@
                                     <i class="fa-solid fa-calendar-days" style="font-size:.75rem;color:#fa8231;"></i>
                                 </div>
                                 <div>
-                                    <div class="fw-medium text-body" style="font-size:.82rem;">{{ $item->tgl_rencana_kunjungan->format('d M Y') }}</div>
-                                    <div class="text-muted" style="font-size:.7rem;">{{ $item->tgl_rencana_kunjungan->diffForHumans() }}</div>
+                                    <div class="fw-medium text-body" style="font-size:.82rem;"><?php echo e($item->tgl_rencana_kunjungan->format('d M Y')); ?></div>
+                                    <div class="text-muted" style="font-size:.7rem;"><?php echo e($item->tgl_rencana_kunjungan->diffForHumans()); ?></div>
                                 </div>
                             </div>
                         </td>
-                        @if(auth()->user()->role === 'admin')
+                        <?php if(auth()->user()->role === 'admin'): ?>
                         <td>
                             <div class="d-flex align-items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($item->user->name ?? 'U') }}&background=10b981&color=fff&size=28"
+                                <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($item->user->name ?? 'U')); ?>&background=10b981&color=fff&size=28"
                                      width="28" height="28" class="rounded-circle" alt="">
-                                <span class="text-body" style="font-size:.8rem;">{{ $item->user->name ?? '—' }}</span>
+                                <span class="text-body" style="font-size:.8rem;"><?php echo e($item->user->name ?? '—'); ?></span>
                             </div>
                         </td>
-                        @endif
+                        <?php endif; ?>
                         <td style="padding-right:24px;text-align:right;">
                             <div class="d-flex justify-content-end align-items-center gap-1">
-                                <a href="{{ route('permohonan-non-litigasi.show', $item) }}" class="action-btn btn-view" style="color:#10b981;" title="Lihat Detail">
+                                <a href="<?php echo e(route('permohonan-non-litigasi.show', $item)); ?>" class="action-btn btn-view" style="color:#10b981;" title="Lihat Detail">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                                @if(auth()->user()->role === 'admin')
-                                <button onclick="confirmDelete('{{ route('permohonan-non-litigasi.destroy', $item) }}')" class="action-btn btn-delete" style="color:#ef4444;" title="Hapus">
+                                <?php if(auth()->user()->role === 'admin'): ?>
+                                <button onclick="confirmDelete('<?php echo e(route('permohonan-non-litigasi.destroy', $item)); ?>')" class="action-btn btn-delete" style="color:#ef4444;" title="Hapus">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
-                        <td colspan="{{ auth()->user()->role === 'admin' ? 7 : 6 }}">
+                        <td colspan="<?php echo e(auth()->user()->role === 'admin' ? 7 : 6); ?>">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
                                 <h6 class="fw-bold text-body mb-1">Belum Ada Permohonan</h6>
                                 <p class="text-muted mb-4" style="font-size:.85rem;">
-                                    @if($activeFilter !== 'ALL')
-                                        Tidak ada permohonan dengan status <strong>{{ $stats[$activeFilter]['label'] }}</strong>.
-                                    @else
+                                    <?php if($activeFilter !== 'ALL'): ?>
+                                        Tidak ada permohonan dengan status <strong><?php echo e($stats[$activeFilter]['label']); ?></strong>.
+                                    <?php else: ?>
                                         Ajukan permohonan bantuan layanan non-litigasi pertama Anda.
-                                    @endif
+                                    <?php endif; ?>
                                 </p>
-                                <a href="{{ route('permohonan-non-litigasi.create') }}" class="btn-cta" style="margin:auto;width:fit-content;">
+                                <a href="<?php echo e(route('permohonan-non-litigasi.create')); ?>" class="btn-cta" style="margin:auto;width:fit-content;">
                                     <i class="fa-solid fa-plus"></i> Ajukan Sekarang
                                 </a>
                             </div>
                         </td>
                     </tr>
-                    @endforelse
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
 
-        @if($permohonan->hasPages())
+        <?php if($permohonan->hasPages()): ?>
         <div style="padding:16px 24px;border-top:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:.75rem;color:#94a3b8;">Halaman {{ $permohonan->currentPage() }} dari {{ $permohonan->lastPage() }}</span>
-            {{ $permohonan->links('pagination::bootstrap-5') }}
+            <span style="font-size:.75rem;color:#94a3b8;">Halaman <?php echo e($permohonan->currentPage()); ?> dari <?php echo e($permohonan->lastPage()); ?></span>
+            <?php echo e($permohonan->links('pagination::bootstrap-5')); ?>
+
         </div>
-        @endif
+        <?php endif; ?>
     </div>
 
-    <form id="deleteForm" method="POST" style="display:none;">@csrf @method('DELETE')</form>
+    <form id="deleteForm" method="POST" style="display:none;"><?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?></form>
     <script>
         function confirmDelete(action){
             Swal.fire({
@@ -401,6 +413,16 @@
             });
         }
     </script>
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
 
 
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/permohonan/non_litigasi/index.blade.php ENDPATH**/ ?>
