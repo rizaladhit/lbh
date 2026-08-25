@@ -94,14 +94,18 @@ class PermohonanNonLitigasiController extends Controller
         ]);
 
         if ($request->hasFile('file_ktp_kk')) {
-            Storage::disk('public')->delete($permohonanNonLitigasi->file_ktp_kk);
+            if ($permohonanNonLitigasi->file_ktp_kk) {
+                Storage::disk('public')->delete($permohonanNonLitigasi->file_ktp_kk);
+            }
             $validated['file_ktp_kk'] = $request->file('file_ktp_kk')->store('permohonan/ktp_kk', 'public');
         } else {
             unset($validated['file_ktp_kk']);
         }
 
         if ($request->hasFile('file_sktm')) {
-            Storage::disk('public')->delete($permohonanNonLitigasi->file_sktm);
+            if ($permohonanNonLitigasi->file_sktm) {
+                Storage::disk('public')->delete($permohonanNonLitigasi->file_sktm);
+            }
             $validated['file_sktm'] = $request->file('file_sktm')->store('permohonan/sktm', 'public');
         } else {
             unset($validated['file_sktm']);
@@ -109,7 +113,9 @@ class PermohonanNonLitigasiController extends Controller
 
         $ttdData = $request->input('file_ttd');
         if ($ttdData && str_starts_with($ttdData, 'data:image')) {
-            Storage::disk('public')->delete($permohonanNonLitigasi->file_ttd);
+            if ($permohonanNonLitigasi->file_ttd) {
+                Storage::disk('public')->delete($permohonanNonLitigasi->file_ttd);
+            }
             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $ttdData));
             $filename = 'permohonan/ttd/ttd_' . time() . '.png';
             Storage::disk('public')->put($filename, $imageData);
@@ -203,7 +209,11 @@ class PermohonanNonLitigasiController extends Controller
         if (auth()->user()->role !== 'admin' && $permohonanNonLitigasi->user_id != auth()->id()) {
             abort(403);
         }
-        Storage::disk('public')->delete([$permohonanNonLitigasi->file_ktp_kk, $permohonanNonLitigasi->file_sktm, $permohonanNonLitigasi->file_ttd]);
+        Storage::disk('public')->delete(array_filter([
+            $permohonanNonLitigasi->file_ktp_kk,
+            $permohonanNonLitigasi->file_sktm,
+            $permohonanNonLitigasi->file_ttd,
+        ]));
         $permohonanNonLitigasi->delete();
         return redirect()->route('permohonan-non-litigasi.index')->with('success', 'Data permohonan berhasil dihapus.');
     }
