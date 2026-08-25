@@ -1,7 +1,16 @@
-<x-app-layout>
-    <x-slot name="header">
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> 
         Profil Saya
-    </x-slot>
+     <?php $__env->endSlot(); ?>
 
     <style>
         .profile-card { border-radius: 16px; border: none; box-shadow: 0 4px 24px rgba(0,0,0,.07); }
@@ -47,26 +56,27 @@
         <div class="col-lg-4">
             <div class="card profile-card">
                 <div class="profile-summary">
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=6366f1&color=fff&size=128"
-                         alt="{{ $user->name }}">
-                    <div class="name">{{ $user->name }}</div>
-                    <div class="email">{{ $user->email }}</div>
-                    @if(isset($user->role))
-                        <span class="role-badge {{ $user->role }}">
-                            <i class="fa-solid {{ $user->role === 'admin' ? 'fa-shield-halved' : 'fa-user' }}"></i>
-                            {{ ucfirst($user->role) }}
+                    <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($user->name)); ?>&background=6366f1&color=fff&size=128"
+                         alt="<?php echo e($user->name); ?>">
+                    <div class="name"><?php echo e($user->name); ?></div>
+                    <div class="email"><?php echo e($user->email); ?></div>
+                    <?php if(isset($user->role)): ?>
+                        <span class="role-badge <?php echo e($user->role); ?>">
+                            <i class="fa-solid <?php echo e($user->role === 'admin' ? 'fa-shield-halved' : 'fa-user'); ?>"></i>
+                            <?php echo e(ucfirst($user->role)); ?>
+
                         </span>
-                    @endif
+                    <?php endif; ?>
 
                     <div class="profile-meta">
-                        <div><span>Bergabung sejak</span><span>{{ $user->created_at->isoFormat('D MMMM YYYY') }}</span></div>
+                        <div><span>Bergabung sejak</span><span><?php echo e($user->created_at->isoFormat('D MMMM YYYY')); ?></span></div>
                         <div>
                             <span>Status email</span>
-                            @if($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                            <?php if($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail()): ?>
                                 <span class="text-warning"><i class="fa-solid fa-triangle-exclamation me-1"></i>Belum verifikasi</span>
-                            @else
+                            <?php else: ?>
                                 <span class="text-success"><i class="fa-solid fa-circle-check me-1"></i>Terverifikasi</span>
-                            @endif
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -80,7 +90,7 @@
                         <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-id-card me-2"></i>Informasi Profil</h6>
                     </div>
                     <div class="card-body">
-                        @include('profile.partials.update-profile-information-form')
+                        <?php echo $__env->make('profile.partials.update-profile-information-form', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
                 </div>
 
@@ -89,10 +99,20 @@
                         <h6 class="m-0 fw-bold text-primary"><i class="fa-solid fa-lock me-2"></i>Ubah Password</h6>
                     </div>
                     <div class="card-body">
-                        @include('profile.partials.update-password-form')
+                        <?php echo $__env->make('profile.partials.update-password-form', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/profile/edit.blade.php ENDPATH**/ ?>
