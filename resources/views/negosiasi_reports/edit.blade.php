@@ -88,7 +88,7 @@
                         @php
                             $neg_cl = [];
                             foreach(($negosiasiReport->checklist_data ?? []) as $i => $item) {
-                                $neg_cl[$i+1] = [
+                                $neg_cl[$i] = [
                                     'obh' => $item['obh'] ? '1' : null,
                                     'kanwil' => $item['kanwil'] ? '1' : null,
                                     'bphn' => $item['bphn'] ? '1' : null,

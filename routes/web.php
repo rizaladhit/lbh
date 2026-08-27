@@ -134,9 +134,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('konsultasi-hukum-reports', \App\Http\Controllers\KonsultasiHukumReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'konsultasi-hukum-reports' => 'konsultasiHukumReport'
     ]);
+    Route::get('konsultasi-hukum-reports/{konsultasiHukumReport}/print', [\App\Http\Controllers\KonsultasiHukumReportController::class, 'print'])->name('konsultasi-hukum-reports.print');
     Route::resource('investigasi-kasus-reports', \App\Http\Controllers\InvestigasiKasusReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update'])->parameters([
         'investigasi-kasus-reports' => 'investigasiKasusReport'
     ]);
+    Route::get('investigasi-kasus-reports/{investigasiKasusReport}/print', [\App\Http\Controllers\InvestigasiKasusReportController::class, 'print'])->name('investigasi-kasus-reports.print');
 });
 
 use App\Http\Controllers\GoogleAuthController;

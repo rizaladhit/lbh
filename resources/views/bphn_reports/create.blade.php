@@ -60,8 +60,9 @@
                             <div class="col-sm-8 d-flex align-items-center">
                                 : <input type="text" name="penerima_bantuan" class="form-control mx-2 border-secondary border-opacity-50" required>
                                 <select name="jk_penerima" class="form-select w-auto border-secondary border-opacity-50" required>
-                                    <option value="L">L</option>
-                                    <option value="P">P</option>
+                                    <option value="" {{ old('jk_penerima') == '' ? 'selected' : '' }}>L/P</option>
+                                    <option value="L" {{ old('jk_penerima') == 'L' ? 'selected' : '' }}>L</option>
+                                    <option value="P" {{ old('jk_penerima') == 'P' ? 'selected' : '' }}>P</option>
                                 </select>
                             </div>
                         </div>

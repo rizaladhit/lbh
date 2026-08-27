@@ -91,6 +91,11 @@ class ReimbursementReportController extends Controller
 
         ReimbursementReport::create($validated);
 
+        if ($validated['kegiatan'] === 'Pemberdayaan Masyarakat') {
+            return redirect()->route('pemberdayaan-masyarakat.index')
+                ->with('success', 'Laporan Reimbursement berhasil ditambahkan.');
+        }
+
         return redirect()->route('reimbursement-reports.index')
             ->with('success', 'Laporan Reimbursement berhasil ditambahkan.');
     }
