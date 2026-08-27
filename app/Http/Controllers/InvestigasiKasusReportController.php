@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\InvestigasiKasusReport;
+use App\Support\PdfFonts;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvestigasiKasusReportController extends Controller
 {
@@ -57,6 +59,14 @@ class InvestigasiKasusReportController extends Controller
     public function edit(InvestigasiKasusReport $investigasiKasusReport)
     {
         return view('investigasi_kasus_reports.edit', compact('investigasiKasusReport'));
+    }
+
+    public function print(InvestigasiKasusReport $investigasiKasusReport)
+    {
+        $pdf = Pdf::loadView('investigasi_kasus_reports.pdf', compact('investigasiKasusReport'));
+        PdfFonts::registerCalibri($pdf->getDomPDF()->getFontMetrics());
+
+        return $pdf->stream('checklist-investigasi-kasus-' . $investigasiKasusReport->id . '.pdf');
     }
 
     public function update(Request $request, InvestigasiKasusReport $investigasiKasusReport)

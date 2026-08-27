@@ -44,8 +44,8 @@ class NegosiasiReportController extends Controller
         ]);
 
         $checklist = [];
-        foreach ($request->input('checklist', []) as $item) {
-            $checklist[] = [
+        foreach ($request->input('checklist', []) as $key => $item) {
+            $checklist[$key] = [
                 'label' => $item['label'] ?? null,
                 'obh' => isset($item['obh']),
                 'kanwil' => isset($item['kanwil']),
@@ -88,8 +88,8 @@ class NegosiasiReportController extends Controller
         ]);
 
         $checklist = [];
-        foreach ($request->input('checklist', []) as $item) {
-            $checklist[] = [
+        foreach ($request->input('checklist', []) as $key => $item) {
+            $checklist[$key] = [
                 'label' => $item['label'] ?? null,
                 'obh' => isset($item['obh']),
                 'kanwil' => isset($item['kanwil']),

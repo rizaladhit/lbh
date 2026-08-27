@@ -2,60 +2,6 @@
     <x-slot name="header">Detail Laporan Konsultasi Hukum</x-slot>
 
     <style>
-        @media screen { .print-view { display: none; } }
-
-        @media print {
-            body * { visibility: hidden; }
-
-            .print-view {
-                display: block !important;
-                visibility: visible !important;
-                position: absolute;
-                top: 0; left: 0;
-                width: 100%;
-                box-sizing: border-box;
-                padding: 10mm 18mm;
-                font-family: Arial, sans-serif;
-                font-size: 9.5pt;
-                color: #000;
-                background: #fff;
-            }
-            .print-view * { visibility: visible !important; }
-
-            .pv-title { text-align: center; font-weight: bold; font-size: 11.5pt; text-decoration: underline; text-transform: uppercase; margin-bottom: 14px; }
-
-            .pv-group { margin-bottom: 4px; }
-            .pv-row { display: flex; align-items: flex-end; margin-bottom: 4px; line-height: 1.2; }
-            .pv-label { flex-shrink: 0; text-transform: uppercase; white-space: nowrap; }
-            .pv-sep   { flex-shrink: 0; padding: 0 5px; white-space: nowrap; }
-            .pv-val   { flex: 1; min-width: 0; border-bottom: 1px dotted #000; padding-left: 3px; word-break: break-word; }
-            .pv-val-fixed { flex: 1; font-weight: bold; padding-left: 3px; }
-
-            .pv-g1 .pv-label { min-width: 32mm; }
-            .pv-g2 .pv-label { min-width: 72mm; }
-
-            .pv-gap { height: 8px; }
-            .pv-section-gap { height: 10px; }
-
-            .pv-table { width: 100%; border-collapse: collapse; margin: 8px 0 10px 0; font-size: 9pt; }
-            .pv-table th, .pv-table td { border: 1px solid #000 !important; padding: 3px 6px; }
-            .pv-table thead th {
-                background: #d0d0d0 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                text-align: center; font-weight: bold; text-transform: uppercase;
-            }
-            .pv-table td.no-col  { text-align: center; font-weight: bold; width: 36px; }
-            .pv-table td.chk-col { text-align: center; width: 60px; }
-            .pv-table th.chk-th  { width: 60px; }
-            .pv-table th.no-th   { width: 36px; }
-
-            .pv-chk { display: inline-block; width: 13px; height: 13px; border: 1px solid #000; text-align: center; line-height: 13px; font-size: 9.5pt; font-weight: bold; }
-
-            .pv-keterangan { font-size: 8.5pt; margin-top: 8px; line-height: 1.45; }
-            .pv-keterangan .pv-ket-title { font-weight: bold; margin-bottom: 2px; }
-        }
-
         .checklist-square { width: 18px; height: 18px; display: inline-flex; justify-content: center; align-items: center; border: 1px solid currentColor; font-weight: bold; font-family: monospace; font-size: 14px; }
         .form-preview-label { width: 240px; flex-shrink: 0; }
         .form-preview-label-sm { width: 200px; flex-shrink: 0; }
@@ -86,10 +32,7 @@
         $secs = $konsultasiHukumReport->sections ?? [];
     @endphp
 
-    {{-- ================================================================ --}}
-    {{-- SCREEN VIEW                                                        --}}
-    {{-- ================================================================ --}}
-    <div class="d-print-none row justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-lg-11">
             <div class="card shadow-md border-0 mb-4 p-4 p-md-5">
 
@@ -167,98 +110,11 @@
                 <a href="{{ route('konsultasi-hukum-reports.edit', $konsultasiHukumReport) }}" class="btn btn-warning px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-pen-to-square me-1"></i> Edit
                 </a>
-                <button onclick="window.print()" class="btn btn-success px-4 fw-bold shadow-sm">
+                <a href="{{ route('konsultasi-hukum-reports.print', $konsultasiHukumReport) }}" target="_blank" class="btn btn-success px-4 fw-bold shadow-sm">
                     <i class="fa-solid fa-print me-1"></i> Cetak Formulir
-                </button>
+                </a>
             </div>
         </div>
-    </div>
-
-    {{-- ================================================================ --}}
-    {{-- PRINT VIEW                                                         --}}
-    {{-- ================================================================ --}}
-    <div class="print-view">
-
-        <div class="pv-title">Check List Berkas Reimbursement Non Litigasi</div>
-
-        <div class="pv-group pv-g1">
-            <div class="pv-row"><span class="pv-label">OBH</span><span class="pv-sep">:</span><span class="pv-val">{{ $konsultasiHukumReport->obh }}</span></div>
-            <div class="pv-row"><span class="pv-label">ALAMAT</span><span class="pv-sep">:</span><span class="pv-val">{{ $konsultasiHukumReport->alamat }}</span></div>
-            <div class="pv-row"><span class="pv-label">PROVINSI</span><span class="pv-sep">:</span><span class="pv-val">{{ $konsultasiHukumReport->provinsi }}</span></div>
-        </div>
-
-        <div class="pv-gap"></div>
-
-        <div class="pv-group pv-g2">
-            <div class="pv-row"><span class="pv-label">KEGIATAN</span><span class="pv-sep">:</span><span class="pv-val-fixed">KONSULTASI HUKUM</span></div>
-        </div>
-
-        @for($i = 0; $i < 5; $i++)
-        @php
-            $pv_sec = $secs[$i] ?? [];
-            $pv_cl  = $pv_sec['checklist'] ?? [];
-            $pv_chk = function($k, $f) use ($pv_cl) { return !empty($pv_cl[$k][$f]) ? 'v' : ''; };
-        @endphp
-
-        @if($i === 3)
-        <div style="page-break-before: always;"></div>
-        <div style="height: 12mm;"></div>
-        @else
-        <div class="pv-section-gap"></div>
-        @endif
-
-        <div class="pv-group pv-g2">
-            <div class="pv-row"><span class="pv-label">MATERI KONSULTASI {{ $section_names[$i] }}</span><span class="pv-sep">:</span><span class="pv-val">{{ $pv_sec['materi'] ?? '' }}</span></div>
-            <div class="pv-row"><span class="pv-label">TGL PELAKSANAAN KEGIATAN</span><span class="pv-sep">:</span><span class="pv-val">{{ $pv_sec['tgl_pelaksanaan'] ? \Carbon\Carbon::parse($pv_sec['tgl_pelaksanaan'])->translatedFormat('d F Y') : '' }}</span></div>
-            <div class="pv-row">
-                <span class="pv-label">PENERIMA BANTUAN HUKUM</span>
-                <span class="pv-sep">:</span>
-                <span class="pv-val" style="display:flex;justify-content:space-between;">
-                    <span>{{ $pv_sec['penerima_bantuan'] ?? '' }}</span>
-                    <strong>L/P : {{ $pv_sec['jk_penerima'] ?? '' }}</strong>
-                </span>
-            </div>
-            <div class="pv-row"><span class="pv-label">NAMA KONSULTAN</span><span class="pv-sep">:</span><span class="pv-val">{{ $pv_sec['nama_konsultan'] ?? '' }}</span></div>
-        </div>
-
-        <table class="pv-table">
-            <thead>
-                <tr>
-                    <th class="no-th">NO</th>
-                    <th>BERKAS</th>
-                    <th class="chk-th">OBH</th>
-                    <th class="chk-th">KANWIL</th>
-                    <th class="chk-th">BPHN</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($section_items[$i] as $key => $label)
-                <tr>
-                    <td class="no-col">{{ substr($key,4) }}.</td>
-                    <td>{{ $label }}</td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'obh') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'kanwil') }}</span></td>
-                    <td class="chk-col"><span class="pv-chk">{{ $pv_chk($key,'bphn') }}</span></td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        @endfor
-
-        <div class="pv-keterangan">
-            <div class="pv-ket-title">KETERANGAN :</div>
-            - Jika <strong>ada</strong> beri tanda (&#10003;), <strong>tidak ada</strong> beri tanda (&#10007;).<br>
-            - Form ini harus dilampirkan diatas dokumen.<br>
-            - Berkas harus disusun berdasarkan urutan nomor.<br>
-            - Konsultasi diajukan per-paket 5 kasus.<br>
-            - Berkas harus <strong>ASLI</strong> dan di <em>fotocopy</em>.<br>
-            - Kartu BPJS tidak diperkenankan.<br>
-            - Form laporan Konsultasi bisa dilihat di Buku Panduan Implementasi Undang-Undang Nomor 16 Tahun 2011 Tentang Bantuan Hukum.<br>
-            - Kuitansi biaya penggandaan harus dibubuhi stempel usaha fotokopi ybs. dan melampirkan bon berkop dari usaha ybs.
-        </div>
-
-        @include('partials.ketua-lbh-signature', ['space' => '42px', 'fixedBottom' => true])
-
     </div>
 
 </x-app-layout>

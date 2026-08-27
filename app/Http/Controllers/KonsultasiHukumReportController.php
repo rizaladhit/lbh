@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\KonsultasiHukumReport;
+use App\Support\PdfFonts;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KonsultasiHukumReportController extends Controller
 {
@@ -57,6 +59,14 @@ class KonsultasiHukumReportController extends Controller
     public function edit(KonsultasiHukumReport $konsultasiHukumReport)
     {
         return view('konsultasi_hukum_reports.edit', compact('konsultasiHukumReport'));
+    }
+
+    public function print(KonsultasiHukumReport $konsultasiHukumReport)
+    {
+        $pdf = Pdf::loadView('konsultasi_hukum_reports.pdf', compact('konsultasiHukumReport'));
+        PdfFonts::registerCalibri($pdf->getDomPDF()->getFontMetrics());
+
+        return $pdf->stream('checklist-konsultasi-hukum-' . $konsultasiHukumReport->id . '.pdf');
     }
 
     public function update(Request $request, KonsultasiHukumReport $konsultasiHukumReport)

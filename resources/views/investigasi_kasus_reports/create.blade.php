@@ -52,8 +52,6 @@
 
                         @for($i = 0; $i < 5; $i++)
                         <div class="border rounded p-4 mb-4" style="background: var(--bs-secondary-bg);">
-                            <h6 class="fw-bold text-uppercase mb-3 text-primary">Investigasi {{ $i + 1 }}</h6>
-
                             <div class="row mb-2">
                                 <label class="col-sm-5 col-form-label fw-bold py-0" style="font-size:.9rem;">JENIS KEGIATAN INVESTIGASI</label>
                                 <div class="col-sm-7 d-flex align-items-center">
