@@ -50,6 +50,34 @@ class ReimbursementReportController extends Controller
         return view('reimbursement_reports.print_pemberdayaan', compact('reimbursementReport'));
     }
 
+    public function editPemberdayaan(ReimbursementReport $reimbursementReport)
+    {
+        return view('reimbursement_reports.edit_pemberdayaan', compact('reimbursementReport'));
+    }
+
+    public function updatePemberdayaan(Request $request, ReimbursementReport $reimbursementReport)
+    {
+        $validated = $request->validate([
+            'obh' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'tgl_pelaksanaan' => 'required|date',
+            'penerima_bantuan' => 'nullable|string|max:255',
+            'tempat_pelaksanaan' => 'nullable|string|max:255',
+            'materi' => 'nullable|string|max:255',
+            'narasumber' => 'nullable|string|max:255',
+            'checklist_data' => 'nullable|array',
+        ]);
+
+        $validated['kegiatan'] = 'Pemberdayaan Masyarakat';
+        $validated['checklist_data'] = $request->input('checklist_data', []);
+
+        $reimbursementReport->update($validated);
+
+        return redirect()->route('pemberdayaan-masyarakat.show', $reimbursementReport)
+            ->with('success', 'Laporan Pemberdayaan Masyarakat berhasil diperbarui.');
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

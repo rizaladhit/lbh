@@ -104,6 +104,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('pemberdayaan-masyarakat/create', [ReimbursementReportController::class, 'createPemberdayaan'])->name('reimbursement-reports.create-pemberdayaan');
     Route::get('pemberdayaan-masyarakat/{reimbursementReport}', [ReimbursementReportController::class, 'showPemberdayaan'])->name('pemberdayaan-masyarakat.show');
     Route::get('pemberdayaan-masyarakat/{reimbursementReport}/print', [ReimbursementReportController::class, 'printPemberdayaan'])->name('pemberdayaan-masyarakat.print');
+    Route::get('pemberdayaan-masyarakat/{reimbursementReport}/edit', [ReimbursementReportController::class, 'editPemberdayaan'])->name('pemberdayaan-masyarakat.edit');
+    Route::put('pemberdayaan-masyarakat/{reimbursementReport}', [ReimbursementReportController::class, 'updatePemberdayaan'])->name('pemberdayaan-masyarakat.update');
     Route::resource('negosiasi-reports', NegosiasiReportController::class)->only(['index', 'create', 'store', 'show', 'destroy', 'edit', 'update']);
     Route::get('negosiasi-reports/{negosiasiReport}/print', [NegosiasiReportController::class, 'print'])->name('negosiasi-reports.print');
 
