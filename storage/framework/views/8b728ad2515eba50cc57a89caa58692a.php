@@ -1,5 +1,14 @@
-﻿<x-app-layout>
-    <x-slot name="header">Laporan Pemberdayaan Masyarakat</x-slot>
+﻿<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AppLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Laporan Pemberdayaan Masyarakat <?php $__env->endSlot(); ?>
 
     <style>
         .panel { border-radius: 16px; border: none; box-shadow: 0 4px 24px rgba(0,0,0,.07); overflow: hidden; }
@@ -31,10 +40,10 @@
                 </div>
                 <div>
                     <h6 style="font-size:.85rem;font-weight:600;" class="mb-0 fw-bold text-body">Daftar Laporan Pemberdayaan Masyarakat</h6>
-                    <div style="font-size:.72rem;color:#94a3b8;">Total {{ $reports->total() }} laporan terdata</div>
+                    <div style="font-size:.72rem;color:#94a3b8;">Total <?php echo e($reports->total()); ?> laporan terdata</div>
                 </div>
             </div>
-            <a href="{{ route('reimbursement-reports.create-pemberdayaan') }}" class="btn-cta">
+            <a href="<?php echo e(route('reimbursement-reports.create-pemberdayaan')); ?>" class="btn-cta">
                 <i class="fa-solid fa-plus"></i><span class="d-none d-sm-inline">Buat Laporan</span>
             </a>
         </div>
@@ -52,73 +61,84 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($reports as $report)
+                    <?php $__empty_1 = true; $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr>
                         <td style="padding-left:24px;">
-                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->obh }}</div>
-                            <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;">{{ $report->provinsi }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body"><?php echo e($report->obh); ?></div>
+                            <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;"><?php echo e($report->provinsi); ?></div>
                         </td>
                         <td>
-                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->materi ?? '-' }}</div>
-                            <div class="badge-kegiatan mt-1">{{ $report->kegiatan }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body"><?php echo e($report->materi ?? '-'); ?></div>
+                            <div class="badge-kegiatan mt-1"><?php echo e($report->kegiatan); ?></div>
                         </td>
                         <td>
-                            <div style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->tempat_pelaksanaan ?? '-' }}</div>
+                            <div style="font-size:.85rem;font-weight:600;" class="text-body"><?php echo e($report->tempat_pelaksanaan ?? '-'); ?></div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-calendar-check" style="color:#10b981;font-size:.8rem;"></i>
-                                <span style="font-size:.85rem;font-weight:600;" class="text-body">{{ $report->tgl_pelaksanaan?->format('d M Y') ?? '-' }}</span>
+                                <span style="font-size:.85rem;font-weight:600;" class="text-body"><?php echo e($report->tgl_pelaksanaan?->format('d M Y') ?? '-'); ?></span>
                             </div>
                         </td>
                         <td>
-                            <span class="badge {{ $report->getStatusBadgeColor() }}">{{ $report->getStatusLabel() }}</span>
+                            <span class="badge <?php echo e($report->getStatusBadgeColor()); ?>"><?php echo e($report->getStatusLabel()); ?></span>
                         </td>
                         <td style="padding-right:24px;text-align:right;">
                             <div class="d-flex justify-content-end gap-1">
-                                <a href="{{ route('pemberdayaan-masyarakat.show', $report) }}" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
+                                <a href="<?php echo e(route('pemberdayaan-masyarakat.show', $report)); ?>" class="action-btn" style="color:#6366f1;" title="Detail Laporan">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                                <a href="{{ route('pemberdayaan-masyarakat.edit', $report) }}" class="action-btn" style="color:#f59e0b;" title="Edit Laporan">
+                                <a href="<?php echo e(route('pemberdayaan-masyarakat.edit', $report)); ?>" class="action-btn" style="color:#f59e0b;" title="Edit Laporan">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                                <button onclick="confirmDelete('{{ route('reimbursement-reports.destroy', $report) }}')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
+                                <button onclick="confirmDelete('<?php echo e(route('reimbursement-reports.destroy', $report)); ?>')" class="action-btn" style="color:#ef4444;" title="Hapus Laporan">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
                         <td colspan="6">
                             <div class="empty-state">
                                 <div class="empty-icon"><i class="fa-solid fa-person-chalkboard"></i></div>
                                 <h6 style="font-size:.85rem;font-weight:600;" class="fw-bold text-body mb-1">Belum Ada Laporan Pemberdayaan Masyarakat</h6>
                                 <p class="text-muted mb-4" style="font-size:.85rem;">Mulai dengan membuat laporan Pemberdayaan Masyarakat yang pertama.</p>
-                                <a href="{{ route('reimbursement-reports.create-pemberdayaan') }}" class="btn-cta" style="margin:auto;width:fit-content;">
+                                <a href="<?php echo e(route('reimbursement-reports.create-pemberdayaan')); ?>" class="btn-cta" style="margin:auto;width:fit-content;">
                                     <i class="fa-solid fa-plus"></i> Buat Laporan
                                 </a>
                             </div>
                         </td>
                     </tr>
-                    @endforelse
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
 
-        @if($reports->hasPages())
+        <?php if($reports->hasPages()): ?>
         <div style="padding:16px 24px;border-top:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:.75rem;color:#94a3b8;">Halaman {{ $reports->currentPage() }} dari {{ $reports->lastPage() }}</span>
-            {{ $reports->links('pagination::bootstrap-5') }}
+            <span style="font-size:.75rem;color:#94a3b8;">Halaman <?php echo e($reports->currentPage()); ?> dari <?php echo e($reports->lastPage()); ?></span>
+            <?php echo e($reports->links('pagination::bootstrap-5')); ?>
+
         </div>
-        @endif
+        <?php endif; ?>
     </div>
 
-    <form id="deleteForm" method="POST" style="display:none;">@csrf @method('DELETE')</form>
+    <form id="deleteForm" method="POST" style="display:none;"><?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?></form>
     <script>
         function confirmDelete(action){
             if(!confirm('Hapus laporan Pemberdayaan Masyarakat ini secara permanen?')) return;
             const f = document.getElementById('deleteForm'); f.action = action; f.submit();
         }
     </script>
-</x-app-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\lbh\resources\views/reimbursement_reports/index_pemberdayaan.blade.php ENDPATH**/ ?>
